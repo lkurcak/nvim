@@ -1,3 +1,7 @@
+-- TODO
+--   - stop creating swap files (include undotree instead?)
+--   - file fuzzy search
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
