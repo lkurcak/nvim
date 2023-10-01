@@ -1,6 +1,6 @@
 -- TODO
---   - stop creating swap files (include undotree instead?)
---   - file fuzzy search
+--   * telescope
+--   * undotree
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -26,6 +26,7 @@ vim.opt.smartcase = true
 vim.opt.ignorecase = true
 vim.opt.hlsearch = false
 vim.opt.scrolloff = 10
+vim.o.swapfiles = false
 
 require("lazy").setup({
   "neovim/nvim-lspconfig", 
@@ -128,13 +129,13 @@ vim.cmd("command! -nargs=0 RunCargoTestSpecificPrevious lua RunCargoTestSpecific
 vim.cmd("command! -nargs=0 RunCargoTestSpecificRelease lua RunCargoTestSpecific(true, true)")
 vim.cmd("command! -nargs=0 RunCargoTestSpecificPreviousRelease lua RunCargoTestSpecific(false, true)")
 
-vim.api.nvim_set_keymap('n', '<leader>ts', ':RunCargoTestSpecific<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>tp', ':RunCargoTestSpecificPrevious<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>trs', ':RunCargoTestSpecificRelease<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>trp', ':RunCargoTestSpecificPreviousRelease<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>b', ':!cargo build<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>r', ':!cargo run<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>ta', ':!cargo test<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>tA', ':!cargo test -- --include-ignored<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>tra', ':!cargo test --release<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>trA', ':!cargo test --release -- --include-ignored<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>r', ':!cargo run<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>b', ':!cargo build<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>ts', ':RunCargoTestSpecific<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>tp', ':RunCargoTestSpecificPrevious<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>trs', ':RunCargoTestSpecificRelease<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>trp', ':RunCargoTestSpecificPreviousRelease<CR>', { noremap = true, silent = true })
