@@ -140,3 +140,7 @@ vim.api.nvim_set_keymap('n', '<leader>ts', ':RunCargoTestSpecific<CR>', { norema
 vim.api.nvim_set_keymap('n', '<leader>tp', ':RunCargoTestSpecificPrevious<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>trs', ':RunCargoTestSpecificRelease<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>trp', ':RunCargoTestSpecificPreviousRelease<CR>', { noremap = true, silent = true })
+
+-- terminal escape
+vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true })
+
