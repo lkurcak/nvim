@@ -61,6 +61,12 @@ lspconfig.rust_analyzer.setup {
       checkOnSave = {
         command = "clippy",
       },
+      inlayHints = {
+        chainingHints = true,
+        typeHints = true,
+        parameterHints = true,
+        otherHints = true,
+      },
     },
   },
 }
