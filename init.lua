@@ -62,6 +62,7 @@ require("lazy").setup({
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
     },
+    "nvim-lua/lsp-status.nvim",
 
     {
         "theprimeagen/harpoon",
@@ -85,24 +86,32 @@ require("lazy").setup({
     },
 })
 
---TODO?: rust-analyzer.hover.memoryLayout.niches = true
-local lspconfig = require('lspconfig')
-lspconfig.rust_analyzer.setup {
-  settings = {
-    ['rust-analyzer'] = {
-      check = {
-        command = "clippy",
-      },
-      diagnostics = {
-        enable = true,
-        experimental = {
-          enable = true,
-        },
-      },
-    },
-  },
-}
+local lsp_status = require('lsp-status')
+lsp_status.register_progress()
 
+local lspconfig = require('lspconfig')
+
+lspconfig.rust_analyzer.setup({
+    on_attach = lsp_status.on_attach,
+    settings = {
+        ['rust-analyzer'] = {
+            check = {
+                command = "clippy",
+            },
+            hover = {
+                memoryLayout = {
+                    niches = true,
+                },
+            },
+            diagnostics = {
+                enable = true,
+                experimental = {
+                    enable = true,
+                },
+            },
+        },
+    },
+})
 
 local harpoon_mark = require('harpoon.mark')
 local harpoon_ui = require('harpoon.ui')
