@@ -17,7 +17,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " "
-vim.g.colorscheme = "elflord"
 --vim.opt.number = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -30,42 +29,75 @@ vim.opt.scrolloff = 10
 vim.o.swapfiles = false
 
 require("lazy").setup({
-  "neovim/nvim-lspconfig", 
-  {
-    "theprimeagen/harpoon",
-    dependencies = {
-      "nvim-lua/plenary.nvim"
+    "rust-lang/rust.vim",
+
+    {
+        "catppuccin/nvim",
+        lazy = false,
+        priority = 1000,
+        name = "catppuccin",
+        config = function()
+            require("catppuccin").setup({
+                term_colors = true,
+                transparent_background = false,
+                background = {
+                    light = "latte",
+                    dark = "mocha",
+                },
+                color_overrides = {
+                    mocha = {
+                        base = "#000000",
+                        mantle = "#000000",
+                        crust = "#000000",
+                    },
+                },
+            })
+
+            vim.api.nvim_command("colorscheme catppuccin")
+        end,
     },
-    -- init = { },
-  }, 
-  {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    opts = {},
-    keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      --{ "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      --{ "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      --{ "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      --{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-    
+
+    "neovim/nvim-lspconfig",
+    {
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
     },
-  },
+
+    {
+        "theprimeagen/harpoon",
+        dependencies = {
+            "nvim-lua/plenary.nvim"
+        },
+    }, 
+
+    {
+        "folke/flash.nvim",
+        event = "VeryLazy",
+        opts = {},
+        keys = {
+            { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+            --{ "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+            --{ "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+            --{ "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+            --{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+
+        },
+    },
 })
 
-
+--TODO?: rust-analyzer.hover.memoryLayout.niches = true
 local lspconfig = require('lspconfig')
 lspconfig.rust_analyzer.setup {
   settings = {
     ['rust-analyzer'] = {
-      checkOnSave = {
+      check = {
         command = "clippy",
       },
-      inlayHints = {
-        chainingHints = true,
-        typeHints = true,
-        parameterHints = true,
-        otherHints = true,
+      diagnostics = {
+        enable = true,
+        experimental = {
+          enable = true,
+        },
       },
     },
   },
@@ -119,8 +151,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
   end,
 })
-
-vim.cmd('colorscheme elflord')
 
 -- cargo test helpers
 function _G.RunCargoTestSpecific(ask_input, run_in_release)
