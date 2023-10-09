@@ -189,3 +189,7 @@ vim.api.nvim_set_keymap('n', '<leader>trp', ':RunCargoTestSpecificPreviousReleas
 -- terminal escape
 vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true })
 
+vim.api.nvim_set_keymap('n', 'L', '<C-w><C-w>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'M', ':Ex<CR>', { noremap = true, silent = true })
+
+vim.cmd("vs")
