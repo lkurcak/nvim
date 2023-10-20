@@ -5,20 +5,27 @@ Neovim config for Rust.
 ## Installation
 **Note**: This configuration assumes that both `cargo` (Rust's package manager) and `rust-analyzer` (Rust language server) are already installed on your system.
 
+Install Rust with `rustup` here: https://www.rust-lang.org/tools/install to get `cargo`.
+
+You can then install `rust-analyzer`:
+```sh
+rustup component add rust-analyzer
+```
+
 ## Keybindings and Actions
 
 | Mapping                   | Action                                            |
 |---------------------------|---------------------------------------------------|
 | LSP mappings |
-| `gD`                      | Go to declaration.|
 | `gd`                      | Go to definition.|
-| `K`                       | Display information.|
+| `gD`                      | Go to declaration.|
 | `gi`                      | Go to implementation.|
+| `gr`                      | Find references.|
+| `K`                       | Display information.|
 | `<C-k>`                   | Display signature help.|
 | `<leader>D`               | Go to type definition.|
 | `<leader>cn`              | Rename symbol.|
 | `<leader>ca`              | Perform code action.|
-| `gr`                      | Find references.|
 | `<leader>f`               | Format buffer.|
 | Harpoon mappings |
 | `<leader>a`               | Mark current file.                           |

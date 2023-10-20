@@ -80,7 +80,7 @@ require("lazy").setup({
             { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
             --{ "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
             --{ "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-            { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+            --{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
 
         },
     },
@@ -120,7 +120,7 @@ vim.keymap.set('n', '<C-e>', harpoon_ui.toggle_quick_menu)
 vim.keymap.set('n', '<C-z>', function() harpoon_ui.nav_file(1) end)
 vim.keymap.set('n', '<C-x>', function() harpoon_ui.nav_file(2) end)
 vim.keymap.set('n', '<C-a>', function() harpoon_ui.nav_file(3) end)
---vim.keymap.set('n', '<C-s>', function() harpoon_ui.nav_file(4) end)
+vim.keymap.set('n', '<C-s>', function() harpoon_ui.nav_file(4) end)
 
 
 -- Global mappings.
