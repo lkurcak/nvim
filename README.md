@@ -24,6 +24,8 @@ rustup component add rust-analyzer
 
 | Mapping                   | Action                                            |
 |---------------------------|---------------------------------------------------|
+| `s`                       | Jump to text.|
+| `M`                       | Explore files.|
 | LSP mappings |
 | `gd`                      | Go to definition.|
 | `gD`                      | Go to declaration.|
