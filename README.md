@@ -3,6 +3,14 @@
 Neovim config for Rust.
 
 ## Installation
+### Neovim
+#### Windows
+To get Neovim on Windows, you can use `winget`:
+```sh
+winget install Neovim.Neovim
+```
+
+### Rust
 **Note**: This configuration assumes that both `cargo` (Rust's package manager) and `rust-analyzer` (Rust language server) are already installed on your system.
 
 Install Rust with `rustup` here: https://www.rust-lang.org/tools/install to get `cargo`.
