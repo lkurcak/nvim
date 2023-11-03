@@ -1,5 +1,4 @@
 -- TODO
---   * telescope
 --   * undotree
 --   * Cargo.toml / crates
 
@@ -17,7 +16,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " "
---vim.opt.number = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
@@ -57,6 +55,12 @@ require("lazy").setup({
         end,
     },
 
+    {
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.4",
+        dependencies = { "nvim-lua/plenary.nvim" },
+    },
+
     "neovim/nvim-lspconfig",
     {
         "nvim-treesitter/nvim-treesitter",
@@ -89,6 +93,16 @@ require("lazy").setup({
 local lsp_status = require('lsp-status')
 lsp_status.register_progress()
 
+local treesitter = require('nvim-treesitter.configs').setup({
+    ensure_installed = { "javascript", "typescript", "c", "lua", "rust" },
+    sync_install = false,
+    auto_install = true,
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    }
+})
+
 local lspconfig = require('lspconfig')
 
 lspconfig.rust_analyzer.setup({
@@ -113,6 +127,9 @@ lspconfig.rust_analyzer.setup({
     },
 })
 
+lspconfig.tsserver.setup({
+})
+
 local harpoon_mark = require('harpoon.mark')
 local harpoon_ui = require('harpoon.ui')
 vim.keymap.set('n', '<leader>a', harpoon_mark.add_file)
@@ -122,6 +139,12 @@ vim.keymap.set('n', '<C-x>', function() harpoon_ui.nav_file(2) end)
 vim.keymap.set('n', '<C-a>', function() harpoon_ui.nav_file(3) end)
 vim.keymap.set('n', '<C-s>', function() harpoon_ui.nav_file(4) end)
 
+
+local telescope = require("telescope.builtin")
+vim.keymap.set('n', '<leader>f', telescope.find_files, {})
+vim.keymap.set('n', '<leader>g', telescope.live_grep, {})
+vim.keymap.set('n', '<leader>d', telescope.buffers, {})
+vim.keymap.set('n', '<leader>h', telescope.help_tags, {})
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -191,9 +214,3 @@ vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = 
 
 vim.api.nvim_set_keymap('n', 'L', '<C-w><C-w>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'M', ':Ex<CR>', { noremap = true, silent = true })
-
---vim.cmd("vs")
---vim.cmd("te")
---vim.defer_fn(function()
---    vim.cmd("winc w")
---end, 50)
