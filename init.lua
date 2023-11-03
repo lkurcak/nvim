@@ -1,5 +1,4 @@
 -- TODO
---   * undotree
 --   * Cargo.toml / crates
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -24,7 +23,6 @@ vim.opt.smartcase = true
 vim.opt.ignorecase = true
 vim.opt.hlsearch = false
 vim.opt.scrolloff = 10
-vim.o.swapfiles = false
 
 require("lazy").setup({
     "rust-lang/rust.vim",
@@ -88,6 +86,8 @@ require("lazy").setup({
 
         },
     },
+
+    "mbbill/undotree",
 })
 
 local lsp_status = require('lsp-status')
@@ -145,6 +145,8 @@ vim.keymap.set('n', '<leader>f', telescope.find_files, {})
 vim.keymap.set('n', '<leader>g', telescope.live_grep, {})
 vim.keymap.set('n', '<leader>d', telescope.buffers, {})
 vim.keymap.set('n', '<leader>h', telescope.help_tags, {})
+
+vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
