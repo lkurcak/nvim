@@ -1,6 +1,3 @@
--- TODO
---   * Cargo.toml / crates
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -64,7 +61,6 @@ require("lazy").setup({
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
     },
-    "nvim-lua/lsp-status.nvim",
 
     {
         "theprimeagen/harpoon",
@@ -88,10 +84,16 @@ require("lazy").setup({
     },
 
     "mbbill/undotree",
-})
 
-local lsp_status = require('lsp-status')
-lsp_status.register_progress()
+    {
+        'saecki/crates.nvim',
+        tag = 'v0.4.0',
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        config = function()
+            require('crates').setup()
+        end,
+    },
+})
 
 local treesitter = require('nvim-treesitter.configs').setup({
     ensure_installed = { "javascript", "typescript", "c", "lua", "rust" },
@@ -106,7 +108,7 @@ local treesitter = require('nvim-treesitter.configs').setup({
 local lspconfig = require('lspconfig')
 
 lspconfig.rust_analyzer.setup({
-    on_attach = lsp_status.on_attach,
+    --on_attach = lsp_status.on_attach,
     settings = {
         ['rust-analyzer'] = {
             check = {
@@ -180,7 +182,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<space>cn', vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<space>f', function()
+    vim.keymap.set('n', '<space>k', function()
       vim.lsp.buf.format { async = true }
     end, opts)
   end,
