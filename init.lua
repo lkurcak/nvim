@@ -1,17 +1,19 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
+        'git',
+        'clone',
+        '--filter=blob:none',
+        'https://github.com/folke/lazy.nvim.git',
+        '--branch=stable', -- latest stable release
         lazypath,
     })
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.mapleader = " "
+-- Basic settings
+vim.g.mapleader = ' '
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
@@ -21,81 +23,71 @@ vim.opt.ignorecase = true
 vim.opt.hlsearch = false
 vim.opt.scrolloff = 10
 
-require("lazy").setup({
-    "rust-lang/rust.vim",
+-- Packages
+require('lazy').setup({
+    -- Run test under cursor with :RustTest
+    'rust-lang/rust.vim',
 
     {
-        "catppuccin/nvim",
+        -- Color scheme
+        'catppuccin/nvim',
         lazy = false,
         priority = 1000,
-        name = "catppuccin",
+        name = 'catppuccin',
         config = function()
-            require("catppuccin").setup({
+            require('catppuccin').setup({
                 term_colors = true,
                 transparent_background = false,
                 background = {
-                    light = "latte",
-                    dark = "mocha",
+                    light = 'latte',
+                    dark = 'mocha',
                 },
+                -- with black background
                 color_overrides = {
                     mocha = {
-                        base = "#000000",
-                        mantle = "#000000",
-                        crust = "#000000",
+                        base = '#000000',
+                        mantle = '#000000',
+                        crust = '#000000',
                     },
                 },
             })
 
-            vim.api.nvim_command("colorscheme catppuccin")
+            vim.api.nvim_command('colorscheme catppuccin')
         end,
     },
 
     {
-        "nvim-telescope/telescope.nvim",
-        tag = "0.1.4",
-        dependencies = { "nvim-lua/plenary.nvim" },
+        -- Searching for files, etc
+        'nvim-telescope/telescope.nvim',
+        tag = '0.1.4',
+        dependencies = { 'nvim-lua/plenary.nvim' },
     },
 
-    "neovim/nvim-lspconfig",
+    -- LSP support
+    'neovim/nvim-lspconfig',
+
     {
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
+        -- Treesitter for nice syntax highlighting
+        'nvim-treesitter/nvim-treesitter',
+        build = ':TSUpdate',
     },
 
-    {
-        "theprimeagen/harpoon",
-        dependencies = {
-            "nvim-lua/plenary.nvim"
-        },
-    },
+    -- Move cursor by pressing 's'
+    'ggandor/leap.nvim',
 
     {
-        "folke/flash.nvim",
-        event = "VeryLazy",
-        opts = {},
-        keys = {
-            { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end,       desc = "Flash" },
-            { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-            --{ "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-            --{ "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-            --{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-
-        },
-    },
-
-    {
-        "folke/trouble.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
+        -- Better error/diagnostics UI
+        'folke/trouble.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
         opts = {
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
         },
     },
 
-    "mbbill/undotree",
+    -- Keep branching undo history
+    'mbbill/undotree',
 
     {
+        -- Show info about rust crates in `Cargo.toml`
         'saecki/crates.nvim',
         tag = 'v0.4.0',
         dependencies = { 'nvim-lua/plenary.nvim' },
@@ -105,8 +97,21 @@ require("lazy").setup({
     },
 })
 
-local treesitter = require('nvim-treesitter.configs').setup({
-    ensure_installed = { "javascript", "typescript", "c", "lua", "rust" },
+-- Basic key bindings
+
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true }) -- Allows you to press <Esc> to exit terminal mode
+vim.keymap.set('n', 'L', '<C-w><C-w>', { noremap = true, silent = true })      -- Cycle windows
+vim.keymap.set('n', 'M', ':Ex<CR>', { noremap = true, silent = true })         -- Open "Netrw Directory Listing"! (Or just press Ctrl-p)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+
+
+-- Leap (Move cursor by pressing 's')
+require('leap').add_default_mappings()
+
+-- Treesitter for nice syntax highlighting
+require('nvim-treesitter.configs').setup({
+    ensure_installed = { 'javascript', 'typescript', 'c', 'lua', 'rust' },
     sync_install = false,
     auto_install = true,
     highlight = {
@@ -115,14 +120,15 @@ local treesitter = require('nvim-treesitter.configs').setup({
     }
 })
 
+-- Configure LSPs...
 local lspconfig = require('lspconfig')
 
+-- Rust LSP
 lspconfig.rust_analyzer.setup({
-    --on_attach = lsp_status.on_attach,
     settings = {
         ['rust-analyzer'] = {
             check = {
-                command = "clippy",
+                command = 'clippy',
             },
             hover = {
                 memoryLayout = {
@@ -139,14 +145,16 @@ lspconfig.rust_analyzer.setup({
     },
 })
 
+-- Typescript LSP
 lspconfig.tsserver.setup({
 })
 
+-- Lua LSP
 lspconfig.lua_ls.setup({
     settings = {
         Lua = {
             completion = {
-                callSnippet = "Replace"
+                callSnippet = 'Replace'
             },
             diagnostics = {
                 -- Get the language server to recognize the `vim` global
@@ -156,30 +164,23 @@ lspconfig.lua_ls.setup({
     }
 })
 
-local harpoon_mark = require('harpoon.mark')
-local harpoon_ui = require('harpoon.ui')
-vim.keymap.set('n', '<space>a', harpoon_mark.add_file)
-vim.keymap.set('n', '<C-e>', harpoon_ui.toggle_quick_menu)
-vim.keymap.set('n', '<C-z>', function() harpoon_ui.nav_file(1) end)
-vim.keymap.set('n', '<C-x>', function() harpoon_ui.nav_file(2) end)
-vim.keymap.set('n', '<C-a>', function() harpoon_ui.nav_file(3) end)
-vim.keymap.set('n', '<C-s>', function() harpoon_ui.nav_file(4) end)
+-- Telescope
+local telescope = require('telescope.builtin')
+vim.keymap.set('n', '<C-p>', telescope.find_files, {})
+vim.keymap.set('n', '<C-f>', telescope.live_grep, {})
+vim.keymap.set('n', '<C-b>', telescope.buffers, {})
+--vim.keymap.set('n', '<space>h', telescope.help_tags, {})
 
-
-local telescope = require("telescope.builtin")
-vim.keymap.set('n', '<space>f', telescope.find_files, {})
-vim.keymap.set('n', '<space>g', telescope.live_grep, {})
-vim.keymap.set('n', '<space>d', telescope.buffers, {})
-vim.keymap.set('n', '<space>h', telescope.help_tags, {})
-
+-- Undotree
 vim.keymap.set('n', '<space>u', vim.cmd.UndotreeToggle)
 
--- Global mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+-- Trouble (this needs to be configured, just tested how it works)
+vim.keymap.set('n', '<leader>xx', function() require('trouble').toggle() end)
+vim.keymap.set('n', '<leader>xw', function() require('trouble').toggle('workspace_diagnostics') end)
+vim.keymap.set('n', '<leader>xd', function() require('trouble').toggle('document_diagnostics') end)
+vim.keymap.set('n', '<leader>xq', function() require('trouble').toggle('quickfix') end)
+vim.keymap.set('n', '<leader>xl', function() require('trouble').toggle('loclist') end)
+vim.keymap.set('n', 'gR', function() require('trouble').toggle('lsp_references') end)
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -203,8 +204,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end, opts)
         vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-        vim.keymap.set('n', '<space>cn', vim.lsp.buf.rename, opts)
-        vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+        vim.keymap.set('n', '<C-r>', vim.lsp.buf.rename, opts)
+        vim.keymap.set({ 'n', 'v' }, '<C-a>', vim.lsp.buf.code_action, opts)
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
         vim.keymap.set('n', '<A-f>', function()
             vim.lsp.buf.format { async = true }
@@ -218,31 +219,27 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- cargo test helpers
 function _G.RunCargoTestSpecific(ask_input, run_in_release)
     if ask_input or not _G.RunCargoTestSpecific_previous_input then
-        _G.RunCargoTestSpecific_previous_input = vim.fn.input("Enter test name: ")
+        _G.RunCargoTestSpecific_previous_input = vim.fn.input('Enter test name: ')
     end
-    vim.cmd("echo ''")
-    vim.cmd("!cargo t " .. _G.RunCargoTestSpecific_previous_input .. " -- --include-ignored --show-output")
+    vim.cmd('echo ""')
+    vim.cmd('!cargo t' .. run_in_release and ' --release' or
+        '' .. _G.RunCargoTestSpecific_previous_input .. ' -- --include-ignored --show-output')
 end
 
-vim.cmd("command! -nargs=0 RunCargoTestSpecific lua RunCargoTestSpecific(true, false)")
-vim.cmd("command! -nargs=0 RunCargoTestSpecificPrevious lua RunCargoTestSpecific(false, false)")
-vim.cmd("command! -nargs=0 RunCargoTestSpecificRelease lua RunCargoTestSpecific(true, true)")
-vim.cmd("command! -nargs=0 RunCargoTestSpecificPreviousRelease lua RunCargoTestSpecific(false, true)")
+vim.cmd('command! -nargs=0 RunCargoTestSpecific lua RunCargoTestSpecific(true, false)')
+vim.cmd('command! -nargs=0 RunCargoTestSpecificPrevious lua RunCargoTestSpecific(false, false)')
+vim.cmd('command! -nargs=0 RunCargoTestSpecificRelease lua RunCargoTestSpecific(true, true)')
+vim.cmd('command! -nargs=0 RunCargoTestSpecificPreviousRelease lua RunCargoTestSpecific(false, true)')
 
-vim.api.nvim_set_keymap('n', '<space>b', ':!cargo build<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<space>r', ':!cargo run<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<space>ta', ':!cargo test<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<space>tA', ':!cargo test -- --include-ignored<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<space>tra', ':!cargo test --release<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<space>trA', ':!cargo test --release -- --include-ignored<CR>',
-    { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<space>ts', ':RunCargoTestSpecific<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<space>tp', ':RunCargoTestSpecificPrevious<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<space>trs', ':RunCargoTestSpecificRelease<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<space>trp', ':RunCargoTestSpecificPreviousRelease<CR>', { noremap = true, silent = true })
-
--- terminal escape
-vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', 'L', '<C-w><C-w>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 'M', ':Ex<CR>', { noremap = true, silent = true })
+---[[
+--vim.keymap.set('n', '<space>b', ':!cargo build<CR>', { noremap = true, silent = true })
+--vim.keymap.set('n', '<space>r', ':!cargo run<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<space>ta', ':!cargo test<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<space>tA', ':!cargo test -- --include-ignored<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<space>tra', ':!cargo test --release<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<space>trA', ':!cargo test --release -- --include-ignored<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<space>ts', ':RunCargoTestSpecific<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<space>tp', ':RunCargoTestSpecificPrevious<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<space>trs', ':RunCargoTestSpecificRelease<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<space>trp', ':RunCargoTestSpecificPreviousRelease<CR>', { noremap = true, silent = true })
+--]]
