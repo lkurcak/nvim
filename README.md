@@ -4,35 +4,33 @@ My Neovim config. Work in progress.
 
 ### Installation for Windows from scratch
 
-#### Neovim
+Start by installing Neovim:
 ```sh
 winget install Neovim.Neovim
 ```
 
-#### This config
-Go to your local app data directory with `cmd.exe`:
-```bat
-cd %LOCALAPPDATA%
+To install this config, go to your local app data directory:
+```sh
+cd %LOCALAPPDATA%           # cmd.exe
+cd $env:LOCALAPPDATA        # powershell
 ```
-or `powershell`:
-```powershell
-cd $env:LOCALAPPDATA
-```
-Then clone this repo (it will create a folder `nvim`):
+
+Clone this repo (folder `nvim` will be created):
 ```sh
 git clone https://github.com/lubomirkurcak/nvim
 ```
 
-#### C compiler
-Zig is able to compile C!
+If you do not have a C compiler set up, you can use Zig:
 ```sh
 winget install zig.zig
 ```
 
-### LSPs (Optional)
+### LSPs
+
 Add LSPs for languages you want to work with.
 
 #### Rust
+
 Install Rust with `rustup` here: https://www.rust-lang.org/tools/install
 
 You can then install `rust-analyzer` (Rust's LSP):
@@ -40,15 +38,21 @@ You can then install `rust-analyzer` (Rust's LSP):
 rustup component add rust-analyzer
 ```
 
+And may as well install `ripgrep` to speed up searches:
+```sh
+cargo install ripgrep
+```
+
 #### Typescript
-Install Node.js https://nodejs.org/ to get `npm`
-Install typescript and its LSP:
+
+Install Node.js https://nodejs.org/ to get `npm` and install typescript and its LSP:
 ```sh
 npm install -g typescript
 npm install -g typescript-language-server
 ```
 
 #### Lua
+
 Download latest release from https://github.com/LuaLS/lua-language-server/releases
 
 Unzip, go to `bin` and see the `lua-language-server` executable.
@@ -58,8 +62,8 @@ Add that directory to `PATH` so that the OS is able to find it.
 ### Key bindings
 
 | Key | Action |
-|-------------------|
-| `s`                       | Press `s` and two characters to jump, `S` for backwards. (Never move with mouse or `hjkl` again!) |
+|--------|-----------|
+| `s`, `S`                  | Press `s`, two characters, and a highlighted character to jump. <br /> Press `S` to do the same going backwards. <br /> Never move with mouse or `hjkl` again! |
 | `Ctrl-p`                  | Open file. |
 | `Ctrl-f`                  | Find text. |
 | `Alt-f`                   | Format buffer. |
