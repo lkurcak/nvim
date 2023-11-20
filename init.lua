@@ -145,6 +145,19 @@ lspconfig.rust_analyzer.setup({
     },
 })
 
+-- Go LSP
+lspconfig.gopls.setup({
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+      gofumpt = true,
+    },
+  },
+})
+
 -- Typescript LSP
 lspconfig.tsserver.setup({
 })
