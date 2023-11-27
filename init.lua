@@ -208,6 +208,9 @@ lspconfig.lua_ls.setup({
     }
 })
 
+-- Elixir tools
+require("elixir").setup()
+
 -- Telescope
 local telescope = require('telescope.builtin')
 vim.keymap.set('n', '<C-p>', telescope.find_files, {})
