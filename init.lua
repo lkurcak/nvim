@@ -13,6 +13,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Basic settings
+
 vim.g.mapleader = ' '
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -22,6 +23,19 @@ vim.opt.smartcase = true
 vim.opt.ignorecase = true
 vim.opt.hlsearch = false
 vim.opt.scrolloff = 10
+
+-- Basic key bindings
+
+vim.keymap.set('n', '<C-t>', '<Cmd>te<CR>', { noremap = true, silent = true })         -- Open terminal
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true }) -- Allows you to press <Esc> to exit terminal mode
+vim.keymap.set('n', 'L', '<C-w><C-w>', { noremap = true, silent = true })      -- Cycle windows
+vim.keymap.set('n', 'M', '<Cmd>Ex<CR>', { noremap = true, silent = true })         -- Open "Netrw Directory Listing"! (Or just press Ctrl-p)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<C-z>', '<Cmd>u<CR>', { noremap = true })
+vim.keymap.set('n', '<C-y>', '<Cmd>redo<CR>', { noremap = true })
+vim.keymap.set('n', 'u', '<Nop>', { noremap = true })
+
 
 -- Packages
 require('lazy').setup({
@@ -97,14 +111,6 @@ require('lazy').setup({
     },
 })
 
--- Basic key bindings
-
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true }) -- Allows you to press <Esc> to exit terminal mode
-vim.keymap.set('n', 'L', '<C-w><C-w>', { noremap = true, silent = true })      -- Cycle windows
-vim.keymap.set('n', 'M', ':Ex<CR>', { noremap = true, silent = true })         -- Open "Netrw Directory Listing"! (Or just press Ctrl-p)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-
 
 -- Leap (Move cursor by pressing 's')
 require('leap').add_default_mappings()
@@ -148,6 +154,15 @@ lspconfig.rust_analyzer.setup({
 -- Typescript LSP
 lspconfig.tsserver.setup({
 })
+
+-- HTML LSP (see? it's a real language)
+lspconfig.html.setup {}
+
+-- HTMX LSP
+lspconfig.htmx.setup {}
+
+-- TOML LSP
+lspconfig.taplo.setup {}
 
 -- Lua LSP
 lspconfig.lua_ls.setup({
@@ -216,30 +231,3 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end,
 })
 
--- cargo test helpers
-function _G.RunCargoTestSpecific(ask_input, run_in_release)
-    if ask_input or not _G.RunCargoTestSpecific_previous_input then
-        _G.RunCargoTestSpecific_previous_input = vim.fn.input('Enter test name: ')
-    end
-    vim.cmd('echo ""')
-    vim.cmd('!cargo t' .. run_in_release and ' --release' or
-        '' .. _G.RunCargoTestSpecific_previous_input .. ' -- --include-ignored --show-output')
-end
-
-vim.cmd('command! -nargs=0 RunCargoTestSpecific lua RunCargoTestSpecific(true, false)')
-vim.cmd('command! -nargs=0 RunCargoTestSpecificPrevious lua RunCargoTestSpecific(false, false)')
-vim.cmd('command! -nargs=0 RunCargoTestSpecificRelease lua RunCargoTestSpecific(true, true)')
-vim.cmd('command! -nargs=0 RunCargoTestSpecificPreviousRelease lua RunCargoTestSpecific(false, true)')
-
----[[
---vim.keymap.set('n', '<space>b', ':!cargo build<CR>', { noremap = true, silent = true })
---vim.keymap.set('n', '<space>r', ':!cargo run<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<space>ta', ':!cargo test<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<space>tA', ':!cargo test -- --include-ignored<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<space>tra', ':!cargo test --release<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<space>trA', ':!cargo test --release -- --include-ignored<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<space>ts', ':RunCargoTestSpecific<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<space>tp', ':RunCargoTestSpecificPrevious<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<space>trs', ':RunCargoTestSpecificRelease<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<space>trp', ':RunCargoTestSpecificPreviousRelease<CR>', { noremap = true, silent = true })
---]]
