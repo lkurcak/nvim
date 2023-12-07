@@ -35,6 +35,7 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<C-z>', '<Cmd>u<CR>', { noremap = true })
 vim.keymap.set('n', '<C-y>', '<Cmd>redo<CR>', { noremap = true })
 vim.keymap.set('n', 'u', '<Nop>', { noremap = true })
+vim.keymap.set('n', '<C-e>', 'A<C-r>=<C-r>"<CR><Esc>', { noremap = true })
 
 
 -- Packages
