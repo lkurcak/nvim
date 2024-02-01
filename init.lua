@@ -182,6 +182,9 @@ lspconfig.rust_analyzer.setup({
                     enable = true,
                 },
             },
+            cargo = {
+                features = "all",
+            },
         },
     },
 })
