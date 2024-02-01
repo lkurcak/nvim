@@ -2,8 +2,9 @@
 
 My Neovim config. Work in progress.
 
-### Installation for Windows from scratch
+### Installation
 
+<details><summary>Windows</summary>
 Start by installing Neovim:
 ```sh
 winget install Neovim.Neovim
@@ -24,14 +25,12 @@ If you do not have a C compiler set up, you can use Zig:
 ```sh
 winget install zig.zig
 ```
+</details>
 
-### LSPs
+### Language Servers
 
-Add LSPs for languages you want to work with.
-
-#### Rust
-
-Install Rust with `rustup` here: https://www.rust-lang.org/tools/install
+<details><summary>Rust</summary>
+Install `rustup` here: https://www.rust-lang.org/tools/install
 
 You can then install `rust-analyzer` (Rust's LSP):
 ```sh
@@ -42,39 +41,43 @@ And may as well install `ripgrep` to speed up searches:
 ```sh
 cargo install ripgrep
 ```
+</details>
 
-#### Typescript
+
+<details><summary>Typescript</summary>
 
 Install Node.js https://nodejs.org/ to get `npm` and install typescript and its LSP:
 ```sh
 npm install -g typescript
 npm install -g typescript-language-server
 ```
+</details>
 
-#### Lua
+<details><summary>Lua</summary>
 
 Download latest release from https://github.com/LuaLS/lua-language-server/releases
 
 Unzip, go to `bin` and see the `lua-language-server` executable.
 
 Add that directory to `PATH` so that the OS is able to find it.
+</details>
 
 ### Key bindings
 
 | Key | Action |
-|--------|-----------|
-| `s`, `S`                  | Press `s`, two characters, and a highlighted character to jump. <br /> Press `S` to do the same going backwards. <br /> Never move with mouse or `hjkl` again! |
-| `Ctrl-p`                  | Open file. |
-| `Ctrl-f`                  | Find text. |
-| `Alt-f`                   | Format buffer. |
-| `<C-r>`                   | Rename. |
-| `<C-a>`                   | Code action. |
-| `gd`                      | Go to *definition*. |
-| `gD`                      | Go to *declaration*. |
-| `gi`                      | Go to *implementation*.|
-| `gr`                      | Find *references*.|
-| `K`                       | Display *information*.|
-| `Ctrl-k`                  | Display *signature help*. (What is that?) |
-| `<space>D`                | Go to *type* definition.|
-| `[d`                      | Previous diagnostic.|
-| `]d`                      | Next diagnostic.|
+|-----|--------|
+| `s`, `S`     | Press `s`, two characters, and a highlighted character to jump. <br /> Press `S` to do the same going backwards. <br /> Never move with mouse or `hjkl` again! |
+| `Ctrl-p`     | Open file. |
+| `Ctrl-f`     | Find text. |
+| `Alt-f`      | Format buffer. |
+| `<C-r>`      | Rename. |
+| `<C-a>`      | Code action. |
+| `gd`         | Go to *definition*. |
+| `gD`         | Go to *declaration*. |
+| `gi`         | Go to *implementation*.|
+| `gr`         | Find *references*.|
+| `K`          | Display *information*.|
+| `Ctrl-k`     | Display *signature help*. (What is that?) |
+| `<space>D`   | Go to *type* definition.|
+| `[d`         | Previous diagnostic.|
+| `]d`         | Next diagnostic.|
