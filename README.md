@@ -5,6 +5,7 @@ My Neovim config. Work in progress.
 ### Installation
 
 <details><summary>Windows</summary>
+
 Start by installing Neovim:
 ```sh
 winget install Neovim.Neovim
