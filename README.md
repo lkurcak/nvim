@@ -1,8 +1,5 @@
 # nvim
 
-> [!NOTE]
-> Useful information that users should know, even when skimming content.
-
 My Neovim config. Work in progress.
 
 ### Installation
@@ -69,10 +66,6 @@ You can check your installed `dotnet` tools:
 dotnet tool list --global
 ```
 
-> [!NOTE]
-> Useful information that users should know, even when skimming content.
-
-> [!NOTE]
 > If that did not work (same here), you can try installing a specific version.
 > 
 > Search for the latest version:
