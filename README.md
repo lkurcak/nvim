@@ -44,7 +44,6 @@ cargo install ripgrep
 ```
 </details>
 
-
 <details><summary>Typescript</summary>
 
 Install Node.js https://nodejs.org/ to get `npm` and install typescript and its LSP:
@@ -52,6 +51,34 @@ Install Node.js https://nodejs.org/ to get `npm` and install typescript and its 
 npm install -g typescript
 npm install -g typescript-language-server
 ```
+</details>
+
+<details><summary>C#</summary>
+Install C# (you got this!)
+
+When you have the `dotnet` command ready you can install `csharp-ls`:
+```sh
+dotnet tool install --global csharp-ls
+```
+
+You can check your installed `dotnet` tools:
+```sh
+dotnet tool list --global
+```
+
+> [!NOTE]
+> If that did not work (same here), you can try installing a specific version.
+> 
+> Search for the latest version:
+> ```sh
+> dotnet tool search csharp-ls
+> ```
+> 
+> And install it:
+> ```sh
+> dotnet tool install --global csharp-ls --version 0.11
+> ```
+
 </details>
 
 <details><summary>Lua</summary>
