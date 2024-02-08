@@ -61,8 +61,8 @@ require('lazy').setup({
                 color_overrides = {
                     mocha = {
                         base = '#000000',
-                        mantle = '#000000',
-                        crust = '#000000',
+                        --mantle = '#000000',
+                        --crust = '#000000',
                     },
                 },
             })
@@ -202,18 +202,20 @@ lspconfig.gopls.setup({
     },
 })
 
+-- C# LSP
+lspconfig.csharp_ls.setup({})
+
 -- Typescript LSP
-lspconfig.tsserver.setup({
-})
+lspconfig.tsserver.setup({})
 
 -- HTML LSP (see? it's a real language)
-lspconfig.html.setup {}
+lspconfig.html.setup({})
 
 -- HTMX LSP
-lspconfig.htmx.setup {}
+lspconfig.htmx.setup({})
 
 -- TOML LSP
-lspconfig.taplo.setup {}
+lspconfig.taplo.setup({})
 
 -- Lua LSP
 lspconfig.lua_ls.setup({
