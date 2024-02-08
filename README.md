@@ -67,6 +67,7 @@ dotnet tool list --global
 ```
 
 > [!NOTE]
+> 
 > If that did not work (same here), you can try installing a specific version.
 > 
 > Search for the latest version:
