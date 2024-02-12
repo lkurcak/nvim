@@ -202,9 +202,6 @@ lspconfig.gopls.setup({
     },
 })
 
--- C# LSP
-lspconfig.csharp_ls.setup({})
-
 -- Typescript LSP
 lspconfig.tsserver.setup({})
 
