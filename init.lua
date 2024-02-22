@@ -112,7 +112,7 @@ require('lazy').setup({
     },
 
     -- Elixir tools
-    {
+    --[[{
         "elixir-tools/elixir-tools.nvim",
         version = "*",
         event = { "BufReadPre", "BufNewFile" },
@@ -140,7 +140,7 @@ require('lazy').setup({
         dependencies = {
             "nvim-lua/plenary.nvim",
         },
-    },
+    },]]
 
     -- Copilot
     'github/copilot.vim',
@@ -230,7 +230,7 @@ lspconfig.lua_ls.setup({
 })
 
 -- Elixir tools
-require("elixir").setup()
+--require("elixir").setup()
 
 -- Telescope
 local telescope = require('telescope.builtin')
