@@ -233,10 +233,33 @@ lspconfig.lua_ls.setup({
 --require("elixir").setup()
 
 -- Telescope
-local telescope = require('telescope.builtin')
-vim.keymap.set('n', '<C-p>', telescope.find_files, {})
-vim.keymap.set('n', '<C-f>', telescope.live_grep, {})
-vim.keymap.set('n', '<C-b>', telescope.buffers, {})
+local telescope = require("telescope")
+local telescopeConfig = require("telescope.config")
+
+local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
+
+table.insert(vimgrep_arguments, "--hidden")
+table.insert(vimgrep_arguments, "--glob")
+table.insert(vimgrep_arguments, "!**/.git/*")
+
+telescope.setup({
+    defaults = {
+        -- `hidden = true` is not supported in text grep commands.
+        vimgrep_arguments = vimgrep_arguments,
+    },
+    pickers = {
+        find_files = {
+            -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
+            find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+        },
+    },
+})
+
+local telescopeBuiltin = require('telescope.builtin')
+vim.keymap.set('n', '<C-p>',
+    function() telescopeBuiltin.find_files({ hidden = true, no_ignore = true, no_ignore_parent = true }) end, {})
+vim.keymap.set('n', '<C-f>', telescopeBuiltin.live_grep, {})
+vim.keymap.set('n', '<C-b>', telescopeBuiltin.buffers, {})
 --vim.keymap.set('n', '<space>h', telescope.help_tags, {})
 
 -- Undotree
