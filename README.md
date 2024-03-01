@@ -16,7 +16,7 @@ Clone the repo (folder `nvim` will be created):
 git clone https://github.com/lubomirkurcak/nvim
 ```
 
-Alternatively clone somewhere else create a symlink:
+Alternatively clone somewhere else and create a symlink:
 ```sh
 ln -s "$(pwd)" ~/.config/nvim
 ```
@@ -25,15 +25,9 @@ ln -s "$(pwd)" ~/.config/nvim
 
 <details><summary>Windows</summary>
 
-Start by installing Neovim:
-```sh
-winget install Neovim.Neovim
-```
-
 To install this config, go to your local app data directory:
 ```sh
-cd %LOCALAPPDATA%           # cmd.exe
-cd $env:LOCALAPPDATA        # powershell
+cd %LOCALAPPDATA%
 ```
 
 Clone this repo (folder `nvim` will be created):
@@ -41,10 +35,11 @@ Clone this repo (folder `nvim` will be created):
 git clone https://github.com/lubomirkurcak/nvim
 ```
 
-If you do not have a C compiler set up, you can use Zig:
+Alternatively clone somewhere else and create a symlink:
 ```sh
-winget install zig.zig
+mklink /D %LOCALAPPDATA%\nvim %CD%
 ```
+
 </details>
 
 ### Language Servers
