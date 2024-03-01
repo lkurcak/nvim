@@ -4,6 +4,25 @@ My Neovim config. Work in progress.
 
 ### Installation
 
+<details><summary>Linux</summary>
+
+Go to your config file:
+```sh
+cd ~/.config
+```
+
+Clone the repo (folder `nvim` will be created):
+```sh
+git clone https://github.com/lubomirkurcak/nvim
+```
+
+Alternatively clone somewhere else create a symlink:
+```sh
+ln -s "$(pwd)" ~/.config/nvim
+```
+
+</details>
+
 <details><summary>Windows</summary>
 
 Start by installing Neovim:
