@@ -53,33 +53,6 @@ npm install -g typescript-language-server
 ```
 </details>
 
-<details><summary>C#</summary>
-Install C# (you got this!)
-
-When you have the `dotnet` command ready you can install `csharp-ls`:
-```sh
-dotnet tool install --global csharp-ls
-```
-
-You can check your installed `dotnet` tools:
-```sh
-dotnet tool list --global
-```
-
-> If that did not work (same here), you can try installing a specific version.
-> 
-> Search for the latest version:
-> ```sh
-> dotnet tool search csharp-ls
-> ```
-> 
-> And install it:
-> ```sh
-> dotnet tool install --global csharp-ls --version 0.11
-> ```
-
-</details>
-
 <details><summary>Lua</summary>
 
 Download latest release from https://github.com/LuaLS/lua-language-server/releases
