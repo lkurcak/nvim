@@ -4,17 +4,30 @@ My Neovim config. Work in progress.
 
 ### Installation
 
-<details><summary>Windows</summary>
+<details><summary>Linux</summary>
 
-Start by installing Neovim:
+Go to your config file:
 ```sh
-winget install Neovim.Neovim
+cd ~/.config
 ```
+
+Clone the repo (folder `nvim` will be created):
+```sh
+git clone https://github.com/lubomirkurcak/nvim
+```
+
+Alternatively clone somewhere else and create a symlink:
+```sh
+ln -s "$(pwd)" ~/.config/nvim
+```
+
+</details>
+
+<details><summary>Windows</summary>
 
 To install this config, go to your local app data directory:
 ```sh
-cd %LOCALAPPDATA%           # cmd.exe
-cd $env:LOCALAPPDATA        # powershell
+cd %LOCALAPPDATA%
 ```
 
 Clone this repo (folder `nvim` will be created):
@@ -22,10 +35,11 @@ Clone this repo (folder `nvim` will be created):
 git clone https://github.com/lubomirkurcak/nvim
 ```
 
-If you do not have a C compiler set up, you can use Zig:
+Alternatively clone somewhere else and create a symlink:
 ```sh
-winget install zig.zig
+mklink /D %LOCALAPPDATA%\nvim %CD%
 ```
+
 </details>
 
 ### Language Servers
@@ -51,33 +65,6 @@ Install Node.js https://nodejs.org/ to get `npm` and install typescript and its 
 npm install -g typescript
 npm install -g typescript-language-server
 ```
-</details>
-
-<details><summary>C#</summary>
-Install C# (you got this!)
-
-When you have the `dotnet` command ready you can install `csharp-ls`:
-```sh
-dotnet tool install --global csharp-ls
-```
-
-You can check your installed `dotnet` tools:
-```sh
-dotnet tool list --global
-```
-
-> If that did not work (same here), you can try installing a specific version.
-> 
-> Search for the latest version:
-> ```sh
-> dotnet tool search csharp-ls
-> ```
-> 
-> And install it:
-> ```sh
-> dotnet tool install --global csharp-ls --version 0.11
-> ```
-
 </details>
 
 <details><summary>Lua</summary>
