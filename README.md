@@ -80,7 +80,8 @@ Add that directory to `PATH` so that the OS is able to find it.
 
 | Key | Action |
 |-----|--------|
-| `s`, `S`     | Press `s`, two characters, and a highlighted character to jump. <br /> Press `S` to do the same going backwards. <br /> Never move with mouse or `hjkl` again! |
+| `s`, `S`     | Press `s` or followed by two characters, and a highlighted character to jump to. Press `S` to do the same going backwards. Never move with mouse or `hjkl` again! |
+| `Ctrl-s`     | Save file. |
 | `Ctrl-p`     | Open file. |
 | `Ctrl-f`     | Find text. |
 | `Alt-f`      | Format buffer. |

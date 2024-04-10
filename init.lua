@@ -27,6 +27,8 @@ vim.opt.scrolloff = 10
 -- Basic key bindings
 
 --vim.keymap.set('n', '<C-t>', '<Cmd>te<CR>', { noremap = true, silent = true }) -- Open terminal
+vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>', { noremap = true, silent = true }) -- Save
+vim.keymap.set('i', '<C-s>', '<Esc><Cmd>w<CR>', { noremap = true, silent = true }) -- Save
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true }) -- Allows you to press <Esc> to exit terminal mode
 vim.keymap.set('n', 'L', '<C-w><C-w>', { noremap = true, silent = true })      -- Cycle windows
 --vim.keymap.set('n', 'M', '<Cmd>Ex<CR>', { noremap = true, silent = true })     -- Open "Netrw Directory Listing"! (Or just press Ctrl-p)
