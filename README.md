@@ -81,13 +81,13 @@ Add that directory to `PATH` so that the OS is able to find it.
 | Key | Action |
 |-----|--------|
 | `s`, `S`     | Press `s` or followed by two characters, and a highlighted character to jump to. Press `S` to do the same going backwards. Never move with mouse or `hjkl` again! |
-| `Ctrl-s`     | Save file |
-| `Ctrl-S`     | Save all |
-| `Ctrl-p`     | Open file |
-| `Ctrl-f`     | Find text |
-| `Alt-f`      | Format |
-| `Ctrl-r`     | Rename |
-| `Ctrl-a`     | Code action |
+| `Ctrl`+`s`     | Save file |
+| `Ctrl`+`S`     | Save all |
+| `Ctrl`+`p`     | Open file |
+| `Ctrl`+`f`     | Find text |
+| `Alt`+`f`      | Format |
+| `Ctrl`+`r`     | Rename |
+| `Ctrl`+`a`     | Code action |
 | `gd`         | Go to *definition* |
 | `gD`         | Go to *declaration* |
 | `gi`         | Go to *implementation*|
