@@ -86,14 +86,14 @@ Add that directory to `PATH` so that the OS is able to find it.
 | `Ctrl-p`     | Open file |
 | `Ctrl-f`     | Find text |
 | `Alt-f`      | Format buffer |
-| `<C-r>`      | Rename |
-| `<C-a>`      | Code action |
+| `Ctrl-r`     | Rename |
+| `Ctrl-a`     | Code action |
 | `gd`         | Go to *definition* |
 | `gD`         | Go to *declaration* |
 | `gi`         | Go to *implementation*|
 | `gr`         | Find *references*|
 | `K`          | Display *information*|
 | `Ctrl-k`     | Display *signature help* (What is that?) |
-| `<space>D`   | Go to *type* definition|
+| `Space`+`d`  | Go to *type* definition|
 | `[d`         | Previous diagnostic|
 | `]d`         | Next diagnostic|
