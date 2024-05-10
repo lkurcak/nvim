@@ -26,13 +26,17 @@ vim.opt.scrolloff = 10
 
 -- Basic key bindings
 
+-- Free keys: <C-n> <C-N> L
+
 --vim.keymap.set('n', '<C-t>', '<Cmd>te<CR>', { noremap = true, silent = true }) -- Open terminal
-vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>', { noremap = true, silent = true }) -- Save
-vim.keymap.set('i', '<C-s>', '<Esc><Cmd>w<CR>', { noremap = true, silent = true }) -- Save
-vim.keymap.set('n', '<C-S>', '<Cmd>wa<CR>', { noremap = true, silent = true }) -- Save all
-vim.keymap.set('i', '<C-S>', '<Esc><Cmd>wa<CR>', { noremap = true, silent = true }) -- Save all
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true }) -- Allows you to press <Esc> to exit terminal mode
-vim.keymap.set('n', 'L', '<C-w><C-w>', { noremap = true, silent = true })      -- Cycle windows
+vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>', { noremap = true, silent = true })                  -- Save
+vim.keymap.set('i', '<C-s>', '<Esc><Cmd>w<CR>', { noremap = true, silent = true })             -- Save
+vim.keymap.set('n', '<C-S>', '<Cmd>wa<CR>', { noremap = true, silent = true })                 -- Save all
+vim.keymap.set('i', '<C-S>', '<Esc><Cmd>wa<CR>', { noremap = true, silent = true })            -- Save all
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true })                 -- Allows you to press <Esc> to exit terminal mode
+--vim.keymap.set('n', 'L', '<C-w><C-w>', { noremap = true, silent = true })           -- Cycle windows
+vim.keymap.set('n', '<C-n>', '<Cmd>ISwapNodeWithRight<CR>', { noremap = true, silent = true }) -- Swap arguments
+vim.keymap.set('n', '<C-t>', '<Cmd>ISwapNodeWithLeft<CR>', { noremap = true, silent = true })  -- Swap arguments
 --vim.keymap.set('n', 'M', '<Cmd>Ex<CR>', { noremap = true, silent = true })     -- Open "Netrw Directory Listing"! (Or just press Ctrl-p)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
@@ -94,6 +98,9 @@ require('lazy').setup({
     -- Move cursor by pressing 's'
     'ggandor/leap.nvim',
 
+    -- Swap arguments
+    "mizlan/iswap.nvim",
+
     {
         -- Better error/diagnostics UI
         'folke/trouble.nvim',
@@ -115,36 +122,7 @@ require('lazy').setup({
         end,
     },
 
-    -- Elixir tools
-    --[[{
-        "elixir-tools/elixir-tools.nvim",
-        version = "*",
-        event = { "BufReadPre", "BufNewFile" },
-        config = function()
-            local elixir = require("elixir")
-            local elixirls = require("elixir.elixirls")
 
-            elixir.setup {
-                nextls = { enable = true },
-                credo = {},
-                elixirls = {
-                    enable = true,
-                    settings = elixirls.settings {
-                        dialyzerEnabled = false,
-                        enableTestLenses = false,
-                    },
-                    on_attach = function(client, bufnr)
-                        vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
-                        vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
-                        vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
-                    end,
-                }
-            }
-        end,
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-    },]]
 
     -- Copilot
     'github/copilot.vim',
@@ -153,6 +131,9 @@ require('lazy').setup({
 
 -- Leap (Move cursor by pressing 's')
 require('leap').add_default_mappings()
+
+-- Swap arguments
+require('iswap').setup()
 
 -- Treesitter for nice syntax highlighting
 require('nvim-treesitter.configs').setup({
@@ -232,9 +213,6 @@ lspconfig.lua_ls.setup({
         }
     }
 })
-
--- Elixir tools
---require("elixir").setup()
 
 -- Telescope
 local telescope = require("telescope")
