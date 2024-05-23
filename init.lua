@@ -21,7 +21,7 @@ vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 vim.opt.smartcase = true
 vim.opt.ignorecase = true
-vim.opt.hlsearch = false
+--vim.opt.hlsearch = false
 vim.opt.scrolloff = 10
 
 -- Basic key bindings
@@ -48,6 +48,8 @@ vim.keymap.set('n', '<C-e>', 'A<C-r>=<C-r>"<CR><Esc>', { noremap = true })
 
 -- Packages
 require('lazy').setup({
+    'tpope/vim-sensible',
+
     -- Run test under cursor with :RustTest
     'rust-lang/rust.vim',
 
@@ -127,7 +129,6 @@ require('lazy').setup({
     -- Copilot
     'github/copilot.vim',
 })
-
 
 -- Leap (Move cursor by pressing 's')
 require('leap').add_default_mappings()
