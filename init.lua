@@ -53,6 +53,9 @@ require('lazy').setup({
     -- Run test under cursor with :RustTest
     'rust-lang/rust.vim',
 
+    -- Git integration
+    'tpope/vim-fugitive',
+
     {
         -- Color scheme
         'catppuccin/nvim',
