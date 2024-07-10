@@ -26,7 +26,7 @@ vim.opt.scrolloff = 10
 
 -- Basic key bindings
 
--- Free keys: <C-n> <C-N> L
+-- Free keys: <C-n> <C-N>
 
 --vim.keymap.set('n', '<C-t>', '<Cmd>te<CR>', { noremap = true, silent = true }) -- Open terminal
 vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>', { noremap = true, silent = true })                  -- Save
@@ -43,7 +43,7 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<C-z>', '<Cmd>u<CR>', { noremap = true })
 vim.keymap.set('n', '<C-y>', '<Cmd>redo<CR>', { noremap = true })
 vim.keymap.set('n', 'u', '<Nop>', { noremap = true })
-vim.keymap.set('n', '<C-e>', 'A<C-r>=<C-r>"<CR><Esc>', { noremap = true })
+vim.keymap.set('n', 'L', '<Cmd>Gvdiffsplit<CR>', { noremap = true })
 
 
 -- Packages
@@ -106,6 +106,9 @@ require('lazy').setup({
     -- Swap arguments
     "mizlan/iswap.nvim",
 
+    -- Delete buffers (terminals deleted without prompt)
+    'ojroques/nvim-bufdel',
+
     {
         -- Better error/diagnostics UI
         'folke/trouble.nvim',
@@ -114,7 +117,7 @@ require('lazy').setup({
         },
     },
 
-    -- Keep branching undo history
+    --  Keep branching undo history
     'mbbill/undotree',
 
     {
@@ -127,8 +130,6 @@ require('lazy').setup({
         end,
     },
 
-
-
     -- Copilot
     'github/copilot.vim',
 })
@@ -138,6 +139,13 @@ require('leap').add_default_mappings()
 
 -- Swap arguments
 require('iswap').setup()
+
+-- Delete buffers (terminals deleted without prompt)
+require('bufdel').setup({
+    next = 'tabs',
+})
+vim.keymap.set('n', '<C-e>', '<Cmd>BufDel<CR>', { noremap = true, silent = true })
+vim.keymap.set('t', '<C-e>', '<Cmd>BufDel<CR>', { noremap = true, silent = true })
 
 -- Treesitter for nice syntax highlighting
 require('nvim-treesitter.configs').setup({
@@ -250,7 +258,7 @@ vim.keymap.set('n', '<C-b>', telescopeBuiltin.buffers, {})
 --vim.keymap.set('n', '<space>h', telescope.help_tags, {})
 
 -- Undotree
-vim.keymap.set('n', '<space>u', vim.cmd.UndotreeToggle)
+vim.keymap.set('n', 'u', vim.cmd.UndotreeToggle, { noremap = true, silent = true })
 
 -- Trouble (this needs to be configured, just tested how it works)
 vim.keymap.set('n', 'M', function() require('trouble').toggle() end)
