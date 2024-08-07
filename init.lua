@@ -23,6 +23,7 @@ vim.opt.smartcase = true
 vim.opt.ignorecase = true
 --vim.opt.hlsearch = false
 vim.opt.scrolloff = 10
+vim.opt.swapfile = false
 
 -- Basic key bindings
 
