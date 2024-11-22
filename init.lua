@@ -201,7 +201,7 @@ lspconfig.gopls.setup({
 })
 
 -- Typescript LSP
-lspconfig.tsserver.setup({})
+lspconfig.ts_ls.setup({})
 
 -- HTML LSP (see? it's a real language)
 lspconfig.html.setup({})
