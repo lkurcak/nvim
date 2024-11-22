@@ -187,6 +187,9 @@ lspconfig.rust_analyzer.setup({
     },
 })
 
+-- OCaml LSP
+lspconfig.ocamllsp.setup({})
+
 -- Go LSP
 lspconfig.gopls.setup({
     settings = {
