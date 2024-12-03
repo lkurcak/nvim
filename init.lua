@@ -206,12 +206,12 @@ lspconfig.gopls.setup({
 -- Typescript
 lspconfig.denols.setup {
   on_attach = on_attach,
-  root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+  root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
 }
 
 lspconfig.ts_ls.setup {
   on_attach = on_attach,
-  root_dir = nvim_lsp.util.root_pattern("package.json"),
+  root_dir = lspconfig.util.root_pattern("package.json"),
   single_file_support = false
 }
 
