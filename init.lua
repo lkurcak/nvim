@@ -159,10 +159,10 @@ require('nvim-treesitter.configs').setup({
     }
 })
 
--- Configure LSPs...
+-- Configure LSPs
 local lspconfig = require('lspconfig')
 
--- Rust LSP
+-- Rust
 lspconfig.rust_analyzer.setup({
     settings = {
         ['rust-analyzer'] = {
@@ -187,10 +187,10 @@ lspconfig.rust_analyzer.setup({
     },
 })
 
--- OCaml LSP
+-- OCaml
 lspconfig.ocamllsp.setup({})
 
--- Go LSP
+-- Go
 lspconfig.gopls.setup({
     settings = {
         gopls = {
@@ -203,19 +203,28 @@ lspconfig.gopls.setup({
     },
 })
 
--- Typescript LSP
-lspconfig.ts_ls.setup({})
+-- Typescript
+lspconfig.denols.setup {
+  on_attach = on_attach,
+  root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+}
 
--- HTML LSP (see? it's a real language)
+lspconfig.ts_ls.setup {
+  on_attach = on_attach,
+  root_dir = nvim_lsp.util.root_pattern("package.json"),
+  single_file_support = false
+}
+
+-- HTML (see? it's a real language)
 lspconfig.html.setup({})
 
--- HTMX LSP
+-- HTMX
 lspconfig.htmx.setup({})
 
--- TOML LSP
+-- TOML
 lspconfig.taplo.setup({})
 
--- Lua LSP
+-- Lua
 lspconfig.lua_ls.setup({
     settings = {
         Lua = {
