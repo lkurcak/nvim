@@ -25,6 +25,10 @@ vim.opt.ignorecase = true
 vim.opt.scrolloff = 10
 vim.opt.swapfile = false
 
+vim.g.markdown_fenced_languages = {
+    "ts=typescript"
+}
+
 -- Basic key bindings
 
 -- Free keys: <C-n> <C-N>
@@ -203,17 +207,8 @@ lspconfig.gopls.setup({
     },
 })
 
--- Typescript
-lspconfig.denols.setup {
-  on_attach = on_attach,
-  root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-}
-
-lspconfig.ts_ls.setup {
-  on_attach = on_attach,
-  root_dir = lspconfig.util.root_pattern("package.json"),
-  single_file_support = false
-}
+-- Typescript (Deno)
+lspconfig.denols.setup({})
 
 -- HTML (see? it's a real language)
 lspconfig.html.setup({})
@@ -314,3 +309,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end, opts)
     end,
 })
+
