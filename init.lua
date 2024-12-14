@@ -208,7 +208,9 @@ lspconfig.gopls.setup({
 })
 
 -- Typescript (Deno)
-lspconfig.denols.setup({})
+lspconfig.denols.setup({
+    filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "json", "jsonc" },
+})
 
 -- HTML (see? it's a real language)
 lspconfig.html.setup({})
@@ -309,4 +311,3 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end, opts)
     end,
 })
-
