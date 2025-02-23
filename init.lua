@@ -293,6 +293,8 @@ table.insert(vimgrep_arguments, "--glob")
 table.insert(vimgrep_arguments, "!**/*.bin")
 table.insert(vimgrep_arguments, "--glob")
 table.insert(vimgrep_arguments, "!**/*.png")
+table.insert(vimgrep_arguments, "--glob")
+table.insert(vimgrep_arguments, "!**/*.glb")
 
 telescope.setup({
     defaults = {
@@ -309,6 +311,7 @@ telescope.setup({
                 "--glob", "!**/.git/*",
                 "--glob", "!**/*.bin",
                 "--glob", "!**/*.png",
+                "--glob", "!**/*.glb",
             },
         },
     },
