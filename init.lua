@@ -168,6 +168,9 @@ require('lazy').setup({
 
     -- Copilot
     'github/copilot.vim',
+
+    -- Harpoon,
+    'theprimeagen/harpoon',
 })
 
 -- Leap (Move cursor by pressing 's')
@@ -266,6 +269,16 @@ lspconfig.lua_ls.setup({
         }
     }
 })
+
+-- Harpoon
+--local harpoon_mark = require('harpoon.mark')
+--local harpoon_ui = require('harpoon.ui')
+local harpoon_term = require('harpoon.term')
+--vim.keymap.set("n", "<C-i>", harpoon_mark.add_file)
+--vim.keymap.set("n", "<C-h>", harpoon_ui.toggle_quick_menu)
+vim.keymap.set("n", "<C-j>", function() harpoon_term.gotoTerminal(1) end, { noremap = true })
+vim.keymap.set("n", "<C-k>", function() harpoon_term.gotoTerminal(2) end, { noremap = true })
+vim.keymap.set("n", "<C-l>", function() harpoon_term.gotoTerminal(3) end, { noremap = true })
 
 -- Telescope
 local telescope = require("telescope")
