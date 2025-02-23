@@ -40,7 +40,8 @@ vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>', { noremap = true, silent = true })   
 vim.keymap.set('i', '<C-s>', '<Esc><Cmd>w<CR>', { noremap = true, silent = true })             -- Save
 vim.keymap.set('n', '<C-S>', '<Cmd>wa<CR>', { noremap = true, silent = true })                 -- Save all
 vim.keymap.set('i', '<C-S>', '<Esc><Cmd>wa<CR>', { noremap = true, silent = true })            -- Save all
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true })                 -- Allows you to press <Esc> to exit terminal mode
+--vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true })                 -- Allows you to press <Esc> to exit terminal mode
+vim.keymap.set('t', '<C-x>', '<C-\\><C-n>', { noremap = true, silent = true })                 -- Allows you to press <Esc> to exit terminal mode
 --vim.keymap.set('n', 'L', '<C-w><C-w>', { noremap = true, silent = true })           -- Cycle windows
 vim.keymap.set('n', '<C-n>', '<Cmd>ISwapNodeWithRight<CR>', { noremap = true, silent = true }) -- Swap arguments
 vim.keymap.set('n', '<C-t>', '<Cmd>ISwapNodeWithLeft<CR>', { noremap = true, silent = true })  -- Swap arguments
