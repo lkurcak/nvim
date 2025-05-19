@@ -1,6 +1,6 @@
 # nvim
 
-My Neovim config. Work in progress.
+My [neovim](https://github.com/neovim/neovim) config. Work in progress.
 
 ### Installation
 
