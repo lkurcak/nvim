@@ -21,6 +21,13 @@ Alternatively clone somewhere else and create a symlink:
 ln -s "$(pwd)" ~/.config/nvim
 ```
 
+Make sure you have `ripgrep` installed for fast searching.
+
+You can install [Deno](https://deno.com/) to support JS/TS and JSON/YAML formatting:
+```sh
+curl -fsSL https://deno.land/install.sh | sh
+```
+
 </details>
 
 <details><summary>Windows</summary>
@@ -40,6 +47,17 @@ Alternatively clone somewhere else and create a symlink:
 mklink /D %LOCALAPPDATA%\nvim %CD%
 ```
 
+If you don't already have a C compiler or ripgrep installed you can get them via `winget`:
+```sh
+winget install zig.zig
+winget install BurntSushi.ripgrep.MSVC
+```
+
+You can install [Deno](https://deno.com/) to support JS/TS and JSON/YAML formatting:
+```sh
+irm https://deno.land/install.ps1 | iex
+```
+
 </details>
 
 ### Language Servers
@@ -51,16 +69,20 @@ You can then install `rust-analyzer` (Rust's LSP):
 ```sh
 rustup component add rust-analyzer
 ```
-
-And may as well install `ripgrep` to speed up searches:
-```sh
-cargo install ripgrep
-```
 </details>
 
 <details><summary>Typescript</summary>
 
-Install Node.js https://nodejs.org/ to get `npm` and install typescript and its LSP:
+Install [Deno](https://deno.com/):
+
+```sh
+# Linux
+curl -fsSL https://deno.land/install.sh | sh
+# Windows
+irm https://deno.land/install.ps1 | iex
+```
+
+Alternatively install typescript and its LSP via `npm`
 ```sh
 npm install -g typescript
 npm install -g typescript-language-server
