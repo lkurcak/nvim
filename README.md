@@ -96,3 +96,8 @@ Add that directory to `PATH` so that the OS is able to find it.
 | `Space`+`d`  | Go to *type* definition|
 | `[d`         | Previous diagnostic|
 | `]d`         | Next diagnostic|
+
+### Other cool features
+| Mode | Key | Action |
+|---|---|---|
+| Visual | `gq` | Auto-wrap comments. (built-in!) |
