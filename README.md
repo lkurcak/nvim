@@ -110,6 +110,6 @@ Add that directory to `PATH` so that the OS is able to find it.
 |---|---|---|
 |          | `L` | Show file changes |
 |          | `u` | Show edit history |
-| Terminal | `Ctrl+x` | Leave terminal |
+| Terminal | `Ctrl`+`x` | Leave terminal |
 | Visual   | `gq` | Format comments (built-in!) |
 | Command  | `:RustTest` | Run rust test under cursor |
