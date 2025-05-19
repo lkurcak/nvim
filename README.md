@@ -81,23 +81,35 @@ Add that directory to `PATH` so that the OS is able to find it.
 | Key | Action |
 |-----|--------|
 | `s`, `S`     | Press `s` or followed by two characters, and a highlighted character to jump to. Press `S` to do the same going backwards. Never move with mouse or `hjkl` again! |
-| `Ctrl`+`s`     | Save file |
-| `Ctrl`+`S`     | Save all |
-| `Ctrl`+`p`     | Open file |
-| `Ctrl`+`f`     | Find text |
-| `Alt`+`f`      | Format |
-| `Ctrl`+`r`     | Rename |
-| `Ctrl`+`a`     | Code action |
+| `Ctrl`+`z`   | Undo |
+| `Ctrl`+`y`   | Redo |
+| `Ctrl`+`s`   | Save file |
+| `Ctrl`+`S`   | Save all |
+| `Ctrl`+`p`   | Open file |
+| `Alt`+`f`    | Format file |
+| `Ctrl`+`f`   | Find text |
+| `Ctrl`+`r`   | Rename |
+| `Ctrl`+`a`   | Code action |
+| `K`          | Show info |
+
+#### Navigation
+
+| Key | Action |
+|-----|--------|
 | `gd`         | Go to *definition* |
 | `gD`         | Go to *declaration* |
 | `gi`         | Go to *implementation*|
 | `gr`         | Find *references*|
-| `K`          | Show *information*|
 | `Space`+`d`  | Go to *type* definition|
 | `[d`         | Previous diagnostic|
 | `]d`         | Next diagnostic|
 
-### Other cool features
+#### Other cool features
+
 | Mode | Key | Action |
 |---|---|---|
-| Visual | `gq` | Auto-wrap comments. (built-in!) |
+|          | `L` | Show file changes |
+|          | `u` | Show edit history |
+| Terminal | `Ctrl+x` | Leave terminal |
+| Visual   | `gq` | Format comments (built-in!) |
+| Command  | `:RustTest` | Run rust test under cursor |

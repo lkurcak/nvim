@@ -33,25 +33,22 @@ vim.g.markdown_fenced_languages = {
 
 -- Basic key bindings
 
--- Free keys: <C-n> <C-N>
+-- Free keys: <C-n> (<C-N> - on chromebook this one opens a new window, do not recommend)
 
---vim.keymap.set('n', '<C-t>', '<Cmd>te<CR>', { noremap = true, silent = true }) -- Open terminal
 vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>', { noremap = true, silent = true })                  -- Save
 vim.keymap.set('i', '<C-s>', '<Esc><Cmd>w<CR>', { noremap = true, silent = true })             -- Save
 vim.keymap.set('n', '<C-S>', '<Cmd>wa<CR>', { noremap = true, silent = true })                 -- Save all
 vim.keymap.set('i', '<C-S>', '<Esc><Cmd>wa<CR>', { noremap = true, silent = true })            -- Save all
---vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true })                 -- Allows you to press <Esc> to exit terminal mode
-vim.keymap.set('t', '<C-x>', '<C-\\><C-n>', { noremap = true, silent = true })                 -- Allows you to press <Esc> to exit terminal mode
---vim.keymap.set('n', 'L', '<C-w><C-w>', { noremap = true, silent = true })           -- Cycle windows
+vim.keymap.set('t', '<C-x>', '<C-\\><C-n>', { noremap = true, silent = true })                 -- Leaves terminal mode
 vim.keymap.set('n', '<C-n>', '<Cmd>ISwapNodeWithRight<CR>', { noremap = true, silent = true }) -- Swap arguments
 vim.keymap.set('n', '<C-t>', '<Cmd>ISwapNodeWithLeft<CR>', { noremap = true, silent = true })  -- Swap arguments
---vim.keymap.set('n', 'M', '<Cmd>Ex<CR>', { noremap = true, silent = true })     -- Open "Netrw Directory Listing"! (Or just press Ctrl-p)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<C-z>', '<Cmd>u<CR>', { noremap = true })
-vim.keymap.set('n', '<C-y>', '<Cmd>redo<CR>', { noremap = true })
-vim.keymap.set('n', 'u', '<Nop>', { noremap = true })
-vim.keymap.set('n', 'L', '<Cmd>Gvdiffsplit<CR>', { noremap = true })
+vim.keymap.set('n', '<C-z>', '<Cmd>u<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-y>', '<Cmd>redo<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', 'u', '<Nop>', { noremap = true, silent = true })
+vim.keymap.set('n', 'L', '<Cmd>Gvdiffsplit<CR>', { noremap = true, silent = true })
+--vim.keymap.set('n', '<A-F>', '<Cmd>wa<CR><Cmd>!cargo fmt<CR>', { noremap = true })
 
 
 -- Packages
@@ -271,11 +268,7 @@ lspconfig.lua_ls.setup({
 })
 
 -- Harpoon
---local harpoon_mark = require('harpoon.mark')
---local harpoon_ui = require('harpoon.ui')
 local harpoon_term = require('harpoon.term')
---vim.keymap.set("n", "<C-i>", harpoon_mark.add_file)
---vim.keymap.set("n", "<C-h>", harpoon_ui.toggle_quick_menu)
 vim.keymap.set("n", "<C-j>", function() harpoon_term.gotoTerminal(1) end, { noremap = true })
 vim.keymap.set("n", "<C-k>", function() harpoon_term.gotoTerminal(2) end, { noremap = true })
 vim.keymap.set("n", "<C-l>", function() harpoon_term.gotoTerminal(3) end, { noremap = true })
@@ -322,7 +315,6 @@ vim.keymap.set('n', '<C-p>',
     function() telescopeBuiltin.find_files({ hidden = true, no_ignore = true, no_ignore_parent = true }) end, {})
 vim.keymap.set('n', '<C-f>', telescopeBuiltin.live_grep, {})
 vim.keymap.set('n', '<C-b>', telescopeBuiltin.buffers, {})
---vim.keymap.set('n', '<space>h', telescope.help_tags, {})
 
 -- Undotree
 vim.keymap.set('n', 'u', vim.cmd.UndotreeToggle, { noremap = true, silent = true })
