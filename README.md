@@ -45,12 +45,14 @@ irm https://deno.land/install.ps1 | iex
 ### Language servers
 
 <details><summary>Rust</summary>
+  
 Install `rustup` here: https://www.rust-lang.org/tools/install
 
 You can then install `rust-analyzer` (Rust's LSP):
 ```sh
 rustup component add rust-analyzer
 ```
+
 </details>
 
 <details><summary>Typescript</summary>
@@ -69,6 +71,7 @@ Alternatively install typescript and its LSP via `npm`
 npm install -g typescript
 npm install -g typescript-language-server
 ```
+
 </details>
 
 <details><summary>Lua</summary>
@@ -78,6 +81,7 @@ Download latest release from https://github.com/LuaLS/lua-language-server/releas
 Unzip, go to `bin` and see the `lua-language-server` executable.
 
 Add that directory to `PATH` so that the OS is able to find it.
+
 </details>
 
 ### Key bindings
