@@ -6,24 +6,15 @@ My Neovim config. Work in progress.
 
 <details><summary>Linux</summary>
 
-Go to your config file:
+1. Go to your config file and clone the repo (folder `nvim` will be created):
 ```sh
 cd ~/.config
-```
-
-Clone the repo (folder `nvim` will be created):
-```sh
 git clone https://github.com/lubomirkurcak/nvim
 ```
 
-Alternatively clone somewhere else and create a symlink:
-```sh
-ln -s "$(pwd)" ~/.config/nvim
-```
+2. Install [`ripgrep`](https://github.com/BurntSushi/ripgrep?tab=readme-ov-file#installation)
 
-Make sure you have `ripgrep` installed for fast searching.
-
-You can install [Deno](https://deno.com/) to support JS/TS and JSON/YAML formatting:
+3. Install [`deno`](https://deno.com/) to support `.js`, `.ts`, `.json`, `.yaml` formatting:
 ```sh
 curl -fsSL https://deno.land/install.sh | sh
 ```
@@ -32,35 +23,26 @@ curl -fsSL https://deno.land/install.sh | sh
 
 <details><summary>Windows</summary>
 
-To install this config, go to your local app data directory:
+1. Go to your local app data directory and clone this repo (folder `nvim` will be created):
 ```sh
 cd %LOCALAPPDATA%
-```
-
-Clone this repo (folder `nvim` will be created):
-```sh
 git clone https://github.com/lubomirkurcak/nvim
 ```
 
-Alternatively clone somewhere else and create a symlink:
-```sh
-mklink /D %LOCALAPPDATA%\nvim %CD%
-```
-
-If you don't already have a C compiler or ripgrep installed you can get them via `winget`:
+2. Install `ripgrep` and `zig` (unless you already have a C compiler):
 ```sh
 winget install zig.zig
 winget install BurntSushi.ripgrep.MSVC
 ```
 
-You can install [Deno](https://deno.com/) to support JS/TS and JSON/YAML formatting:
+3. Install [`deno`](https://deno.com/) to support `.js`, `.ts`, `.json`, `.yaml` formatting:
 ```sh
 irm https://deno.land/install.ps1 | iex
 ```
 
 </details>
 
-### Language Servers
+### Language servers
 
 <details><summary>Rust</summary>
 Install `rustup` here: https://www.rust-lang.org/tools/install
@@ -130,8 +112,8 @@ Add that directory to `PATH` so that the OS is able to find it.
 
 | Mode | Key | Action |
 |---|---|---|
-|          | `L` | Show file changes |
-|          | `u` | Show edit history |
-| Terminal | `Ctrl`+`x` | Leave terminal |
+| Normal   | `L` | Show file changes |
+| Normal   | `u` | Show edit history |
 | Visual   | `gq` | Format comments (built-in!) |
+| Terminal | `Ctrl`+`x` | Leave terminal |
 | Command  | `:RustTest` | Run rust test under cursor |
