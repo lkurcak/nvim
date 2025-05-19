@@ -9,7 +9,7 @@ My Neovim config. Work in progress.
 1. Go to your config file and clone the repo (folder `nvim` will be created):
 ```sh
 cd ~/.config
-git clone https://github.com/lubomirkurcak/nvim
+git clone https://github.com/lkurcak/nvim
 ```
 
 2. Install [`ripgrep`](https://github.com/BurntSushi/ripgrep?tab=readme-ov-file#installation)
@@ -26,7 +26,7 @@ curl -fsSL https://deno.land/install.sh | sh
 1. Go to your local app data directory and clone this repo (folder `nvim` will be created):
 ```sh
 cd %LOCALAPPDATA%
-git clone https://github.com/lubomirkurcak/nvim
+git clone https://github.com/lkurcak/nvim
 ```
 
 2. Install `ripgrep` and `zig` (unless you already have a C compiler):
