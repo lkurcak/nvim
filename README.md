@@ -42,7 +42,7 @@ irm https://deno.land/install.ps1 | iex
 
 </details>
 
-### Language servers
+#### Language servers
 
 <details><summary>Rust</summary>
   
