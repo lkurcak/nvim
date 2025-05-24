@@ -110,12 +110,21 @@ Unzip, go to `bin` and make sure `lua-language-server` is in your OS `PATH`.
 | `[d`         | Previous diagnostic|
 | `]d`         | Next diagnostic|
 
-#### Other cool features
+#### Other cool shortcuts
+
+##### Built-in
+
+| Mode | Key | Action |
+|---|---|---|
+| Normal   | `gf` | Open file explorer |
+| Normal   | `Ctrl`+`6`/`^` | Toggle between last two files |
+| Visual   | `gq` | Format comments  |
+
+##### Plugins
 
 | Mode | Key | Action |
 |---|---|---|
 | Normal   | `L` | Show file changes |
 | Normal   | `u` | Show edit history |
-| Visual   | `gq` | Format comments (built-in!) |
 | Terminal | `Ctrl`+`x` | Leave terminal |
 | Command  | `:RustTest` | Run rust test under cursor |
