@@ -7,6 +7,7 @@ My [Neovim](https://github.com/neovim/neovim) config. Work in progress.
 <details><summary>Linux</summary>
 
 1. Go to your config file and clone the repo (folder `nvim` will be created):
+
 ```sh
 cd ~/.config
 git clone https://github.com/lkurcak/nvim
@@ -15,6 +16,7 @@ git clone https://github.com/lkurcak/nvim
 2. Install [`ripgrep`](https://github.com/BurntSushi/ripgrep?tab=readme-ov-file#installation)
 
 3. Install [`deno`](https://deno.com/) to support `.js`, `.ts`, `.json`, `.yaml` formatting:
+
 ```sh
 curl -fsSL https://deno.land/install.sh | sh
 ```
@@ -24,18 +26,21 @@ curl -fsSL https://deno.land/install.sh | sh
 <details><summary>Windows</summary>
 
 1. Go to your local app data directory and clone this repo (folder `nvim` will be created):
+
 ```sh
 cd %LOCALAPPDATA%
 git clone https://github.com/lkurcak/nvim
 ```
 
 2. Install `ripgrep` and `zig` (unless you already have a C compiler):
+
 ```sh
 winget install zig.zig
 winget install BurntSushi.ripgrep.MSVC
 ```
 
 3. Install [`deno`](https://deno.com/) to support `.js`, `.ts`, `.json`, `.yaml` formatting:
+
 ```sh
 irm https://deno.land/install.ps1 | iex
 ```
@@ -49,8 +54,15 @@ irm https://deno.land/install.ps1 | iex
 1. Install [`rustup`](https://www.rust-lang.org/tools/install)
 
 2. Install `rust-analyzer`:
+
 ```sh
 rustup component add rust-analyzer
+```
+
+3. Install `taplo`:
+
+```sh
+cargo install --features lsp --locked taplo-cli
 ```
 
 </details>
@@ -67,6 +79,7 @@ irm https://deno.land/install.ps1 | iex
 ```
 
 As a last resort, you can install typescript and its LSP via `npm`
+
 ```sh
 npm install -g typescript
 npm install -g typescript-language-server
