@@ -33,15 +33,13 @@ vim.g.markdown_fenced_languages = {
 
 -- Basic key bindings
 
--- Free keys: <C-n> (<C-N> - on chromebook this one opens a new window, do not recommend)
+-- Free keys: <C-t> <C-n> (<C-N> - on chromebook this one opens a new window, do not recommend)
 
 vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>', { noremap = true, silent = true })                  -- Save
 vim.keymap.set('i', '<C-s>', '<Esc><Cmd>w<CR>', { noremap = true, silent = true })             -- Save
 vim.keymap.set('n', '<C-S>', '<Cmd>wa<CR>', { noremap = true, silent = true })                 -- Save all
 vim.keymap.set('i', '<C-S>', '<Esc><Cmd>wa<CR>', { noremap = true, silent = true })            -- Save all
 vim.keymap.set('t', '<C-x>', '<C-\\><C-n>', { noremap = true, silent = true })                 -- Leaves terminal mode
-vim.keymap.set('n', '<C-n>', '<Cmd>ISwapNodeWithRight<CR>', { noremap = true, silent = true }) -- Swap arguments
-vim.keymap.set('n', '<C-t>', '<Cmd>ISwapNodeWithLeft<CR>', { noremap = true, silent = true })  -- Swap arguments
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<C-z>', '<Cmd>u<CR>', { noremap = true, silent = true })
@@ -54,6 +52,8 @@ vim.keymap.set('n', 'L', '<Cmd>Gvdiffsplit<CR>', { noremap = true, silent = true
 -- Packages
 require('lazy').setup({
     'tpope/vim-sensible',
+
+    { "nvim-neotest/nvim-nio" },
 
     -- Run test under cursor with :RustTest
     'rust-lang/rust.vim',
@@ -136,9 +136,6 @@ require('lazy').setup({
     -- Move cursor by pressing 's'
     'ggandor/leap.nvim',
 
-    -- Swap arguments
-    "mizlan/iswap.nvim",
-
     -- Delete buffers (terminals deleted without prompt)
     'ojroques/nvim-bufdel',
 
@@ -168,13 +165,24 @@ require('lazy').setup({
 
     -- Harpoon,
     'theprimeagen/harpoon',
+
+    {
+        -- rest.nvim (like "REST Client" in VS Code)
+        "rest-nvim/rest.nvim",
+        ft = "http",
+        dependencies = {
+            "luarocks",
+            "nvim-treesitter/nvim-treesitter",
+            opts = function(_, opts)
+                opts.ensure_installed = opts.ensure_installed or {}
+                table.insert(opts.ensure_installed, "http")
+            end,
+        }
+    },
 })
 
 -- Leap (Move cursor by pressing 's')
 require('leap').add_default_mappings()
-
--- Swap arguments
-require('iswap').setup()
 
 -- Delete buffers (terminals deleted without prompt)
 require('bufdel').setup({
@@ -237,6 +245,7 @@ lspconfig.gopls.setup({
         },
     },
 })
+
 -- Typescript (Deno)
 lspconfig.denols.setup({
     filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "json", "jsonc", "yaml" },
