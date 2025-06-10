@@ -137,6 +137,7 @@ Unzip, go to `bin` and make sure `lua-language-server` is in your OS `PATH`.
 
 | Mode | Key | Action |
 |---|---|---|
+| Normal   | `-` | Show file explorer ([oil](https://github.com/stevearc/oil.nvim)) |
 | Normal   | `L` | Show file changes |
 | Normal   | `u` | Show edit history |
 | Terminal | `Ctrl`+`x` | Leave terminal |
