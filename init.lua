@@ -33,15 +33,13 @@ vim.g.markdown_fenced_languages = {
 
 -- Basic key bindings
 
--- Free keys: <C-n> (<C-N> - on chromebook this one opens a new window, do not recommend)
+-- Free keys: <C-t> <C-n> (<C-N> - on chromebook this one opens a new window, do not recommend)
 
-vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>', { noremap = true, silent = true })                  -- Save
-vim.keymap.set('i', '<C-s>', '<Esc><Cmd>w<CR>', { noremap = true, silent = true })             -- Save
-vim.keymap.set('n', '<C-S>', '<Cmd>wa<CR>', { noremap = true, silent = true })                 -- Save all
-vim.keymap.set('i', '<C-S>', '<Esc><Cmd>wa<CR>', { noremap = true, silent = true })            -- Save all
-vim.keymap.set('t', '<C-x>', '<C-\\><C-n>', { noremap = true, silent = true })                 -- Leaves terminal mode
-vim.keymap.set('n', '<C-n>', '<Cmd>ISwapNodeWithRight<CR>', { noremap = true, silent = true }) -- Swap arguments
-vim.keymap.set('n', '<C-t>', '<Cmd>ISwapNodeWithLeft<CR>', { noremap = true, silent = true })  -- Swap arguments
+vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>', { noremap = true, silent = true })       -- Save
+vim.keymap.set('i', '<C-s>', '<Esc><Cmd>w<CR>', { noremap = true, silent = true })  -- Save
+vim.keymap.set('n', '<C-S>', '<Cmd>wa<CR>', { noremap = true, silent = true })      -- Save all
+vim.keymap.set('i', '<C-S>', '<Esc><Cmd>wa<CR>', { noremap = true, silent = true }) -- Save all
+vim.keymap.set('t', '<C-x>', '<C-\\><C-n>', { noremap = true, silent = true })      -- Leaves terminal mode
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<C-z>', '<Cmd>u<CR>', { noremap = true, silent = true })
@@ -49,6 +47,7 @@ vim.keymap.set('n', '<C-y>', '<Cmd>redo<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', 'u', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set('n', 'L', '<Cmd>Gvdiffsplit<CR>', { noremap = true, silent = true })
 --vim.keymap.set('n', '<A-F>', '<Cmd>wa<CR><Cmd>!cargo fmt<CR>', { noremap = true })
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 
 -- Packages
@@ -168,6 +167,18 @@ require('lazy').setup({
 
     -- Harpoon,
     'theprimeagen/harpoon',
+
+    {
+        'stevearc/oil.nvim',
+        ---@module 'oil'
+        ---@type oil.SetupOpts
+        opts = {},
+        -- Optional dependencies
+        dependencies = { { "echasnovski/mini.icons", opts = {} } },
+        -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+        -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+        lazy = false,
+    }
 })
 
 -- Leap (Move cursor by pressing 's')
@@ -271,6 +282,9 @@ local harpoon_term = require('harpoon.term')
 vim.keymap.set("n", "<C-j>", function() harpoon_term.gotoTerminal(1) end, { noremap = true })
 vim.keymap.set("n", "<C-k>", function() harpoon_term.gotoTerminal(2) end, { noremap = true })
 vim.keymap.set("n", "<C-l>", function() harpoon_term.gotoTerminal(3) end, { noremap = true })
+
+-- Oil
+require("oil").setup()
 
 -- Telescope
 local telescope = require("telescope")
