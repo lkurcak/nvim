@@ -125,14 +125,6 @@ Unzip, go to `bin` and make sure `lua-language-server` is in your OS `PATH`.
 
 #### Other cool shortcuts
 
-##### Built-in
-
-| Mode | Key | Action |
-|---|---|---|
-| Normal   | `gf` | Open file explorer |
-| Normal   | `Ctrl`+`6`/`^` | Toggle between last two files |
-| Visual   | `gq` | Format comments  |
-
 ##### Plugins
 
 | Mode | Key | Action |
@@ -142,3 +134,10 @@ Unzip, go to `bin` and make sure `lua-language-server` is in your OS `PATH`.
 | Normal   | `u` | Show edit history |
 | Terminal | `Ctrl`+`x` | Leave terminal |
 | Command  | `:RustTest` | Run rust test under cursor |
+
+##### Built-in
+
+| Mode | Key | Action |
+|---|---|---|
+| Normal   | `Ctrl`+`6`/`^` | Toggle between last two files |
+| Visual   | `gq` | Format comments  |
