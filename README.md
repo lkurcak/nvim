@@ -1,98 +1,143 @@
 # nvim
 
-My Neovim config. Work in progress.
+My [Neovim](https://github.com/neovim/neovim) config. Work in progress.
 
 ### Installation
 
 <details><summary>Linux</summary>
 
-Go to your config file:
+1. Go to your config file and clone the repo (folder `nvim` will be created):
+
 ```sh
 cd ~/.config
+git clone https://github.com/lkurcak/nvim
 ```
 
-Clone the repo (folder `nvim` will be created):
-```sh
-git clone https://github.com/lubomirkurcak/nvim
-```
+2. Install [`ripgrep`](https://github.com/BurntSushi/ripgrep?tab=readme-ov-file#installation)
 
-Alternatively clone somewhere else and create a symlink:
+3. Install [`deno`](https://deno.com/) to support `.js`, `.ts`, `.json`, `.yaml` formatting:
+
 ```sh
-ln -s "$(pwd)" ~/.config/nvim
+curl -fsSL https://deno.land/install.sh | sh
 ```
 
 </details>
 
 <details><summary>Windows</summary>
 
-To install this config, go to your local app data directory:
+1. Go to your local app data directory and clone this repo (folder `nvim` will be created):
+
 ```sh
 cd %LOCALAPPDATA%
+git clone https://github.com/lkurcak/nvim
 ```
 
-Clone this repo (folder `nvim` will be created):
+2. Install `ripgrep` and `zig` (unless you already have a C compiler):
+
 ```sh
-git clone https://github.com/lubomirkurcak/nvim
+winget install zig.zig
+winget install BurntSushi.ripgrep.MSVC
 ```
 
-Alternatively clone somewhere else and create a symlink:
+3. Install [`deno`](https://deno.com/) to support `.js`, `.ts`, `.json`, `.yaml` formatting:
+
 ```sh
-mklink /D %LOCALAPPDATA%\nvim %CD%
+irm https://deno.land/install.ps1 | iex
 ```
 
 </details>
 
-### Language Servers
+#### Language servers
 
 <details><summary>Rust</summary>
-Install `rustup` here: https://www.rust-lang.org/tools/install
+  
+1. Install [`rustup`](https://www.rust-lang.org/tools/install)
 
-You can then install `rust-analyzer` (Rust's LSP):
+2. Install `rust-analyzer`:
+
 ```sh
 rustup component add rust-analyzer
 ```
 
-And may as well install `ripgrep` to speed up searches:
+3. Install `taplo`:
+
 ```sh
-cargo install ripgrep
+cargo install --features lsp --locked taplo-cli
 ```
+
 </details>
 
 <details><summary>Typescript</summary>
 
-Install Node.js https://nodejs.org/ to get `npm` and install typescript and its LSP:
+Install [Deno](https://deno.com/):
+
+```sh
+# Linux
+curl -fsSL https://deno.land/install.sh | sh
+# Windows
+irm https://deno.land/install.ps1 | iex
+```
+
+As a last resort, you can install typescript and its LSP via `npm`
+
 ```sh
 npm install -g typescript
 npm install -g typescript-language-server
 ```
+
 </details>
 
 <details><summary>Lua</summary>
 
 Download latest release from https://github.com/LuaLS/lua-language-server/releases
 
-Unzip, go to `bin` and see the `lua-language-server` executable.
+Unzip, go to `bin` and make sure `lua-language-server` is in your OS `PATH`.
 
-Add that directory to `PATH` so that the OS is able to find it.
 </details>
 
 ### Key bindings
 
 | Key | Action |
 |-----|--------|
-| `s`, `S`     | Press `s` or followed by two characters, and a highlighted character to jump to. Press `S` to do the same going backwards. Never move with mouse or `hjkl` again! |
-| `Ctrl`+`s`     | Save file |
-| `Ctrl`+`S`     | Save all |
-| `Ctrl`+`p`     | Open file |
-| `Ctrl`+`f`     | Find text |
-| `Alt`+`f`      | Format |
-| `Ctrl`+`r`     | Rename |
-| `Ctrl`+`a`     | Code action |
+| `s`, `S`     | Press `s` followed by two characters to jump to.<BR>Press `S` to do the same going backwards.<BR>Never move with mouse or `hjkl` again! |
+| `Ctrl`+`z`   | Undo |
+| `Ctrl`+`y`   | Redo |
+| `Ctrl`+`s`   | Save file |
+| `Ctrl`+`S`   | Save all |
+| `Ctrl`+`p`   | Open file |
+| `Alt`+`f`    | Format file |
+| `Ctrl`+`f`   | Find text |
+| `Ctrl`+`r`   | Rename |
+| `Ctrl`+`a`   | Code action |
+| `K`          | Show info |
+
+#### Navigation
+
+| Key | Action |
+|-----|--------|
 | `gd`         | Go to *definition* |
 | `gD`         | Go to *declaration* |
 | `gi`         | Go to *implementation*|
 | `gr`         | Find *references*|
-| `K`          | Show *information*|
 | `Space`+`d`  | Go to *type* definition|
 | `[d`         | Previous diagnostic|
 | `]d`         | Next diagnostic|
+
+#### Other cool shortcuts
+
+##### Plugins
+
+| Mode | Key | Action |
+|---|---|---|
+| Normal   | `-` | Show file explorer ([oil](https://github.com/stevearc/oil.nvim)) |
+| Normal   | `L` | Show file changes |
+| Normal   | `u` | Show edit history |
+| Terminal | `Ctrl`+`x` | Leave terminal |
+| Command  | `:RustTest` | Run rust test under cursor |
+
+##### Built-in
+
+| Mode | Key | Action |
+|---|---|---|
+| Normal   | `Ctrl`+`6`/`^` | Toggle between last two files |
+| Visual   | `gq` | Format comments  |
