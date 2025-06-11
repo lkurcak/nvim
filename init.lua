@@ -243,7 +243,8 @@ lspconfig.gopls.setup({
 
 -- Typescript (Deno)
 lspconfig.denols.setup({
-    filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "json", "jsonc", "yaml" },
+    filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "json", "jsonc", "yaml", "svelte" },
+    unstable = { "fmt-component" },
 })
 
 -- HTML (see? it's a real language)
