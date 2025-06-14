@@ -67,26 +67,6 @@ cargo install --features lsp --locked taplo-cli
 
 </details>
 
-<details><summary>Typescript</summary>
-
-Install [Deno](https://deno.com/):
-
-```sh
-# Linux
-curl -fsSL https://deno.land/install.sh | sh
-# Windows
-irm https://deno.land/install.ps1 | iex
-```
-
-As a last resort, you can install typescript and its LSP via `npm`
-
-```sh
-npm install -g typescript
-npm install -g typescript-language-server
-```
-
-</details>
-
 <details><summary>Lua</summary>
 
 Download latest release from https://github.com/LuaLS/lua-language-server/releases
