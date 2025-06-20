@@ -79,7 +79,7 @@ Unzip, go to `bin` and make sure `lua-language-server` is in your OS `PATH`.
 
 | Key | Action |
 |-----|--------|
-| `s`, `S`     | Press `s` followed by two characters to jump to.<BR>Press `S` to do the same going backwards.<BR>Never move with mouse or `hjkl` again! |
+| `s`          | Press `s` followed by two characters to jump there.<BR>`S` to do the same going backwards.<BR>`gs` to jump between buffers.<BR>Never move with mouse or `hjkl` again! |
 | `Ctrl`+`z`   | Undo |
 | `Ctrl`+`y`   | Redo |
 | `Ctrl`+`s`   | Save file |
