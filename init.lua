@@ -40,6 +40,8 @@ vim.keymap.set('i', '<C-s>', '<Esc><Cmd>w<CR>', { noremap = true, silent = true 
 vim.keymap.set('n', '<C-S>', '<Cmd>wa<CR>', { noremap = true, silent = true })      -- Save all
 vim.keymap.set('i', '<C-S>', '<Esc><Cmd>wa<CR>', { noremap = true, silent = true }) -- Save all
 vim.keymap.set('t', '<C-x>', '<C-\\><C-n>', { noremap = true, silent = true })      -- Leaves terminal mode
+vim.keymap.set('n', '<C-a>', '', { noremap = true, silent = true })                 -- Noop
+vim.keymap.set('n', '<C-x>', '', { noremap = true, silent = true })                 -- Noop
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<C-z>', '<Cmd>u<CR>', { noremap = true, silent = true })
