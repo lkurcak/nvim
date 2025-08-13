@@ -56,9 +56,6 @@ vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 require('lazy').setup({
     'tpope/vim-sensible',
 
-    -- Run test under cursor with :RustTest
-    'rust-lang/rust.vim',
-
     -- Git integration
     'tpope/vim-fugitive',
 
@@ -137,9 +134,6 @@ require('lazy').setup({
     -- Move cursor by pressing 's'
     'ggandor/leap.nvim',
 
-    -- Swap arguments
-    "mizlan/iswap.nvim",
-
     -- Delete buffers (terminals deleted without prompt)
     'ojroques/nvim-bufdel',
 
@@ -186,9 +180,6 @@ require('lazy').setup({
 -- Leap (Move cursor by pressing 's')
 require('leap').add_default_mappings()
 
--- Swap arguments
-require('iswap').setup()
-
 -- Delete buffers (terminals deleted without prompt)
 require('bufdel').setup({
     next = 'tabs',
@@ -215,22 +206,22 @@ lspconfig.rust_analyzer.setup({
     settings = {
         ['rust-analyzer'] = {
             check = {
-                command = 'clippy',
+                command = 'check',
             },
             hover = {
                 memoryLayout = {
-                    niches = true,
+                    niches = false,
                 },
             },
             diagnostics = {
-                enable = true,
+                enable = false,
                 experimental = {
-                    enable = true,
+                    enable = false,
                 },
             },
-            cargo = {
-                features = "all",
-            },
+            -- cargo = {
+            --     features = "all",
+            -- },
         },
     },
 })
