@@ -201,30 +201,30 @@ require('nvim-treesitter.configs').setup({
 -- Configure LSPs
 local lspconfig = require('lspconfig')
 
--- Rust
-lspconfig.rust_analyzer.setup({
-    settings = {
-        ['rust-analyzer'] = {
-            check = {
-                command = 'check',
-            },
-            hover = {
-                memoryLayout = {
-                    niches = false,
-                },
-            },
-            diagnostics = {
-                enable = false,
-                experimental = {
-                    enable = false,
-                },
-            },
-            -- cargo = {
-            --     features = "all",
-            -- },
-        },
-    },
-})
+-- -- Rust
+-- lspconfig.rust_analyzer.setup({
+--     settings = {
+--         ['rust-analyzer'] = {
+--             check = {
+--                 command = 'check',
+--             },
+--             hover = {
+--                 memoryLayout = {
+--                     niches = false,
+--                 },
+--             },
+--             diagnostics = {
+--                 enable = false,
+--                 experimental = {
+--                     enable = false,
+--                 },
+--             },
+--             -- cargo = {
+--             --     features = "all",
+--             -- },
+--         },
+--     },
+-- })
 
 -- OCaml
 lspconfig.ocamllsp.setup({})
