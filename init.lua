@@ -55,6 +55,7 @@ vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 -- Packages
 require('lazy').setup({
     'tpope/vim-sensible',
+    'tpope/vim-abolish',
 
     -- Git integration
     'tpope/vim-fugitive',
