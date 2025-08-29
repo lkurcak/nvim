@@ -171,6 +171,7 @@ require('lazy').setup({
     -- Harpoon,
     'theprimeagen/harpoon',
 
+    -- Oil
     {
         'stevearc/oil.nvim',
         ---@module 'oil'
@@ -181,7 +182,10 @@ require('lazy').setup({
         -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
         -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
         lazy = false,
-    }
+    },
+
+    -- Faster (disables stuff for big files)
+    'pteroctopus/faster.nvim',
 })
 
 -- Leap (Move cursor by pressing 's')
@@ -289,6 +293,9 @@ vim.keymap.set("n", "<C-l>", function() harpoon_term.gotoTerminal(3) end, { nore
 
 -- Oil
 require("oil").setup()
+
+-- Faster
+require('faster').setup()
 
 -- Telescope
 local telescope = require("telescope")
