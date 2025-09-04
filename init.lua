@@ -25,7 +25,7 @@ vim.opt.ignorecase = true
 vim.opt.scrolloff = 10
 vim.opt.swapfile = false
 vim.opt.fileformats = "unix"
-vim.opt.shell = "nu"
+--vim.opt.shell = "nu"
 
 vim.g.markdown_fenced_languages = {
     "ts=typescript"
