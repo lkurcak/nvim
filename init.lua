@@ -31,6 +31,12 @@ vim.g.markdown_fenced_languages = {
     "ts=typescript"
 }
 
+vim.filetype.add({
+  extension = {
+    ['http'] = 'http',
+  },
+})
+
 -- Basic key bindings
 
 -- Free keys: <C-t> <C-n> (<C-N> - on chromebook this one opens a new window, do not recommend)
@@ -186,6 +192,21 @@ require('lazy').setup({
 
     -- Faster (disables stuff for big files)
     'pteroctopus/faster.nvim',
+
+  {
+    "mistweaverco/kulala.nvim",
+    keys = {
+      { "<leader>Rs", desc = "Send request" },
+      { "<leader>Ra", desc = "Send all requests" },
+      { "<leader>Rb", desc = "Open scratchpad" },
+    },
+    ft = {"http", "rest"},
+    opts = {
+      global_keymaps = true,
+      global_keymaps_prefix = "<leader>R",
+      kulala_keymaps_prefix = "",
+    },
+  },
 })
 
 -- Leap (Move cursor by pressing 's')
