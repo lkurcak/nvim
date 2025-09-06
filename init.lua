@@ -56,6 +56,7 @@ vim.keymap.set('n', 'u', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set('n', 'L', '<Cmd>Gvdiffsplit<CR>', { noremap = true, silent = true })
 --vim.keymap.set('n', '<A-F>', '<Cmd>wa<CR><Cmd>!cargo fmt<CR>', { noremap = true })
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+vim.keymap.set("n", "<C-g>", "<CMD>0Git<CR>", { noremap = true, silent = true })
 
 
 -- Packages
@@ -226,6 +227,7 @@ require('nvim-treesitter.configs').setup({
 
 -- Configure LSPs
 local lspconfig = require('lspconfig')
+local lspconfig_util = require("lspconfig/util")
 
 -- -- Rust
 -- lspconfig.rust_analyzer.setup({
@@ -267,17 +269,16 @@ lspconfig.gopls.setup({
         },
     },
 })
+
 -- Typescript (Deno)
 lspconfig.denols.setup({
     filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "json", "jsonc", "yaml", "svelte" },
+    root_dir = lspconfig_util.root_pattern("deno.json", "deno.jsonc", ".git", "."),
     unstable = { "fmt-component" },
 })
 
 -- HTML (see? it's a real language)
 lspconfig.html.setup({})
-
--- HTMX
-lspconfig.htmx.setup({})
 
 -- TOML
 lspconfig.taplo.setup({})
@@ -419,3 +420,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end, opts)
     end,
 })
+
+-- Make sure Fugitive doesn't override your "s" mapping
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "fugitive",
+  callback = function()
+    vim.keymap.del("n", "s", { buffer = true })
+    vim.keymap.del("x", "s", { buffer = true })
+  end,
+})
+

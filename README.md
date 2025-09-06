@@ -4,6 +4,24 @@ My [Neovim](https://github.com/neovim/neovim) config. Work in progress.
 
 ### Installation
 
+<details><summary>macOS</summary>
+
+1. Go to your config file and clone the repo (folder `nvim` will be created):
+
+```sh
+cd ~/.config
+git clone https://github.com/lkurcak/nvim
+```
+
+2. Install dependencies
+
+```sh
+brew install ripgrep
+brew install deno
+```
+
+</details>
+
 <details><summary>Linux</summary>
 
 1. Go to your config file and clone the repo (folder `nvim` will be created):
@@ -112,6 +130,7 @@ Unzip, go to `bin` and make sure `lua-language-server` is in your OS `PATH`.
 | Normal   | `-` | Show file explorer ([oil](https://github.com/stevearc/oil.nvim)) |
 | Normal   | `L` | Show file changes |
 | Normal   | `u` | Show edit history |
+| Normal | `Ctrl`+`g` | Open [`fugitive`](https://github.com/tpope/vim-fugitive) |
 | Terminal | `Ctrl`+`x` | Leave terminal |
 | Command  | `:RustTest` | Run rust test under cursor |
 
