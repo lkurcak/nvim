@@ -112,6 +112,7 @@ Unzip, go to `bin` and make sure `lua-language-server` is in your OS `PATH`.
 | Normal   | `-` | Show file explorer ([oil](https://github.com/stevearc/oil.nvim)) |
 | Normal   | `L` | Show file changes |
 | Normal   | `u` | Show edit history |
+| Normal | `Ctrl`+`g` | Open [`fugitive`](https://github.com/tpope/vim-fugitive) |
 | Terminal | `Ctrl`+`x` | Leave terminal |
 | Command  | `:RustTest` | Run rust test under cursor |
 

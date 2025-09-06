@@ -56,6 +56,7 @@ vim.keymap.set('n', 'u', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set('n', 'L', '<Cmd>Gvdiffsplit<CR>', { noremap = true, silent = true })
 --vim.keymap.set('n', '<A-F>', '<Cmd>wa<CR><Cmd>!cargo fmt<CR>', { noremap = true })
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+vim.keymap.set("n", "<C-g>", "<CMD>0Git<CR>", { noremap = true, silent = true })
 
 
 -- Packages
@@ -437,3 +438,4 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.keymap.del("x", "s", { buffer = true })
   end,
 })
+
