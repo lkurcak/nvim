@@ -4,6 +4,24 @@ My [Neovim](https://github.com/neovim/neovim) config. Work in progress.
 
 ### Installation
 
+<details><summary>macOS</summary>
+
+1. Go to your config file and clone the repo (folder `nvim` will be created):
+
+```sh
+cd ~/.config
+git clone https://github.com/lkurcak/nvim
+```
+
+2. Install dependencies
+
+```sh
+brew install ripgrep
+brew install deno
+```
+
+</details>
+
 <details><summary>Linux</summary>
 
 1. Go to your config file and clone the repo (folder `nvim` will be created):
