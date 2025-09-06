@@ -235,6 +235,7 @@ require('nvim-treesitter.configs').setup({
 
 -- Configure LSPs
 local lspconfig = require('lspconfig')
+local lspconfig_util = require("lspconfig/util")
 
 -- Rust
 lspconfig.rust_analyzer.setup({
@@ -276,9 +277,11 @@ lspconfig.gopls.setup({
         },
     },
 })
+
 -- Typescript (Deno)
 lspconfig.denols.setup({
     filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "json", "jsonc", "yaml", "svelte" },
+    root_dir = lspconfig_util.root_pattern("deno.json", "deno.jsonc", ".git", "."),
     unstable = { "fmt-component" },
 })
 
