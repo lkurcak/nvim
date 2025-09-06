@@ -145,9 +145,6 @@ require('lazy').setup({
     -- Move cursor by pressing 's'
     'ggandor/leap.nvim',
 
-    -- Swap arguments
-    "mizlan/iswap.nvim",
-
     -- Delete buffers (terminals deleted without prompt)
     'ojroques/nvim-bufdel',
 
@@ -212,9 +209,6 @@ require('lazy').setup({
 
 -- Leap (Move cursor by pressing 's')
 require('leap').add_default_mappings()
-
--- Swap arguments
-require('iswap').setup()
 
 -- Delete buffers (terminals deleted without prompt)
 require('bufdel').setup({
