@@ -64,9 +64,6 @@ require('lazy').setup({
     'tpope/vim-sensible',
     'tpope/vim-abolish',
 
-    -- Run test under cursor with :RustTest
-    'rust-lang/rust.vim',
-
     -- Git integration
     'tpope/vim-fugitive',
 
@@ -231,31 +228,6 @@ require('nvim-treesitter.configs').setup({
 -- Configure LSPs
 local lspconfig = require('lspconfig')
 local lspconfig_util = require("lspconfig/util")
-
--- Rust
-lspconfig.rust_analyzer.setup({
-    settings = {
-        ['rust-analyzer'] = {
-            check = {
-                command = 'clippy',
-            },
-            hover = {
-                memoryLayout = {
-                    niches = true,
-                },
-            },
-            diagnostics = {
-                enable = true,
-                experimental = {
-                    enable = true,
-                },
-            },
-            cargo = {
-                features = "all",
-            },
-        },
-    },
-})
 
 -- OCaml
 lspconfig.ocamllsp.setup({})
