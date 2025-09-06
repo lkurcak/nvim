@@ -285,9 +285,6 @@ lspconfig.denols.setup({
 -- HTML (see? it's a real language)
 lspconfig.html.setup({})
 
--- HTMX
-lspconfig.htmx.setup({})
-
 -- TOML
 lspconfig.taplo.setup({})
 
