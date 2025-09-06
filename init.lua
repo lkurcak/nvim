@@ -425,3 +425,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end, opts)
     end,
 })
+
+-- Make sure Fugitive doesn't override your "s" mapping
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "fugitive",
+  callback = function()
+    vim.keymap.del("n", "s", { buffer = true })
+    vim.keymap.del("x", "s", { buffer = true })
+  end,
+})
