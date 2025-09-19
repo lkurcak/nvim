@@ -121,9 +121,29 @@ Unzip, go to `bin` and make sure `lua-language-server` is in your OS `PATH`.
 | `[d`         | Previous diagnostic|
 | `]d`         | Next diagnostic|
 
-#### Other cool shortcuts
+#### Other cool features
 
 ##### Plugins
+
+###### file viewer
+
+Press `-` to open `oil` file viewer. Create, rename, delete files like you would text. Save the buffer to confirm changes.
+
+[See more](https://github.com/stevearc/oil.nvim)
+
+###### git
+
+Press `Ctrl`+`g` or enter command `:Git` to open `fugitive`. Use `=` to expand files. Use `-` to stage/unstage files or parts of the code. Press `cc` to commit staged changes. Enter command `:Git push` to push commits.
+
+[See more](https://github.com/tpope/vim-fugitive)
+
+###### http requests
+
+Open a `.http` file to load `kulala.nvim`. Move the cursor over a HTTP request and press `Enter` to send it.
+
+[See more](https://github.com/mistweaverco/kulala.nvim)
+
+###### other
 
 | Mode | Key | Action |
 |---|---|---|
@@ -131,7 +151,6 @@ Unzip, go to `bin` and make sure `lua-language-server` is in your OS `PATH`.
 | Normal   | `L` | Show file changes |
 | Normal   | `u` | Show edit history |
 | Normal | `Ctrl`+`g` | Open [`fugitive`](https://github.com/tpope/vim-fugitive) |
-| Terminal | `Ctrl`+`x` | Leave terminal |
 | Command  | `:RustTest` | Run rust test under cursor |
 
 ##### Built-in
