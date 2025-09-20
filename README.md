@@ -65,9 +65,9 @@ irm https://deno.land/install.ps1 | iex
 
 </details>
 
-#### Optional installations / Language servers
+#### Optional installations
 
-<details><summary>Rust</summary>
+<details><summary>Rust LSP</summary>
   
 1. Install [`rustup`](https://www.rust-lang.org/tools/install)
 
@@ -85,7 +85,7 @@ cargo install --features lsp --locked taplo-cli
 
 </details>
 
-<details><summary>Lua</summary>
+<details><summary>Lua LSP</summary>
 
 Download latest release from https://github.com/LuaLS/lua-language-server/releases
 
