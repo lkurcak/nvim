@@ -65,7 +65,7 @@ irm https://deno.land/install.ps1 | iex
 
 </details>
 
-#### Language servers
+#### Optional installations / Language servers
 
 <details><summary>Rust</summary>
   
@@ -90,6 +90,14 @@ cargo install --features lsp --locked taplo-cli
 Download latest release from https://github.com/LuaLS/lua-language-server/releases
 
 Unzip, go to `bin` and make sure `lua-language-server` is in your OS `PATH`.
+
+</details>
+
+<details><summary>Copilot</summary>
+
+Install [Node.js](https://nodejs.org/).
+
+In Neovim run the command `:Copilot setup` and follow the instructions.
 
 </details>
 
