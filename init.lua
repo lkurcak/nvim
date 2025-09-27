@@ -257,9 +257,11 @@ vim.lsp.config.rust_analyzer = {
         },
     },
 }
+vim.lsp.enable('rust_analyzer')
 
 -- OCaml
 vim.lsp.config.ocamllsp = {}
+vim.lsp.enable('ocamllsp')
 
 -- Go
 vim.lsp.config.gopls = {
@@ -273,6 +275,7 @@ vim.lsp.config.gopls = {
         },
     },
 }
+vim.lsp.enable('gopls')
 
 -- Typescript (Deno)
 vim.lsp.config.denols = {
@@ -282,12 +285,15 @@ vim.lsp.config.denols = {
         unstable = { "fmt-component" },
     },
 }
+vim.lsp.enable('denols')
 
 -- HTML (see? it's a real language)
 vim.lsp.config.html = {}
+vim.lsp.enable('html')
 
 -- TOML
 vim.lsp.config.taplo = {}
+vim.lsp.enable('taplo')
 
 -- Lua
 vim.lsp.config.lua_ls = {
@@ -303,6 +309,7 @@ vim.lsp.config.lua_ls = {
         }
     }
 }
+vim.lsp.enable('lua_ls')
 
 -- Harpoon
 local harpoon_term = require('harpoon.term')
