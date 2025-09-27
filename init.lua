@@ -71,8 +71,8 @@ require('lazy').setup({
         cmd = { 'Git', 'Gvdiffsplit', 'Gdiffsplit' },
     },
 
+    -- Color scheme
     {
-        -- Color scheme
         'catppuccin/nvim',
         lazy = false,
         priority = 1000,
@@ -127,18 +127,15 @@ require('lazy').setup({
         end,
     },
 
+    -- Searching for files, etc
     {
-        -- Searching for files, etc
         'nvim-telescope/telescope.nvim',
         tag = '0.1.4',
         dependencies = { 'nvim-lua/plenary.nvim' },
     },
 
-    -- LSP support
-    'neovim/nvim-lspconfig',
-
+    -- Treesitter for nice syntax highlighting
     {
-        -- Treesitter for nice syntax highlighting
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
     },
@@ -154,8 +151,8 @@ require('lazy').setup({
     -- Delete buffers (terminals deleted without prompt)
     'ojroques/nvim-bufdel',
 
+    -- Better error/diagnostics UI
     {
-        -- Better error/diagnostics UI
         'folke/trouble.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         opts = {
@@ -165,8 +162,8 @@ require('lazy').setup({
     --  Keep branching undo history
     'mbbill/undotree',
 
+    -- Show info about rust crates in `Cargo.toml`
     {
-        -- Show info about rust crates in `Cargo.toml`
         'saecki/crates.nvim',
         tag = 'v0.4.0',
         dependencies = { 'nvim-lua/plenary.nvim' },
@@ -197,6 +194,7 @@ require('lazy').setup({
     -- Faster (disables stuff for big files)
     'pteroctopus/faster.nvim',
 
+    --- Send HTTP requests
   {
     "mistweaverco/kulala.nvim",
     keys = {
@@ -234,11 +232,9 @@ require('nvim-treesitter.configs').setup({
 })
 
 -- Configure LSPs
-local lspconfig = require('lspconfig')
-local lspconfig_util = require("lspconfig/util")
 
 -- Rust
-lspconfig.rust_analyzer.setup({
+vim.lsp.config.rust_analyzer = {
     settings = {
         ['rust-analyzer'] = {
             check = {
@@ -260,13 +256,13 @@ lspconfig.rust_analyzer.setup({
             },
         },
     },
-})
+}
 
 -- OCaml
-lspconfig.ocamllsp.setup({})
+vim.lsp.config.ocamllsp = {}
 
 -- Go
-lspconfig.gopls.setup({
+vim.lsp.config.gopls = {
     settings = {
         gopls = {
             analyses = {
@@ -276,23 +272,25 @@ lspconfig.gopls.setup({
             gofumpt = true,
         },
     },
-})
+}
 
 -- Typescript (Deno)
-lspconfig.denols.setup({
+vim.lsp.config.denols = {
     filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "json", "jsonc", "yaml", "svelte" },
-    root_dir = lspconfig_util.root_pattern("deno.json", "deno.jsonc", ".git", "."),
-    unstable = { "fmt-component" },
-})
+    root_markers = { "deno.json", "deno.jsonc", ".git" },
+    init_options = {
+        unstable = { "fmt-component" },
+    },
+}
 
 -- HTML (see? it's a real language)
-lspconfig.html.setup({})
+vim.lsp.config.html = {}
 
 -- TOML
-lspconfig.taplo.setup({})
+vim.lsp.config.taplo = {}
 
 -- Lua
-lspconfig.lua_ls.setup({
+vim.lsp.config.lua_ls = {
     settings = {
         Lua = {
             completion = {
@@ -304,7 +302,7 @@ lspconfig.lua_ls.setup({
             },
         }
     }
-})
+}
 
 -- Harpoon
 local harpoon_term = require('harpoon.term')
