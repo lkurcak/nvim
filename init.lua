@@ -134,6 +134,9 @@ require('lazy').setup({
         dependencies = { 'nvim-lua/plenary.nvim' },
     },
 
+    -- LSP support
+    'neovim/nvim-lspconfig',
+
     -- Treesitter for nice syntax highlighting
     {
         'nvim-treesitter/nvim-treesitter',
@@ -222,7 +225,18 @@ vim.keymap.set('t', '<C-e>', '<Cmd>BufDel<CR>', { noremap = true, silent = true 
 
 -- Treesitter for nice syntax highlighting
 require('nvim-treesitter.configs').setup({
-    ensure_installed = { 'javascript', 'typescript', 'c', 'lua', 'rust' },
+    ensure_installed = {
+        'markdown',
+        'markdown_inline', 
+        'lua', 
+        'c',
+        'lua',
+        'rust',
+        'go',
+        'python',
+        'javascript',
+        'typescript',
+    },
     sync_install = false,
     auto_install = true,
     highlight = {
@@ -234,7 +248,7 @@ require('nvim-treesitter.configs').setup({
 -- Configure LSPs
 
 -- Rust
-vim.lsp.config.rust_analyzer = {
+vim.lsp.config('rust_analyzer', {
     settings = {
         ['rust-analyzer'] = {
             check = {
@@ -256,15 +270,15 @@ vim.lsp.config.rust_analyzer = {
             },
         },
     },
-}
+})
 vim.lsp.enable('rust_analyzer')
 
 -- OCaml
-vim.lsp.config.ocamllsp = {}
+vim.lsp.config('ocamllsp', {})
 vim.lsp.enable('ocamllsp')
 
 -- Go
-vim.lsp.config.gopls = {
+vim.lsp.config('gopls', {
     settings = {
         gopls = {
             analyses = {
@@ -274,29 +288,29 @@ vim.lsp.config.gopls = {
             gofumpt = true,
         },
     },
-}
+})
 vim.lsp.enable('gopls')
 
 -- Typescript (Deno)
-vim.lsp.config.denols = {
+vim.lsp.config('denols', {
     filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "json", "jsonc", "yaml", "svelte" },
     root_markers = { "deno.json", "deno.jsonc", ".git" },
     init_options = {
         unstable = { "fmt-component" },
     },
-}
+})
 vim.lsp.enable('denols')
 
 -- HTML (see? it's a real language)
-vim.lsp.config.html = {}
+vim.lsp.config('html', {})
 vim.lsp.enable('html')
 
 -- TOML
-vim.lsp.config.taplo = {}
+vim.lsp.config('taplo', {})
 vim.lsp.enable('taplo')
 
 -- Lua
-vim.lsp.config.lua_ls = {
+vim.lsp.config('lua_ls', {
     settings = {
         Lua = {
             completion = {
@@ -308,7 +322,7 @@ vim.lsp.config.lua_ls = {
             },
         }
     }
-}
+})
 vim.lsp.enable('lua_ls')
 
 -- Harpoon
