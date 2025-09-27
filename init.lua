@@ -1,4 +1,4 @@
--- Bootstrap lazy.nvim
+-- Bootstrap lazy.nvim --
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -12,7 +12,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Basic settings
+-- Basic settings --
 
 vim.g.mapleader = ' '
 vim.opt.tabstop = 4
@@ -37,7 +37,7 @@ vim.filetype.add({
   },
 })
 
--- Basic key bindings
+-- Basic key bindings --
 
 -- Free keys: <C-a> <C-x> <C-t> <C-n> (<C-N> - on chromebook this one opens a new window, not recommended)
 
@@ -57,7 +57,7 @@ vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 vim.keymap.set("n", "<C-g>", "<CMD>0Git<CR>", { noremap = true, silent = true })
 
 
--- Packages
+-- Plugins --
 require('lazy').setup({
     'tpope/vim-sensible',
     'tpope/vim-abolish',
@@ -66,7 +66,10 @@ require('lazy').setup({
     'rust-lang/rust.vim',
 
     -- Git integration
-    'tpope/vim-fugitive',
+    {
+        'tpope/vim-fugitive',
+        cmd = { 'Git', 'Gvdiffsplit', 'Gdiffsplit' },
+    },
 
     {
         -- Color scheme
@@ -141,7 +144,12 @@ require('lazy').setup({
     },
 
     -- Move cursor by pressing 's'
-    'ggandor/leap.nvim',
+    {
+        'ggandor/leap.nvim',
+        config = function()
+            require('leap').add_default_mappings()
+        end,
+    },
 
     -- Delete buffers (terminals deleted without prompt)
     'ojroques/nvim-bufdel',
@@ -205,8 +213,7 @@ require('lazy').setup({
   },
 })
 
--- Leap (Move cursor by pressing 's')
-require('leap').add_default_mappings()
+-- Plugin configuration --
 
 -- Delete buffers (terminals deleted without prompt)
 require('bufdel').setup({
