@@ -343,44 +343,44 @@ require('faster').setup()
 
 -- Telescope
 local telescope = require("telescope")
-local telescopeConfig = require("telescope.config")
-
-local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
-
-table.insert(vimgrep_arguments, "--hidden")
-table.insert(vimgrep_arguments, "--glob")
-table.insert(vimgrep_arguments, "!**/.git/*")
-table.insert(vimgrep_arguments, "--glob")
-table.insert(vimgrep_arguments, "!**/*.bin")
-table.insert(vimgrep_arguments, "--glob")
-table.insert(vimgrep_arguments, "!**/*.png")
-table.insert(vimgrep_arguments, "--glob")
-table.insert(vimgrep_arguments, "!**/*.glb")
 
 telescope.setup({
     defaults = {
-        vimgrep_arguments = vimgrep_arguments,
-        file_ignore_patterns = { "node_modules", "target" },
+        file_ignore_patterns = { 
+            "node_modules/", 
+            "target/", 
+            "%.git/",
+            "%.DS_Store",
+            "Cargo%.lock",
+            "package%-lock%.json",
+            "yarn%.lock",
+            "%.bin$",
+            "%.png$",
+            "%.glb$",
+        },
     },
     pickers = {
         find_files = {
-            -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
+            prompt_prefix = "🔍 ",
             find_command = {
                 "rg",
                 "--files",
                 "--hidden",
-                "--glob", "!**/.git/*",
-                "--glob", "!**/*.bin",
-                "--glob", "!**/*.png",
-                "--glob", "!**/*.glb",
+                "--ignore",
+                "--no-follow",
             },
+        },
+        live_grep = {
+            prompt_prefix = "🔍 ",
+            additional_args = function()
+                return {"--hidden", "--ignore", "--no-follow"}
+            end
         },
     },
 })
 
 local telescopeBuiltin = require('telescope.builtin')
-vim.keymap.set('n', '<C-p>',
-    function() telescopeBuiltin.find_files({ hidden = true, no_ignore = true, no_ignore_parent = true }) end, {})
+vim.keymap.set('n', '<C-p>', telescopeBuiltin.find_files, {})
 vim.keymap.set('n', '<C-f>', telescopeBuiltin.live_grep, {})
 vim.keymap.set('n', '<C-b>', telescopeBuiltin.buffers, {})
 
