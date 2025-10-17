@@ -112,11 +112,9 @@ require('lazy').setup({
                         surface1 = "#2F313D",
                         surface0 = "#1D1E29",
                         --base = "#0b0b12",
-                        --mantle = "#11111a",
-                        --crust = "#191926",
                         base = '#000000',
-                        mantle = '#000000',
-                        crust = '#000000',
+                        mantle = "#11111a",
+                        crust = "#191926",
                     },
                     mocha = {
                         --base = '#000000',
