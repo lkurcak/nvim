@@ -55,6 +55,8 @@ vim.keymap.set('n', 'u', '<Nop>', { noremap = true, silent = true })
 vim.keymap.set('n', 'L', '<Cmd>Gvdiffsplit<CR>', { noremap = true, silent = true })
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 vim.keymap.set("n", "<C-g>", "<CMD>0Git<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<space>a", "<C-a>", { noremap = true, silent = true })
+vim.keymap.set("n", "<space>x", "<C-x>", { noremap = true, silent = true })
 
 
 -- Plugins --
@@ -69,6 +71,8 @@ require('lazy').setup({
     {
         'tpope/vim-fugitive',
         cmd = { 'Git', 'Gvdiffsplit', 'Gdiffsplit' },
+        lazy = true,
+        event = "VeryLazy",
     },
 
     -- Color scheme
