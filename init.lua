@@ -25,6 +25,7 @@ vim.opt.ignorecase = true
 vim.opt.scrolloff = 10
 vim.opt.swapfile = false
 vim.opt.fileformats = "unix"
+vim.opt.autoread = true
 --vim.opt.shell = "nu"
 
 vim.g.markdown_fenced_languages = {
@@ -63,6 +64,9 @@ vim.keymap.set("n", "<space>x", "<C-x>", { noremap = true, silent = true })
 require('lazy').setup({
     'tpope/vim-sensible',
     'tpope/vim-abolish',
+
+    -- Reload changed files
+    'djoshea/vim-autoread',
 
     -- Run test under cursor with :RustTest
     'rust-lang/rust.vim',
