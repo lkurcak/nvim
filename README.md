@@ -105,8 +105,8 @@ In Neovim run the command `:Copilot setup` and follow the instructions.
 
 | Key | Action |
 |-----|--------|
-| `s`          | Press `s` followed by two characters to jump to.<BR>Never move with mouse or `hjkl` again! |
-| `S`          | Press `S` followed by two characters to jump to other window. |
+| `s`          | Press `s` followed by two characters to move to them.<BR>Never move with mouse or `hjkl` again! |
+| `S`          | Press `S` followed by two characters in another window to move to them. |
 | `Ctrl`+`z`   | Undo |
 | `Ctrl`+`y`   | Redo |
 | `Ctrl`+`s`   | Save file |
