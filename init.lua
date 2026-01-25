@@ -42,11 +42,6 @@ vim.filetype.add({
 
 -- Free keys: <C-a> <C-x> <C-t> <C-n> (<C-N> - on chromebook this one opens a new window, not recommended)
 
--- leap
-vim.keymap.set({'n', 'x', 'o'}, 's', '<Plug>(leap)')
-vim.keymap.set('n',             'S', '<Plug>(leap-from-window)')
-
--- other
 vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>', { noremap = true, silent = true })       -- Save
 vim.keymap.set('i', '<C-s>', '<Esc><Cmd>w<CR>', { noremap = true, silent = true })  -- Save
 vim.keymap.set('n', '<C-S>', '<Cmd>wa<CR>', { noremap = true, silent = true })      -- Save all
@@ -139,6 +134,12 @@ require('lazy').setup({
 
             vim.api.nvim_command('colorscheme catppuccin')
         end,
+    },
+
+    -- Leap
+    {
+        'https://codeberg.org/andyg/leap.nvim',
+        lazy = false,
     },
 
     -- Searching for files, etc
@@ -319,6 +320,94 @@ vim.lsp.config('lua_ls', {
     }
 })
 vim.lsp.enable('lua_ls')
+
+-- Leap
+vim.keymap.set({'n', 'x', 'o'}, 's', '<Plug>(leap)')
+vim.keymap.set('n',             'S', '<Plug>(leap-from-window)')
+
+-- Highly recommended: define a preview filter to reduce visual noise
+-- and the blinking effect after the first keypress (see
+-- `:h leap.opts.preview`).
+-- For example, skip preview if the first character of the match is
+-- whitespace or is in the middle of an alphabetic word:
+--require('leap').opts.preview = function (ch0, ch1, ch2)
+--  return not (
+--    ch1:match('%s')
+--    or (ch0:match('%a') and ch1:match('%a') and ch2:match('%a'))
+--  )
+--end
+
+-- Define equivalence classes for brackets and quotes, in addition to
+-- the default whitespace group:
+require('leap').opts.equivalence_classes = { ' \t\r\n', '([{', ')]}', '\'"`' }
+
+-- Use the traversal keys to repeat the previous motion without
+-- explicitly invoking Leap:
+require('leap.user').set_repeat_keys('<enter>', '<backspace>')
+
+-- Automatic paste after remote yank operations:
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'RemoteOperationDone',
+  group = vim.api.nvim_create_augroup('LeapRemote', {}),
+  callback = function (event)
+    if vim.v.operator == 'y' and event.data.register == '"' then
+      vim.cmd('normal! p')
+    end
+  end,
+})
+
+vim.keymap.set({'n', 'x', 'o'}, 'gs', function ()
+  require('leap.remote').action()
+end)
+
+do
+  -- Return an argument table for `leap()`, tailored for f/t-motions.
+  local function as_ft (key_specific_args)
+    local common_args = {
+      inputlen = 1,
+      inclusive = true,
+      -- To limit search scope to the current line:
+      -- pattern = function (pat) return '\\%.l'..pat end,
+      opts = {
+        labels = '',  -- force autojump
+        safe_labels = vim.fn.mode(1):match'[no]' and '' or nil,  -- [1]
+      },
+    }
+    return vim.tbl_deep_extend('keep', common_args, key_specific_args)
+  end
+
+  local clever = require('leap.user').with_traversal_keys        -- [2]
+  local clever_f = clever('f', 'F')
+  local clever_t = clever('t', 'T')
+
+  for key, key_specific_args in pairs {
+    f = { opts = clever_f, },
+    F = { backward = true, opts = clever_f },
+    t = { offset = -1, opts = clever_t },
+    T = { backward = true, offset = 1, opts = clever_t },
+  } do
+    vim.keymap.set({'n', 'x', 'o'}, key, function ()
+      require('leap').leap(as_ft(key_specific_args))
+    end)
+  end
+end
+
+-- [1] Match the modes here for which you don't want to use labels
+--     (`:h mode()`, `:h lua-pattern`).
+-- [2] This helper function makes it easier to set "clever-f"-like
+--     functionality (https://github.com/rhysd/clever-f.vim), returning
+--     an `opts` table derived from the defaults, where the given keys
+--     are added to `keys.next_target` and `keys.prev_target`
+
+--do
+--  local clever_s = require('leap.user').with_traversal_keys('s', 'S')
+--  vim.keymap.set({ 'n', 'x', 'o' }, 's', function ()
+--    require('leap').leap { opts = clever_s }
+--  end)
+--  vim.keymap.set({ 'n', 'x', 'o' }, 'S', function ()
+--    require('leap').leap { backward = true, opts = clever_s }
+--  end)
+--end
 
 -- Harpoon
 local harpoon_term = require('harpoon.term')
