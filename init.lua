@@ -144,7 +144,10 @@ require('lazy').setup({
     },
 
     -- LSP support
-    'neovim/nvim-lspconfig',
+    {
+        'neovim/nvim-lspconfig',
+        lazy = false,
+    },
 
     -- Treesitter for nice syntax highlighting
     {
@@ -260,9 +263,7 @@ require('nvim-treesitter.configs').setup({
 vim.lsp.config('rust_analyzer', {
     settings = {
         ['rust-analyzer'] = {
-            check = {
-                command = 'clippy',
-            },
+            check = { command = 'clippy' },
             hover = {
                 memoryLayout = {
                     niches = true,
@@ -276,6 +277,12 @@ vim.lsp.config('rust_analyzer', {
             },
             cargo = {
                 features = "all",
+            },
+            inlayHints = {
+                bindingModeHints = { enabled = true },
+                closureCaptureHints = { enabled = true },
+                closureReturnTypeHints = { enable = 'always' },
+                maxLength = 100,
             },
         },
     },
