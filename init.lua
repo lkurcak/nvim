@@ -144,7 +144,7 @@ require('lazy').setup({
     -- Searching for files, etc
     {
         'nvim-telescope/telescope.nvim',
-        version = '*',
+        --version = '*',
         dependencies = { 'nvim-lua/plenary.nvim' },
         lazy = false,
     },
