@@ -42,6 +42,11 @@ vim.filetype.add({
 
 -- Free keys: <C-a> <C-x> <C-t> <C-n> (<C-N> - on chromebook this one opens a new window, not recommended)
 
+-- leap
+vim.keymap.set({'n', 'x', 'o'}, 's', '<Plug>(leap)')
+vim.keymap.set('n',             'S', '<Plug>(leap-from-window)')
+
+-- other
 vim.keymap.set('n', '<C-s>', '<Cmd>w<CR>', { noremap = true, silent = true })       -- Save
 vim.keymap.set('i', '<C-s>', '<Esc><Cmd>w<CR>', { noremap = true, silent = true })  -- Save
 vim.keymap.set('n', '<C-S>', '<Cmd>wa<CR>', { noremap = true, silent = true })      -- Save all
@@ -125,7 +130,7 @@ require('lazy').setup({
                         crust = "#191926",
                     },
                     mocha = {
-                        --base = '#000000',
+                        base = '#000000',
                         --mantle = '#000000',
                         --crust = '#000000',
                     },
@@ -139,8 +144,9 @@ require('lazy').setup({
     -- Searching for files, etc
     {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.4',
+        version = '*',
         dependencies = { 'nvim-lua/plenary.nvim' },
+        lazy = false,
     },
 
     -- LSP support
@@ -152,15 +158,8 @@ require('lazy').setup({
     -- Treesitter for nice syntax highlighting
     {
         'nvim-treesitter/nvim-treesitter',
+        lazy = false,
         build = ':TSUpdate',
-    },
-
-    -- Move cursor by pressing 's'
-    {
-        'ggandor/leap.nvim',
-        config = function()
-            require('leap').add_default_mappings()
-        end,
     },
 
     -- Delete buffers (terminals deleted without prompt)
@@ -235,27 +234,7 @@ require('bufdel').setup({
 vim.keymap.set('n', '<C-e>', '<Cmd>BufDel<CR>', { noremap = true, silent = true })
 vim.keymap.set('t', '<C-e>', '<Cmd>BufDel<CR>', { noremap = true, silent = true })
 
--- Treesitter for nice syntax highlighting
-require('nvim-treesitter.configs').setup({
-    ensure_installed = {
-        'markdown',
-        'markdown_inline', 
-        'lua', 
-        'c',
-        'lua',
-        'rust',
-        'go',
-        'python',
-        'javascript',
-        'typescript',
-    },
-    sync_install = false,
-    auto_install = true,
-    highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-    }
-})
+require'nvim-treesitter'.install { 'rust', 'javascript', 'typescript' }
 
 -- Configure LSPs
 
