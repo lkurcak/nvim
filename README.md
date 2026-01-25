@@ -22,7 +22,7 @@ brew install deno
 
 </details>
 
-<details><summary>Linux</summary>
+<details><summary>Linux / WSL</summary>
 
 1. Go to your config file and clone the repo (folder `nvim` will be created):
 
