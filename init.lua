@@ -369,7 +369,7 @@ do
             -- To limit search scope to the current line:
             -- pattern = function (pat) return '\\%.l'..pat end,
             opts = {
-                labels = '',                                    -- force autojump
+                labels = '',                                             -- force autojump
                 safe_labels = vim.fn.mode(1):match '[no]' and '' or nil, -- [1]
             },
         }
@@ -468,7 +468,7 @@ telescope.setup({
             find_command = {
                 "rg",
                 "--files",
-                "--hidden",
+                -- "--hidden",
                 "--ignore",
                 "--no-follow",
             },
@@ -476,7 +476,8 @@ telescope.setup({
         live_grep = {
             prompt_prefix = "🔍 ",
             additional_args = function()
-                return { "--hidden", "--ignore", "--no-follow" }
+                return { -- "--hidden",
+                    "--ignore", "--no-follow" }
             end
         },
     },
