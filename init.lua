@@ -33,9 +33,9 @@ vim.g.markdown_fenced_languages = {
 }
 
 vim.filetype.add({
-  extension = {
-    ['http'] = 'http',
-  },
+    extension = {
+        ['http'] = 'http',
+    },
 })
 
 -- Basic key bindings --
@@ -210,20 +210,20 @@ require('lazy').setup({
     'pteroctopus/faster.nvim',
 
     --- Send HTTP requests
-  {
-    "mistweaverco/kulala.nvim",
-    keys = {
-      { "<leader>Rs", desc = "Send request" },
-      { "<leader>Ra", desc = "Send all requests" },
-      { "<leader>Rb", desc = "Open scratchpad" },
+    {
+        "mistweaverco/kulala.nvim",
+        keys = {
+            { "<leader>Rs", desc = "Send request" },
+            { "<leader>Ra", desc = "Send all requests" },
+            { "<leader>Rb", desc = "Open scratchpad" },
+        },
+        ft = { "http", "rest" },
+        opts = {
+            global_keymaps = true,
+            global_keymaps_prefix = "<leader>R",
+            kulala_keymaps_prefix = "",
+        },
     },
-    ft = {"http", "rest"},
-    opts = {
-      global_keymaps = true,
-      global_keymaps_prefix = "<leader>R",
-      kulala_keymaps_prefix = "",
-    },
-  },
 })
 
 -- Plugin configuration --
@@ -235,7 +235,7 @@ require('bufdel').setup({
 vim.keymap.set('n', '<C-e>', '<Cmd>BufDel<CR>', { noremap = true, silent = true })
 vim.keymap.set('t', '<C-e>', '<Cmd>BufDel<CR>', { noremap = true, silent = true })
 
-require'nvim-treesitter'.install { 'rust', 'javascript', 'typescript' }
+require 'nvim-treesitter'.install { 'rust', 'javascript', 'typescript' }
 
 -- Configure LSPs
 
@@ -322,8 +322,8 @@ vim.lsp.config('lua_ls', {
 vim.lsp.enable('lua_ls')
 
 -- Leap
-vim.keymap.set({'n', 'x', 'o'}, 's', '<Plug>(leap)')
-vim.keymap.set('n',             'S', '<Plug>(leap-from-window)')
+vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap)')
+vim.keymap.set('n', 'S', '<Plug>(leap-from-window)')
 
 -- Highly recommended: define a preview filter to reduce visual noise
 -- and the blinking effect after the first keypress (see
@@ -347,49 +347,49 @@ require('leap.user').set_repeat_keys('<enter>', '<backspace>')
 
 -- Automatic paste after remote yank operations:
 vim.api.nvim_create_autocmd('User', {
-  pattern = 'RemoteOperationDone',
-  group = vim.api.nvim_create_augroup('LeapRemote', {}),
-  callback = function (event)
-    if vim.v.operator == 'y' and event.data.register == '"' then
-      vim.cmd('normal! p')
-    end
-  end,
+    pattern = 'RemoteOperationDone',
+    group = vim.api.nvim_create_augroup('LeapRemote', {}),
+    callback = function(event)
+        if vim.v.operator == 'y' and event.data.register == '"' then
+            vim.cmd('normal! p')
+        end
+    end,
 })
 
-vim.keymap.set({'n', 'x', 'o'}, 'gs', function ()
-  require('leap.remote').action()
+vim.keymap.set({ 'n', 'x', 'o' }, 'gs', function()
+    require('leap.remote').action()
 end)
 
 do
-  -- Return an argument table for `leap()`, tailored for f/t-motions.
-  local function as_ft (key_specific_args)
-    local common_args = {
-      inputlen = 1,
-      inclusive = true,
-      -- To limit search scope to the current line:
-      -- pattern = function (pat) return '\\%.l'..pat end,
-      opts = {
-        labels = '',  -- force autojump
-        safe_labels = vim.fn.mode(1):match'[no]' and '' or nil,  -- [1]
-      },
-    }
-    return vim.tbl_deep_extend('keep', common_args, key_specific_args)
-  end
+    -- Return an argument table for `leap()`, tailored for f/t-motions.
+    local function as_ft(key_specific_args)
+        local common_args = {
+            inputlen = 1,
+            inclusive = true,
+            -- To limit search scope to the current line:
+            -- pattern = function (pat) return '\\%.l'..pat end,
+            opts = {
+                labels = '',                                    -- force autojump
+                safe_labels = vim.fn.mode(1):match '[no]' and '' or nil, -- [1]
+            },
+        }
+        return vim.tbl_deep_extend('keep', common_args, key_specific_args)
+    end
 
-  local clever = require('leap.user').with_traversal_keys        -- [2]
-  local clever_f = clever('f', 'F')
-  local clever_t = clever('t', 'T')
+    local clever = require('leap.user').with_traversal_keys -- [2]
+    local clever_f = clever('f', 'F')
+    local clever_t = clever('t', 'T')
 
-  for key, key_specific_args in pairs {
-    f = { opts = clever_f, },
-    F = { backward = true, opts = clever_f },
-    t = { offset = -1, opts = clever_t },
-    T = { backward = true, offset = 1, opts = clever_t },
-  } do
-    vim.keymap.set({'n', 'x', 'o'}, key, function ()
-      require('leap').leap(as_ft(key_specific_args))
-    end)
-  end
+    for key, key_specific_args in pairs {
+        f = { opts = clever_f, },
+        F = { backward = true, opts = clever_f },
+        t = { offset = -1, opts = clever_t },
+        T = { backward = true, offset = 1, opts = clever_t },
+    } do
+        vim.keymap.set({ 'n', 'x', 'o' }, key, function()
+            require('leap').leap(as_ft(key_specific_args))
+        end)
+    end
 end
 
 -- [1] Match the modes here for which you don't want to use labels
@@ -449,9 +449,9 @@ local telescope = require("telescope")
 
 telescope.setup({
     defaults = {
-        file_ignore_patterns = { 
-            "node_modules/", 
-            "target/", 
+        file_ignore_patterns = {
+            "node_modules/",
+            "target/",
             "%.git/",
             "%.DS_Store",
             "Cargo%.lock",
@@ -476,7 +476,7 @@ telescope.setup({
         live_grep = {
             prompt_prefix = "🔍 ",
             additional_args = function()
-                return {"--hidden", "--ignore", "--no-follow"}
+                return { "--hidden", "--ignore", "--no-follow" }
             end
         },
     },
@@ -534,10 +534,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- Make sure Fugitive doesn't override your "s" mapping
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "fugitive",
-  callback = function()
-    vim.keymap.del("n", "s", { buffer = true })
-    vim.keymap.del("x", "s", { buffer = true })
-  end,
+    pattern = "fugitive",
+    callback = function()
+        vim.keymap.del("n", "s", { buffer = true })
+        vim.keymap.del("x", "s", { buffer = true })
+    end,
 })
-
