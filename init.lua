@@ -188,7 +188,7 @@ require('lazy').setup({
     },
 
     -- Copilot
-    'github/copilot.vim',
+    -- 'github/copilot.vim',
 
     -- Harpoon,
     'theprimeagen/harpoon',
