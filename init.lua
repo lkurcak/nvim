@@ -235,8 +235,6 @@ require('bufdel').setup({
 vim.keymap.set('n', '<C-e>', '<Cmd>BufDel<CR>', { noremap = true, silent = true })
 vim.keymap.set('t', '<C-e>', '<Cmd>BufDel<CR>', { noremap = true, silent = true })
 
-require 'nvim-treesitter'.install { 'rust', 'javascript', 'typescript' }
-
 -- Configure LSPs
 
 -- Rust
