@@ -58,6 +58,9 @@ vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 vim.keymap.set("n", "<C-g>", "<CMD>0Git<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<space>a", "<C-a>", { noremap = true, silent = true })
 vim.keymap.set("n", "<space>x", "<C-x>", { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y', { desc = 'Yank to system clipboard' })
+vim.keymap.set({ 'n', 'v' }, '<leader>p', '"+p', { desc = 'Paste from system clipboard' })
+vim.keymap.set({ 'n', 'v' }, '<leader>P', '"+P', { desc = 'Paste from system clipboard (before cursor)' })
 
 
 -- Plugins --
