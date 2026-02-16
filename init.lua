@@ -236,7 +236,7 @@ require('bufdel').setup({
     next = 'tabs',
 })
 vim.keymap.set('n', '<C-e>', '<Cmd>BufDel<CR>', { noremap = true, silent = true })
-vim.keymap.set('t', '<C-e>', '<Cmd>BufDel<CR>', { noremap = true, silent = true })
+--vim.keymap.set('t', '<C-e>', '<Cmd>BufDel<CR>', { noremap = true, silent = true })
 
 -- Configure LSPs
 
