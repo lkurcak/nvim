@@ -112,11 +112,13 @@ In Neovim run the command `:Copilot setup` and follow the instructions.
 | `Ctrl`+`s`   | Save file |
 | `Ctrl`+`S`   | Save all |
 | `Ctrl`+`p`   | Open file |
-| `Alt`+`f`    | Format file |
 | `Ctrl`+`f`   | Find text |
+| `Alt`+`f`    | Format file |
 | `Ctrl`+`r`   | Rename |
 | `Ctrl`+`a`   | Code action |
 | `K`          | Show info |
+
+**Note:** When using `Ctrl`+`p` (Open file) or `Ctrl`+`f` (Find text), you can press `Ctrl`+`a` inside the telescope window to toggle between normal mode and "show all files including ignored" mode. The prompt will show `🔍 [ALL]` when searching all files, or just `🔍` in normal mode.
 
 #### Navigation
 

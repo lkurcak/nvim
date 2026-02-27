@@ -483,9 +483,101 @@ telescope.setup({
     },
 })
 
+-- Toggle functions for telescope
+local action_state = require("telescope.actions.state")
+local actions = require("telescope.actions")
+
+-- State variables to track if we're showing all files
+local find_files_showing_all = false
+local live_grep_showing_all = false
+
+-- Toggle between normal and "show all files" mode for find_files
+local function toggle_find_files_all(prompt_bufnr)
+    local current_line = action_state.get_current_line()
+    
+    actions.close(prompt_bufnr)
+    
+    -- Toggle the state
+    find_files_showing_all = not find_files_showing_all
+    
+    if find_files_showing_all then
+        -- Show all files including ignored
+        require('telescope.builtin').find_files({
+            prompt_prefix = "🔍 [ALL] ",
+            default_text = current_line,
+            find_command = { "rg", "--files", "--no-ignore", "--hidden", "--no-follow" },
+            attach_mappings = function(_, map)
+                map({ "i", "n" }, "<C-a>", toggle_find_files_all)
+                return true
+            end
+        })
+    else
+        -- Back to normal mode
+        require('telescope.builtin').find_files({
+            prompt_prefix = "🔍 ",
+            default_text = current_line,
+            find_command = { "rg", "--files", "--ignore", "--no-follow" },
+            attach_mappings = function(_, map)
+                map({ "i", "n" }, "<C-a>", toggle_find_files_all)
+                return true
+            end
+        })
+    end
+end
+
+-- Toggle between normal and "show all files" mode for live_grep
+local function toggle_live_grep_all(prompt_bufnr)
+    local current_line = action_state.get_current_line()
+    
+    actions.close(prompt_bufnr)
+    
+    -- Toggle the state
+    live_grep_showing_all = not live_grep_showing_all
+    
+    if live_grep_showing_all then
+        -- Show all files including ignored
+        require('telescope.builtin').live_grep({
+            prompt_prefix = "🔍 [ALL] ",
+            default_text = current_line,
+            additional_args = function() return { "--no-ignore", "--hidden", "--no-follow" } end,
+            attach_mappings = function(_, map)
+                map({ "i", "n" }, "<C-a>", toggle_live_grep_all)
+                return true
+            end
+        })
+    else
+        -- Back to normal mode
+        require('telescope.builtin').live_grep({
+            prompt_prefix = "🔍 ",
+            default_text = current_line,
+            additional_args = function() return { "--ignore", "--no-follow" } end,
+            attach_mappings = function(_, map)
+                map({ "i", "n" }, "<C-a>", toggle_live_grep_all)
+                return true
+            end
+        })
+    end
+end
+
 local telescopeBuiltin = require('telescope.builtin')
-vim.keymap.set('n', '<C-p>', telescopeBuiltin.find_files, {})
-vim.keymap.set('n', '<C-f>', telescopeBuiltin.live_grep, {})
+vim.keymap.set('n', '<C-p>', function()
+    find_files_showing_all = false
+    require('telescope.builtin').find_files({
+        attach_mappings = function(_, map)
+            map({ "i", "n" }, "<C-a>", toggle_find_files_all)
+            return true
+        end
+    })
+end, {})
+vim.keymap.set('n', '<C-f>', function()
+    live_grep_showing_all = false
+    require('telescope.builtin').live_grep({
+        attach_mappings = function(_, map)
+            map({ "i", "n" }, "<C-a>", toggle_live_grep_all)
+            return true
+        end
+    })
+end, {})
 vim.keymap.set('n', '<C-b>', telescopeBuiltin.buffers, {})
 
 -- Undotree
