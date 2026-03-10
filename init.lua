@@ -38,6 +38,13 @@ vim.filetype.add({
     },
 })
 
+vim.api.nvim_create_user_command('FixLineEndings', function()
+    vim.opt_local.fileformat = 'unix'
+    vim.cmd([[%s/\r//ge]])
+    vim.cmd('write')
+    print('Converted to unix line endings')
+end, { desc = 'Convert file to unix (LF) line endings' })
+
 -- Basic key bindings --
 
 -- Free keys: <C-a> <C-x> <C-t> <C-n> (<C-N> - on chromebook this one opens a new window, not recommended)
