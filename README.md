@@ -136,37 +136,22 @@ In Neovim run the command `:Copilot setup` and follow the instructions.
 
 ##### Plugins
 
-###### file viewer
+###### File viewer
 
-Press `-` to open `oil` file viewer. Create, rename, delete files like you would text. Save the buffer to confirm changes.
+Press `-` to open [`oil`](https://github.com/stevearc/oil.nvim) file viewer. Create, rename, delete files like you would text. Save the buffer to confirm changes.
 
-[See more](https://github.com/stevearc/oil.nvim)
+###### Git interaction
 
-###### git
+Press `Ctrl`+`g` or enter command `:Git` to open [`fugitive`](https://github.com/tpope/vim-fugitive). Use `=` to expand files. Use `-` to stage/unstage files or parts of the code. Press `cc` to commit staged changes. Enter command `:Git push` to push commits.
 
-Press `Ctrl`+`g` or enter command `:Git` to open `fugitive`. Use `=` to expand files. Use `-` to stage/unstage files or parts of the code. Press `cc` to commit staged changes. Enter command `:Git push` to push commits.
+###### HTTP requests
 
-[See more](https://github.com/tpope/vim-fugitive)
+Open a `.http` file to load [`kulala.nvim`](https://github.com/mistweaverco/kulala.nvim). Move the cursor over a HTTP request and press `Enter` to send it.
 
-###### http requests
 
-Open a `.http` file to load `kulala.nvim`. Move the cursor over a HTTP request and press `Enter` to send it.
+##### Commands
 
-[See more](https://github.com/mistweaverco/kulala.nvim)
-
-###### other
-
-| Mode | Key | Action |
-|---|---|---|
-| Normal   | `-` | Show file explorer ([oil](https://github.com/stevearc/oil.nvim)) |
-| Normal   | `L` | Show file changes |
-| Normal   | `u` | Show edit history |
-| Normal | `Ctrl`+`g` | Open [`fugitive`](https://github.com/tpope/vim-fugitive) |
-| Command  | `:RustTest` | Run rust test under cursor |
-
-##### Built-in
-
-| Mode | Key | Action |
-|---|---|---|
-| Normal   | `Ctrl`+`6`/`^` | Toggle between last two files |
-| Visual   | `gq` | Format comments  |
+| Command | Action |
+|-----|--------|
+| `:FixLineEndings`         | Converts line endings to `unix` style in buffer |
+| `:FixLineEndingsRepo`     | Converts line endings to `unix` for all tracked git repository files |
