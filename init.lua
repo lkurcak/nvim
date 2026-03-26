@@ -41,9 +41,76 @@ vim.filetype.add({
 vim.api.nvim_create_user_command('FixLineEndings', function()
     vim.opt_local.fileformat = 'unix'
     vim.cmd([[%s/\r//ge]])
+    vim.cmd([[%s/\s\+$//e]])
     vim.cmd('write')
-    print('Converted to unix line endings')
-end, { desc = 'Convert file to unix (LF) line endings' })
+    print('Converted to unix line endings and trimmed trailing whitespace')
+end, { desc = 'Convert file to unix (LF) line endings and trim trailing whitespace' })
+
+vim.api.nvim_create_user_command('FixLineEndingsRepo', function(opts)
+    -- Resolve the target directory: argument > git root > cwd
+    local target = opts.args ~= '' and opts.args or nil
+    if not target then
+        local git_root = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
+        target = (vim.v.shell_error == 0 and git_root ~= '') and git_root or vim.fn.getcwd()
+    end
+    target = vim.fn.fnamemodify(target, ':p'):gsub('[/\\]$', '')
+
+    -- List tracked files under target
+    local files = vim.fn.systemlist('git -C ' .. vim.fn.shellescape(target) .. ' ls-files -- ' .. vim.fn.shellescape(target))
+    if vim.v.shell_error ~= 0 then
+        vim.notify('FixLineEndingsRepo: git ls-files failed', vim.log.levels.ERROR)
+        return
+    end
+
+    local git_root = vim.fn.systemlist('git -C ' .. vim.fn.shellescape(target) .. ' rev-parse --show-toplevel')[1]
+    local changed, skipped, errors = 0, 0, 0
+
+    for _, rel in ipairs(files) do
+        -- git ls-files returns paths relative to the repo root; make them absolute
+        local abs = git_root .. '/' .. rel
+
+        -- Check if the file actually contains CR bytes before opening it in nvim
+        local raw = io.open(abs, 'rb')
+        if not raw then
+            errors = errors + 1
+        else
+            local content = raw:read('*a')
+            raw:close()
+            if content:find('\r') or content:find(' \n') or content:find('\t\n') or content:find(' $') or content:find('\t$') then
+                -- Open in a scratch buffer, fix, write, wipe
+                local ok, err = pcall(function()
+                    local buf = vim.fn.bufadd(abs)
+                    vim.fn.bufload(buf)
+                    vim.bo[buf].fileformat = 'unix'
+                    local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+                    for i, line in ipairs(lines) do
+                        lines[i] = line:gsub('\r', ''):gsub('%s+$', '')
+                    end
+                    vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+                    vim.api.nvim_buf_call(buf, function() vim.cmd('write') end)
+                    vim.cmd('bwipeout ' .. buf)
+                end)
+                if ok then
+                    changed = changed + 1
+                else
+                    vim.notify('FixLineEndingsRepo: error on ' .. rel .. ': ' .. tostring(err), vim.log.levels.WARN)
+                    errors = errors + 1
+                end
+            else
+                skipped = skipped + 1
+            end
+        end
+    end
+
+    vim.notify(
+        string.format('FixLineEndingsRepo done — changed: %d, already clean: %d, errors: %d', changed, skipped, errors),
+        errors > 0 and vim.log.levels.WARN or vim.log.levels.INFO
+    )
+end, {
+    desc = 'Fix line endings (CRLF -> LF) and trim trailing whitespace for all git-tracked files in a repo/directory',
+    nargs = '?',
+    complete = 'dir',
+})
 
 -- Basic key bindings --
 
