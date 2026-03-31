@@ -1,16 +1,12 @@
--- Bootstrap lazy.nvim --
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.uv.fs_stat(lazypath) then
-    vim.fn.system({
-        'git',
-        'clone',
-        '--filter=blob:none',
-        'https://github.com/folke/lazy.nvim.git',
-        '--branch=stable', -- latest stable release
-        lazypath,
-    })
+vim.loader.enable()
+
+local gh = function(repo)
+    return 'https://github.com/' .. repo
 end
-vim.opt.rtp:prepend(lazypath)
+
+local cb = function(repo)
+    return 'https://codeberg.org/' .. repo
+end
 
 -- Basic settings --
 
@@ -35,6 +31,7 @@ vim.g.markdown_fenced_languages = {
 vim.filetype.add({
     extension = {
         ['http'] = 'http',
+        ['rest'] = 'rest',
     },
 })
 
@@ -138,172 +135,185 @@ vim.keymap.set({ 'n', 'v' }, '<leader>P', '"+P', { desc = 'Paste from system cli
 
 
 -- Plugins --
-require('lazy').setup({
-    'tpope/vim-sensible',
-    'tpope/vim-abolish',
+vim.api.nvim_create_autocmd('PackChanged', {
+    group = vim.api.nvim_create_augroup('PackHooks', { clear = true }),
+    callback = function(ev)
+        local name, kind = ev.data.spec.name, ev.data.kind
+
+        if name == 'nvim-treesitter' and (kind == 'install' or kind == 'update') then
+            if not ev.data.active then
+                vim.cmd.packadd('nvim-treesitter')
+            end
+
+            vim.cmd('TSUpdate')
+        end
+    end,
+})
+
+vim.pack.add({
+    gh('tpope/vim-sensible'),
+    gh('tpope/vim-abolish'),
 
     -- Reload changed files
-    'djoshea/vim-autoread',
+    gh('djoshea/vim-autoread'),
 
     -- Run test under cursor with :RustTest
-    'rust-lang/rust.vim',
+    gh('rust-lang/rust.vim'),
 
     -- Git integration
-    {
-        'tpope/vim-fugitive',
-        cmd = { 'Git', 'Gvdiffsplit', 'Gdiffsplit' },
-        lazy = true,
-        event = "VeryLazy",
-    },
+    gh('tpope/vim-fugitive'),
+
+    -- Shared dependencies
+    gh('nvim-lua/plenary.nvim'),
+    gh('nvim-tree/nvim-web-devicons'),
+    gh('echasnovski/mini.icons'),
 
     -- Color scheme
-    {
-        'catppuccin/nvim',
-        lazy = false,
-        priority = 1000,
-        name = 'catppuccin',
-        config = function()
-            require('catppuccin').setup({
-                term_colors = true,
-                transparent_background = false,
-                flavour = 'macchiato',
-                -- flavour = 'mocha',
-                -- with black background
-                color_overrides = {
-                    -- Color overrides by pkazmier
-                    -- https://github.com/catppuccin/nvim/discussions/323#discussioncomment-8653291
-                    macchiato = {
-                        rosewater = "#F5B8AB",
-                        flamingo = "#F29D9D",
-                        pink = "#AD6FF7",
-                        mauve = "#FF8F40",
-                        red = "#E66767",
-                        maroon = "#EB788B",
-                        peach = "#FAB770",
-                        yellow = "#FACA64",
-                        green = "#70CF67",
-                        teal = "#4CD4BD",
-                        sky = "#61BDFF",
-                        sapphire = "#4BA8FA",
-                        blue = "#00BFFF",
-                        lavender = "#00BBCC",
-                        text = "#C1C9E6",
-                        subtext1 = "#A3AAC2",
-                        subtext0 = "#8E94AB",
-                        overlay2 = "#7D8296",
-                        overlay1 = "#676B80",
-                        overlay0 = "#464957",
-                        surface2 = "#3A3D4A",
-                        surface1 = "#2F313D",
-                        surface0 = "#1D1E29",
-                        --base = "#0b0b12",
-                        base = '#000000',
-                        mantle = "#11111a",
-                        crust = "#191926",
-                    },
-                    mocha = {
-                        base = '#000000',
-                        --mantle = '#000000',
-                        --crust = '#000000',
-                    },
-                },
-            })
-
-            vim.api.nvim_command('colorscheme catppuccin')
-        end,
-    },
+    { src = gh('catppuccin/nvim'), name = 'catppuccin' },
 
     -- Leap
-    {
-        'https://codeberg.org/andyg/leap.nvim',
-        lazy = false,
-    },
+    cb('andyg/leap.nvim'),
 
     -- Searching for files, etc
-    {
-        'nvim-telescope/telescope.nvim',
-        --version = '*',
-        dependencies = { 'nvim-lua/plenary.nvim' },
-        lazy = false,
-    },
+    gh('nvim-telescope/telescope.nvim'),
 
     -- LSP support
-    {
-        'neovim/nvim-lspconfig',
-        lazy = false,
-    },
+    gh('neovim/nvim-lspconfig'),
 
     -- Treesitter for nice syntax highlighting
-    {
-        'nvim-treesitter/nvim-treesitter',
-        lazy = false,
-        build = ':TSUpdate',
-    },
+    gh('nvim-treesitter/nvim-treesitter'),
 
     -- Delete buffers (terminals deleted without prompt)
-    'ojroques/nvim-bufdel',
+    gh('ojroques/nvim-bufdel'),
 
     -- Better error/diagnostics UI
-    {
-        'folke/trouble.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
-        opts = {
-        },
-    },
+    gh('folke/trouble.nvim'),
 
-    --  Keep branching undo history
-    'mbbill/undotree',
+    -- Keep branching undo history
+    gh('mbbill/undotree'),
 
     -- Show info about rust crates in `Cargo.toml`
-    {
-        'saecki/crates.nvim',
-        tag = 'v0.4.0',
-        dependencies = { 'nvim-lua/plenary.nvim' },
-        config = function()
-            require('crates').setup()
-        end,
-    },
+    { src = gh('saecki/crates.nvim'), version = 'v0.4.0' },
 
     -- Copilot
-    -- 'github/copilot.vim',
+    -- gh('github/copilot.vim'),
 
-    -- Harpoon,
-    'theprimeagen/harpoon',
+    -- Harpoon
+    gh('theprimeagen/harpoon'),
 
     -- Oil
-    {
-        'stevearc/oil.nvim',
-        ---@module 'oil'
-        ---@type oil.SetupOpts
-        opts = {},
-        -- Optional dependencies
-        dependencies = { { "echasnovski/mini.icons", opts = {} } },
-        -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
-        -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
-        lazy = false,
-    },
+    gh('stevearc/oil.nvim'),
 
     -- Faster (disables stuff for big files)
-    'pteroctopus/faster.nvim',
+    gh('pteroctopus/faster.nvim'),
 
-    --- Send HTTP requests
-    {
-        "mistweaverco/kulala.nvim",
-        keys = {
-            { "<leader>Rs", desc = "Send request" },
-            { "<leader>Ra", desc = "Send all requests" },
-            { "<leader>Rb", desc = "Open scratchpad" },
-        },
-        ft = { "http", "rest" },
-        opts = {
-            global_keymaps = true,
-            global_keymaps_prefix = "<leader>R",
-            kulala_keymaps_prefix = "",
-        },
-    },
+}, {
+    confirm = false,
+    load = true,
 })
 
 -- Plugin configuration --
+require('catppuccin').setup({
+    term_colors = true,
+    transparent_background = false,
+    flavour = 'macchiato',
+    -- flavour = 'mocha',
+    -- with black background
+    color_overrides = {
+        -- Color overrides by pkazmier
+        -- https://github.com/catppuccin/nvim/discussions/323#discussioncomment-8653291
+        macchiato = {
+            rosewater = "#F5B8AB",
+            flamingo = "#F29D9D",
+            pink = "#AD6FF7",
+            mauve = "#FF8F40",
+            red = "#E66767",
+            maroon = "#EB788B",
+            peach = "#FAB770",
+            yellow = "#FACA64",
+            green = "#70CF67",
+            teal = "#4CD4BD",
+            sky = "#61BDFF",
+            sapphire = "#4BA8FA",
+            blue = "#00BFFF",
+            lavender = "#00BBCC",
+            text = "#C1C9E6",
+            subtext1 = "#A3AAC2",
+            subtext0 = "#8E94AB",
+            overlay2 = "#7D8296",
+            overlay1 = "#676B80",
+            overlay0 = "#464957",
+            surface2 = "#3A3D4A",
+            surface1 = "#2F313D",
+            surface0 = "#1D1E29",
+            --base = "#0b0b12",
+            base = '#000000',
+            mantle = "#11111a",
+            crust = "#191926",
+        },
+        mocha = {
+            base = '#000000',
+            --mantle = '#000000',
+            --crust = '#000000',
+        },
+    },
+})
+vim.api.nvim_command('colorscheme catppuccin')
+
+require('mini.icons').setup()
+
+require('trouble').setup({})
+
+require('crates').setup()
+
+vim.pack.add({
+    { src = gh('mistweaverco/kulala.nvim'), name = 'kulala' },
+}, {
+    confirm = false,
+    load = false,
+})
+
+local kulala_loaded = false
+
+local function load_kulala()
+    if kulala_loaded then
+        return
+    end
+
+    vim.cmd.packadd('kulala')
+    require('kulala').setup({
+        global_keymaps = false,
+        global_keymaps_prefix = '<leader>R',
+        kulala_keymaps_prefix = '',
+    })
+
+    kulala_loaded = true
+end
+
+vim.api.nvim_create_autocmd('FileType', {
+    group = vim.api.nvim_create_augroup('KulalaLazyLoad', { clear = true }),
+    pattern = { 'http', 'rest' },
+    once = true,
+    callback = function()
+        load_kulala()
+    end,
+})
+
+vim.keymap.set({ 'n', 'v' }, '<leader>Rs', function()
+    load_kulala()
+    require('kulala').run()
+end, { desc = 'Send request' })
+
+vim.keymap.set({ 'n', 'v' }, '<leader>Ra', function()
+    load_kulala()
+    require('kulala').run_all()
+end, { desc = 'Send all requests' })
+
+vim.keymap.set('n', '<leader>Rb', function()
+    load_kulala()
+    require('kulala').scratchpad()
+end, { desc = 'Open scratchpad' })
+
 
 -- Delete buffers (terminals deleted without prompt)
 require('bufdel').setup({

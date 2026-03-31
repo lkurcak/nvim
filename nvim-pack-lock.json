@@ -1,0 +1,89 @@
+{
+  "plugins": {
+    "catppuccin": {
+      "rev": "a7788416689dbefea659d9e9415c87926b0ba5d8",
+      "src": "https://github.com/catppuccin/nvim"
+    },
+    "crates.nvim": {
+      "rev": "8437522d12a8c523da2aee9db2979d070b2ecc33",
+      "src": "https://github.com/saecki/crates.nvim",
+      "version": "'v0.4.0'"
+    },
+    "faster.nvim": {
+      "rev": "2e7a50f659711854b9a7fdc76d943b59b30d7852",
+      "src": "https://github.com/pteroctopus/faster.nvim"
+    },
+    "harpoon": {
+      "rev": "1bc17e3e42ea3c46b33c0bbad6a880792692a1b3",
+      "src": "https://github.com/theprimeagen/harpoon"
+    },
+    "kulala": {
+      "rev": "6656c9d332735ca6a27725e0fb45a1715c4372d9",
+      "src": "https://github.com/mistweaverco/kulala.nvim"
+    },
+    "leap.nvim": {
+      "rev": "e20f33507bd2d6c671b7273f797f2d3cf521ac61",
+      "src": "https://codeberg.org/andyg/leap.nvim"
+    },
+    "mini.icons": {
+      "rev": "5b9076dae1bfbe47ba4a14bc8b967cde0ab5d77e",
+      "src": "https://github.com/echasnovski/mini.icons"
+    },
+    "nvim-bufdel": {
+      "rev": "523d58e94e7212fff3e05c247b962dc8f93bcfde",
+      "src": "https://github.com/ojroques/nvim-bufdel"
+    },
+    "nvim-lspconfig": {
+      "rev": "16812abf0e8d8175155f26143a8504e8253e92b0",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-treesitter": {
+      "rev": "7caec274fd19c12b55902a5b795100d21531391f",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
+    "nvim-web-devicons": {
+      "rev": "d7462543c9e366c0d196c7f67a945eaaf5d99414",
+      "src": "https://github.com/nvim-tree/nvim-web-devicons"
+    },
+    "oil.nvim": {
+      "rev": "0fcc83805ad11cf714a949c98c605ed717e0b83e",
+      "src": "https://github.com/stevearc/oil.nvim"
+    },
+    "plenary.nvim": {
+      "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "rust.vim": {
+      "rev": "889b9a7515db477f4cb6808bef1769e53493c578",
+      "src": "https://github.com/rust-lang/rust.vim"
+    },
+    "telescope.nvim": {
+      "rev": "cfb85dcf7f822b79224e9e6aef9e8c794211b20b",
+      "src": "https://github.com/nvim-telescope/telescope.nvim"
+    },
+    "trouble.nvim": {
+      "rev": "bd67efe408d4816e25e8491cc5ad4088e708a69a",
+      "src": "https://github.com/folke/trouble.nvim"
+    },
+    "undotree": {
+      "rev": "6fa6b57cda8459e1e4b2ca34df702f55242f4e4d",
+      "src": "https://github.com/mbbill/undotree"
+    },
+    "vim-abolish": {
+      "rev": "dcbfe065297d31823561ba787f51056c147aa682",
+      "src": "https://github.com/tpope/vim-abolish"
+    },
+    "vim-autoread": {
+      "rev": "24061f84652d768bfb85d222c88580b3af138dab",
+      "src": "https://github.com/djoshea/vim-autoread"
+    },
+    "vim-fugitive": {
+      "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",
+      "src": "https://github.com/tpope/vim-fugitive"
+    },
+    "vim-sensible": {
+      "rev": "0ce2d843d6f588bb0c8c7eec6449171615dc56d9",
+      "src": "https://github.com/tpope/vim-sensible"
+    }
+  }
+}

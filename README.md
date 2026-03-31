@@ -2,6 +2,12 @@
 
 My [Neovim](https://github.com/neovim/neovim) config. Work in progress.
 
+Requires Neovim `0.12+`.
+
+Plugins are managed with the built-in `vim.pack`, so they install automatically on first start.
+
+If you are migrating from the older `lazy.nvim` version of this config, delete the old `lazy` plugin directory under `stdpath('data')` before launching this version.
+
 ### Installation
 
 <details><summary>macOS</summary>
@@ -98,6 +104,16 @@ Unzip, go to `bin` and make sure `lua-language-server` is in your OS `PATH`.
 Install [Node.js](https://nodejs.org/).
 
 In Neovim run the command `:Copilot setup` and follow the instructions.
+
+</details>
+
+<details><summary>Kulala HTTP parser</summary>
+
+Install the `tree-sitter` CLI if you want Kulala syntax highlighting and formatting support for `.http` / `.rest` files.
+
+```sh
+cargo install tree-sitter-cli
+```
 
 </details>
 
