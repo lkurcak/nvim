@@ -21,7 +21,9 @@ vim.opt.scrolloff = 10
 vim.opt.swapfile = false
 vim.opt.fileformats = "unix"
 vim.opt.autoread = true
---vim.opt.shell = "nu"
+if vim.fn.executable('nu') == 1 then
+    vim.opt.shell = 'nu'
+end
 
 vim.g.markdown_fenced_languages = {
     "ts=typescript"
