@@ -17,7 +17,6 @@ vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 vim.opt.smartcase = true
 vim.opt.ignorecase = true
---vim.opt.hlsearch = false
 vim.opt.scrolloff = 10
 vim.opt.swapfile = false
 vim.opt.fileformats = "unix"
@@ -53,7 +52,8 @@ vim.api.nvim_create_user_command('FixLineEndingsRepo', function(opts)
     target = vim.fn.fnamemodify(target, ':p'):gsub('[/\\]$', '')
 
     -- List tracked files under target
-    local files = vim.fn.systemlist('git -C ' .. vim.fn.shellescape(target) .. ' ls-files -- ' .. vim.fn.shellescape(target))
+    local files = vim.fn.systemlist('git -C ' ..
+        vim.fn.shellescape(target) .. ' ls-files -- ' .. vim.fn.shellescape(target))
     if vim.v.shell_error ~= 0 then
         vim.notify('FixLineEndingsRepo: git ls-files failed', vim.log.levels.ERROR)
         return
@@ -169,7 +169,7 @@ vim.pack.add({
     gh('echasnovski/mini.icons'),
 
     -- Color scheme
-    { src = gh('catppuccin/nvim'), name = 'catppuccin' },
+    { src = gh('catppuccin/nvim'),    name = 'catppuccin' },
 
     -- Leap
     cb('andyg/leap.nvim'),
@@ -597,12 +597,12 @@ local live_grep_showing_all = false
 -- Toggle between normal and "show all files" mode for find_files
 local function toggle_find_files_all(prompt_bufnr)
     local current_line = action_state.get_current_line()
-    
+
     actions.close(prompt_bufnr)
-    
+
     -- Toggle the state
     find_files_showing_all = not find_files_showing_all
-    
+
     if find_files_showing_all then
         -- Show all files including ignored
         require('telescope.builtin').find_files({
@@ -632,12 +632,12 @@ end
 -- Toggle between normal and "show all files" mode for live_grep
 local function toggle_live_grep_all(prompt_bufnr)
     local current_line = action_state.get_current_line()
-    
+
     actions.close(prompt_bufnr)
-    
+
     -- Toggle the state
     live_grep_showing_all = not live_grep_showing_all
-    
+
     if live_grep_showing_all then
         -- Show all files including ignored
         require('telescope.builtin').live_grep({
@@ -724,7 +724,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', '<A-f>', function()
             vim.lsp.buf.format { async = true }
         end, opts)
-        vim.keymap.set('n', 'CTRL-<A-f>', function()
+        vim.keymap.set('n', '<C-A-f>', function()
             vim.lsp.buf.format { async = true }
         end, opts)
     end,
