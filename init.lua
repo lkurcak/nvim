@@ -532,14 +532,20 @@ require('faster').setup()
 local telescope = require("telescope")
 local always_search_hidden_dirs = { ".github" }
 
-local function with_hidden_dirs(args)
-    local extended = vim.list_extend({}, args)
+local function telescope_search_dirs(cwd)
+    local root = vim.fs.normalize(cwd or vim.uv.cwd())
+    local search_dirs = { root }
 
     for _, dir in ipairs(always_search_hidden_dirs) do
-        vim.list_extend(extended, { "--glob", dir, "--glob", dir .. "/**" })
+        local path = vim.fs.normalize(root .. '/' .. dir)
+        local stat = vim.uv.fs_stat(path)
+
+        if stat and stat.type == 'directory' then
+            search_dirs[#search_dirs + 1] = path
+        end
     end
 
-    return extended
+    return search_dirs
 end
 
 telescope.setup({
@@ -560,20 +566,22 @@ telescope.setup({
     pickers = {
         find_files = {
             prompt_prefix = "🔍 ",
-            find_command = with_hidden_dirs({
+            find_command = {
                 "rg",
                 "--files",
                 -- "--hidden",
                 "--ignore",
                 "--no-follow",
-            }),
+            },
+            search_dirs = telescope_search_dirs(),
         },
         live_grep = {
             prompt_prefix = "🔍 ",
             additional_args = function()
-                return with_hidden_dirs({ -- "--hidden",
-                    "--ignore", "--no-follow" })
-            end
+                return { -- "--hidden",
+                    "--ignore", "--no-follow" }
+            end,
+            search_dirs = telescope_search_dirs(),
         },
     },
 })
@@ -611,7 +619,8 @@ local function toggle_find_files_all(prompt_bufnr)
         require('telescope.builtin').find_files({
             prompt_prefix = "🔍 ",
             default_text = current_line,
-            find_command = with_hidden_dirs({ "rg", "--files", "--ignore", "--no-follow" }),
+            find_command = { "rg", "--files", "--ignore", "--no-follow" },
+            search_dirs = telescope_search_dirs(),
             attach_mappings = function(_, map)
                 map({ "i", "n" }, "<C-a>", toggle_find_files_all)
                 return true
@@ -645,7 +654,8 @@ local function toggle_live_grep_all(prompt_bufnr)
         require('telescope.builtin').live_grep({
             prompt_prefix = "🔍 ",
             default_text = current_line,
-            additional_args = function() return with_hidden_dirs({ "--ignore", "--no-follow" }) end,
+            additional_args = function() return { "--ignore", "--no-follow" } end,
+            search_dirs = telescope_search_dirs(),
             attach_mappings = function(_, map)
                 map({ "i", "n" }, "<C-a>", toggle_live_grep_all)
                 return true
