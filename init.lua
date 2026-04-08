@@ -530,6 +530,17 @@ require('faster').setup()
 
 -- Telescope
 local telescope = require("telescope")
+local always_search_hidden_dirs = { ".github" }
+
+local function with_hidden_dirs(args)
+    local extended = vim.list_extend({}, args)
+
+    for _, dir in ipairs(always_search_hidden_dirs) do
+        vim.list_extend(extended, { "--glob", dir, "--glob", dir .. "/**" })
+    end
+
+    return extended
+end
 
 telescope.setup({
     defaults = {
@@ -549,19 +560,19 @@ telescope.setup({
     pickers = {
         find_files = {
             prompt_prefix = "🔍 ",
-            find_command = {
+            find_command = with_hidden_dirs({
                 "rg",
                 "--files",
                 -- "--hidden",
                 "--ignore",
                 "--no-follow",
-            },
+            }),
         },
         live_grep = {
             prompt_prefix = "🔍 ",
             additional_args = function()
-                return { -- "--hidden",
-                    "--ignore", "--no-follow" }
+                return with_hidden_dirs({ -- "--hidden",
+                    "--ignore", "--no-follow" })
             end
         },
     },
@@ -600,7 +611,7 @@ local function toggle_find_files_all(prompt_bufnr)
         require('telescope.builtin').find_files({
             prompt_prefix = "🔍 ",
             default_text = current_line,
-            find_command = { "rg", "--files", "--ignore", "--no-follow" },
+            find_command = with_hidden_dirs({ "rg", "--files", "--ignore", "--no-follow" }),
             attach_mappings = function(_, map)
                 map({ "i", "n" }, "<C-a>", toggle_find_files_all)
                 return true
@@ -634,7 +645,7 @@ local function toggle_live_grep_all(prompt_bufnr)
         require('telescope.builtin').live_grep({
             prompt_prefix = "🔍 ",
             default_text = current_line,
-            additional_args = function() return { "--ignore", "--no-follow" } end,
+            additional_args = function() return with_hidden_dirs({ "--ignore", "--no-follow" }) end,
             attach_mappings = function(_, map)
                 map({ "i", "n" }, "<C-a>", toggle_live_grep_all)
                 return true
