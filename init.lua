@@ -21,6 +21,10 @@ vim.opt.scrolloff = 10
 vim.opt.swapfile = false
 vim.opt.fileformats = "unix"
 vim.opt.autoread = true
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
+    pattern = '*',
+    command = "if mode() != 'c' | checktime | endif",
+})
 if vim.fn.executable('nu') == 1 then
     vim.opt.shell = 'nu'
 end
