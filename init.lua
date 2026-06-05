@@ -207,9 +207,6 @@ vim.pack.add({
     -- Show info about rust crates in `Cargo.toml`
     { src = gh('saecki/crates.nvim'), version = 'v0.4.0' },
 
-    -- Copilot
-    -- gh('github/copilot.vim'),
-
     -- Harpoon
     gh('theprimeagen/harpoon'),
 
@@ -488,23 +485,6 @@ do
     end
 end
 
--- [1] Match the modes here for which you don't want to use labels
---     (`:h mode()`, `:h lua-pattern`).
--- [2] This helper function makes it easier to set "clever-f"-like
---     functionality (https://github.com/rhysd/clever-f.vim), returning
---     an `opts` table derived from the defaults, where the given keys
---     are added to `keys.next_target` and `keys.prev_target`
-
---do
---  local clever_s = require('leap.user').with_traversal_keys('s', 'S')
---  vim.keymap.set({ 'n', 'x', 'o' }, 's', function ()
---    require('leap').leap { opts = clever_s }
---  end)
---  vim.keymap.set({ 'n', 'x', 'o' }, 'S', function ()
---    require('leap').leap { backward = true, opts = clever_s }
---  end)
---end
-
 -- Harpoon
 local harpoon_term = require('harpoon.term')
 vim.keymap.set("n", "<C-j>", function() harpoon_term.gotoTerminal(1) end, { noremap = true })
@@ -542,26 +522,32 @@ require('faster').setup()
 
 -- Telescope
 local telescope = require("telescope")
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
+
 local always_search_hidden_dirs = { ".github" }
 
+-- Return search_dirs relative to cwd so rg outputs relative paths.
+-- This fixes fuzzy matching (the ordinal) so it doesn't match
+-- against the absolute path prefix.
 local function telescope_search_dirs(cwd)
-    local root = vim.fs.normalize(cwd or vim.uv.cwd())
-    local search_dirs = { root }
-
+    local search_dirs = { "." }
     for _, dir in ipairs(always_search_hidden_dirs) do
-        local path = vim.fs.normalize(root .. '/' .. dir)
-        local stat = vim.uv.fs_stat(path)
-
+        local stat = vim.uv.fs_stat(cwd .. '/' .. dir)
         if stat and stat.type == 'directory' then
-            search_dirs[#search_dirs + 1] = path
+            search_dirs[#search_dirs + 1] = dir
         end
     end
-
     return search_dirs
+end
+
+local function current_cwd()
+    return vim.fs.normalize(vim.uv.cwd())
 end
 
 telescope.setup({
     defaults = {
+        path_display = { "truncate" },
         file_ignore_patterns = {
             "node_modules/",
             "target/",
@@ -578,119 +564,86 @@ telescope.setup({
     pickers = {
         find_files = {
             prompt_prefix = "🔍 ",
-            find_command = {
-                "rg",
-                "--files",
-                -- "--hidden",
-                "--ignore",
-                "--no-follow",
-            },
-            search_dirs = telescope_search_dirs(),
+            find_command = { "rg", "--files", "--ignore", "--no-follow" },
         },
         live_grep = {
             prompt_prefix = "🔍 ",
             additional_args = function()
-                return { -- "--hidden",
-                    "--ignore", "--no-follow" }
+                return { "--ignore", "--no-follow" }
             end,
-            search_dirs = telescope_search_dirs(),
         },
     },
 })
 
--- Toggle functions for telescope
-local action_state = require("telescope.actions.state")
-local actions = require("telescope.actions")
+local showing_all = {}
 
--- State variables to track if we're showing all files
-local find_files_showing_all = false
-local live_grep_showing_all = false
+-- Holds the actual toggle functions so attach_mappings can reference them at runtime.
+local toggles = {}
 
--- Toggle between normal and "show all files" mode for find_files
-local function toggle_find_files_all(prompt_bufnr)
-    local current_line = action_state.get_current_line()
+local function make_toggle(builtin_fn, normal_args, all_args)
+    return function(prompt_bufnr)
+        local current_line = action_state.get_current_line()
+        actions.close(prompt_bufnr)
+        showing_all[builtin_fn] = not showing_all[builtin_fn]
 
-    actions.close(prompt_bufnr)
+        local args
+        if showing_all[builtin_fn] then
+            args = vim.deepcopy(all_args)
+            args.prompt_prefix = "🔍 [ALL] "
+        else
+            local cwd = current_cwd()
+            args = vim.deepcopy(normal_args)
+            args.cwd = cwd
+            args.search_dirs = telescope_search_dirs(cwd)
+        end
+        args.default_text = current_line
+        args.attach_mappings = function(_, map)
+            map({ "i", "n" }, "<C-a>", toggles[builtin_fn])
+            return true
+        end
 
-    -- Toggle the state
-    find_files_showing_all = not find_files_showing_all
-
-    if find_files_showing_all then
-        -- Show all files including ignored
-        require('telescope.builtin').find_files({
-            prompt_prefix = "🔍 [ALL] ",
-            default_text = current_line,
-            find_command = { "rg", "--files", "--no-ignore", "--hidden", "--no-follow" },
-            attach_mappings = function(_, map)
-                map({ "i", "n" }, "<C-a>", toggle_find_files_all)
-                return true
-            end
-        })
-    else
-        -- Back to normal mode
-        require('telescope.builtin').find_files({
-            prompt_prefix = "🔍 ",
-            default_text = current_line,
-            find_command = { "rg", "--files", "--ignore", "--no-follow" },
-            search_dirs = telescope_search_dirs(),
-            attach_mappings = function(_, map)
-                map({ "i", "n" }, "<C-a>", toggle_find_files_all)
-                return true
-            end
-        })
+        require('telescope.builtin')[builtin_fn](args)
     end
 end
 
--- Toggle between normal and "show all files" mode for live_grep
-local function toggle_live_grep_all(prompt_bufnr)
-    local current_line = action_state.get_current_line()
+toggles.find_files = make_toggle(
+    "find_files",
+    { find_command = { "rg", "--files", "--ignore", "--no-follow" } },
+    { find_command = { "rg", "--files", "--no-ignore", "--hidden", "--no-follow" } }
+)
 
-    actions.close(prompt_bufnr)
+toggles.live_grep = make_toggle(
+    "live_grep",
+    { additional_args = function() return { "--ignore", "--no-follow" } end },
+    { additional_args = function() return { "--no-ignore", "--hidden", "--no-follow" } end }
+)
 
-    -- Toggle the state
-    live_grep_showing_all = not live_grep_showing_all
-
-    if live_grep_showing_all then
-        -- Show all files including ignored
-        require('telescope.builtin').live_grep({
-            prompt_prefix = "🔍 [ALL] ",
-            default_text = current_line,
-            additional_args = function() return { "--no-ignore", "--hidden", "--no-follow" } end,
-            attach_mappings = function(_, map)
-                map({ "i", "n" }, "<C-a>", toggle_live_grep_all)
-                return true
-            end
-        })
-    else
-        -- Back to normal mode
-        require('telescope.builtin').live_grep({
-            prompt_prefix = "🔍 ",
-            default_text = current_line,
-            additional_args = function() return { "--ignore", "--no-follow" } end,
-            search_dirs = telescope_search_dirs(),
-            attach_mappings = function(_, map)
-                map({ "i", "n" }, "<C-a>", toggle_live_grep_all)
-                return true
-            end
-        })
-    end
-end
+showing_all["find_files"] = false
+showing_all["live_grep"] = false
 
 local telescopeBuiltin = require('telescope.builtin')
+
 vim.keymap.set('n', '<C-p>', function()
-    find_files_showing_all = false
+    showing_all["find_files"] = false
+    local cwd = current_cwd()
     require('telescope.builtin').find_files({
+        cwd = cwd,
+        search_dirs = telescope_search_dirs(cwd),
         attach_mappings = function(_, map)
-            map({ "i", "n" }, "<C-a>", toggle_find_files_all)
+            map({ "i", "n" }, "<C-a>", toggles.find_files)
             return true
         end
     })
 end, {})
+
 vim.keymap.set('n', '<C-f>', function()
-    live_grep_showing_all = false
+    showing_all["live_grep"] = false
+    local cwd = current_cwd()
     require('telescope.builtin').live_grep({
+        cwd = cwd,
+        search_dirs = telescope_search_dirs(cwd),
         attach_mappings = function(_, map)
-            map({ "i", "n" }, "<C-a>", toggle_live_grep_all)
+            map({ "i", "n" }, "<C-a>", toggles.live_grep)
             return true
         end
     })
