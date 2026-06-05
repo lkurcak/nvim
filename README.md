@@ -99,14 +99,6 @@ Unzip, go to `bin` and make sure `lua-language-server` is in your OS `PATH`.
 
 </details>
 
-<details><summary>Copilot</summary>
-
-Install [Node.js](https://nodejs.org/).
-
-In Neovim run the command `:Copilot setup` and follow the instructions.
-
-</details>
-
 <details><summary>Kulala HTTP parser</summary>
 
 Install the `tree-sitter` CLI if you want Kulala syntax highlighting and formatting support for `.http` / `.rest` files.
