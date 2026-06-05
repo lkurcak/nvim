@@ -4,20 +4,21 @@ My [Neovim](https://github.com/neovim/neovim) config. Work in progress.
 
 Requires Neovim `0.12+`.
 
-Plugins are managed with the built-in `vim.pack`, so they install automatically on first start.
-
-If you are migrating from the older `lazy.nvim` version of this config, delete the old `lazy` plugin directory under `stdpath('data')` before launching this version.
-
 ### Installation
 
 <details><summary>macOS</summary>
 
-1. Go to your config file and clone the repo (folder `nvim` will be created):
+1. Clone the repo to your config file:
 
 ```sh
 cd ~/.config
 git clone https://github.com/lkurcak/nvim
 ```
+
+> Alternatively clone to your preferred location and create a symlink:
+> ```
+> ln -s "$(pwd)" ~/.config/nvim
+> ```
 
 2. Install dependencies
 
@@ -30,43 +31,43 @@ brew install deno
 
 <details><summary>Linux / WSL</summary>
 
-1. Go to your config file and clone the repo (folder `nvim` will be created):
+1. Clone the repo to your config file:
 
 ```sh
 cd ~/.config
 git clone https://github.com/lkurcak/nvim
 ```
 
-2. Install [`ripgrep`](https://github.com/BurntSushi/ripgrep?tab=readme-ov-file#installation)
+> Alternatively clone to your preferred location and create a symlink:
+> ```
+> ln -s "$(pwd)" ~/.config/nvim
+> ```
 
-3. Install [`deno`](https://deno.com/) to support `.js`, `.ts`, `.json`, `.yaml` formatting:
-
-```sh
-curl -fsSL https://deno.land/install.sh | sh
-```
+2. Install dependencies:
+* [`ripgrep`](https://github.com/BurntSushi/ripgrep?tab=readme-ov-file#installation)
+* [`deno`](https://docs.deno.com/runtime/getting_started/installation/)
 
 </details>
 
 <details><summary>Windows</summary>
 
-1. Go to your local app data directory and clone this repo (folder `nvim` will be created):
+1. Clone the repo to your config file:
 
 ```sh
 cd %LOCALAPPDATA%
 git clone https://github.com/lkurcak/nvim
 ```
 
-2. Install `ripgrep` and `zig` (unless you already have a C compiler):
+> Alternatively clone to your preferred location and create a symlink:
+> ```powershell
+> New-Item -ItemType SymbolicLink -Path "$env:LOCALAPPDATA\nvim" -Target "$(Get-Location)"
+> ```
 
-```sh
-winget install zig.zig
+2. Install dependencies:
+
+```powershell
 winget install BurntSushi.ripgrep.MSVC
-```
-
-3. Install [`deno`](https://deno.com/) to support `.js`, `.ts`, `.json`, `.yaml` formatting:
-
-```sh
-irm https://deno.land/install.ps1 | iex
+winget install DenoLand.Deno
 ```
 
 </details>
