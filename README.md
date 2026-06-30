@@ -120,14 +120,12 @@ cargo install tree-sitter-cli
 | `Ctrl`+`y`   | Redo |
 | `Ctrl`+`s`   | Save file |
 | `Ctrl`+`S`   | Save all |
-| `Ctrl`+`p`   | Open file |
-| `Ctrl`+`f`   | Find text |
+| `Ctrl`+`p`   | Open file (Follow with `Ctrl`+`a` to search all files) |
+| `Ctrl`+`f`   | Find text (Follow with `Ctrl`+`a` to search all files) |
 | `Alt`+`f`    | Format file |
 | `Ctrl`+`r`   | Rename |
 | `Ctrl`+`a`   | Code action |
 | `K`          | Show info |
-
-**Note:** When using `Ctrl`+`p` (Open file) or `Ctrl`+`f` (Find text), you can press `Ctrl`+`a` inside the telescope window to toggle between normal mode and "show all files including ignored" mode. The prompt will show `🔍 [ALL]` when searching all files, or just `🔍` in normal mode.
 
 #### Navigation
 
