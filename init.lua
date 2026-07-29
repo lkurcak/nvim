@@ -21,6 +21,9 @@ vim.opt.scrolloff = 10
 vim.opt.swapfile = false
 vim.opt.fileformats = "unix"
 vim.opt.autoread = true
+vim.opt.diffopt:append('vertical')
+vim.opt.splitright = true
+vim.opt.switchbuf:append('vsplit')
 vim.api.nvim_create_autocmd('FileChangedShell', {
     pattern = '*',
     callback = function()
@@ -271,7 +274,9 @@ vim.api.nvim_command('colorscheme catppuccin')
 
 require('mini.icons').setup()
 
-require('trouble').setup({})
+require('trouble').setup({
+    win = { position = 'right' },
+})
 
 require('crates').setup()
 
