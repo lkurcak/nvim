@@ -199,7 +199,8 @@ local function open_project_task_terminal()
     if reusable_window then
         vim.api.nvim_set_current_win(project_task_terminal.window)
     else
-        vim.cmd('botright 15new')
+        local height = math.max(15, math.floor(vim.o.lines * 0.5))
+        vim.cmd('botright ' .. height .. 'new')
         project_task_terminal.window = vim.api.nvim_get_current_win()
     end
 
