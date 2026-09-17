@@ -124,6 +124,170 @@ end, {
     complete = 'dir',
 })
 
+-- Project tasks --
+
+local project_task_rules = {
+    {
+        name = 'Rust',
+        marker = 'Cargo.toml',
+        executable = 'cargo',
+        commands = {
+            build = { 'cargo', 'build' },
+            run = { 'cargo', 'run' },
+        },
+    },
+}
+
+local project_task_terminal = {
+    buffer = nil,
+    window = nil,
+    job = nil,
+    rule = nil,
+    root = nil,
+}
+
+local function find_project_task()
+    if project_task_terminal.buffer == vim.api.nvim_get_current_buf()
+        and project_task_terminal.rule
+        and project_task_terminal.root
+    then
+        return project_task_terminal.rule, project_task_terminal.root
+    end
+
+    local buffer_name = vim.api.nvim_buf_get_name(0)
+    local start = vim.fn.getcwd()
+
+    if vim.bo.buftype == '' and buffer_name ~= '' then
+        start = vim.fs.dirname(buffer_name)
+    end
+
+    for _, rule in ipairs(project_task_rules) do
+        local root = vim.fs.root(start, rule.marker)
+        if root then
+            return rule, root
+        end
+    end
+end
+
+local function save_current_file()
+    if not vim.bo.modified then
+        return true
+    end
+
+    if vim.api.nvim_buf_get_name(0) == '' then
+        vim.notify('Project task: cannot save an unnamed buffer', vim.log.levels.ERROR)
+        return false
+    end
+
+    local ok, err = pcall(vim.cmd.update)
+    if not ok then
+        vim.notify('Project task: could not save the current file: ' .. tostring(err), vim.log.levels.ERROR)
+        return false
+    end
+
+    return true
+end
+
+local function open_project_task_terminal()
+    local old_buffer = project_task_terminal.buffer
+    local reusable_window = project_task_terminal.window
+        and vim.api.nvim_win_is_valid(project_task_terminal.window)
+        and old_buffer
+        and vim.api.nvim_buf_is_valid(old_buffer)
+        and vim.api.nvim_win_get_buf(project_task_terminal.window) == old_buffer
+
+    if reusable_window then
+        vim.api.nvim_set_current_win(project_task_terminal.window)
+    else
+        vim.cmd('botright 15new')
+        project_task_terminal.window = vim.api.nvim_get_current_win()
+    end
+
+    local buffer = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_win_set_buf(project_task_terminal.window, buffer)
+    project_task_terminal.buffer = buffer
+
+    if old_buffer and old_buffer ~= buffer and vim.api.nvim_buf_is_valid(old_buffer) then
+        vim.api.nvim_buf_delete(old_buffer, { force = true })
+    end
+
+    return buffer
+end
+
+local function run_project_task(task, args)
+    local rule, root = find_project_task()
+    if not rule then
+        vim.notify('Project task: no supported project found (expected Cargo.toml)', vim.log.levels.ERROR)
+        return
+    end
+
+    if vim.fn.executable(rule.executable) ~= 1 then
+        vim.notify(
+            string.format('Project task: `%s` is not available in Neovim\'s PATH', rule.executable),
+            vim.log.levels.ERROR
+        )
+        return
+    end
+
+    if not save_current_file() then
+        return
+    end
+
+    local previous_job = project_task_terminal.job
+    if previous_job and vim.fn.jobwait({ previous_job }, 0)[1] == -1 then
+        project_task_terminal.job = nil
+        vim.fn.jobstop(previous_job)
+    end
+
+    local command = vim.list_extend(vim.deepcopy(rule.commands[task]), args)
+    local buffer = open_project_task_terminal()
+    project_task_terminal.rule = rule
+    project_task_terminal.root = root
+    local job
+    job = vim.fn.jobstart(command, {
+        cwd = root,
+        term = true,
+        on_exit = function(_, exit_code)
+            if project_task_terminal.job ~= job then
+                return
+            end
+
+            project_task_terminal.job = nil
+            if exit_code ~= 0 then
+                vim.notify(
+                    string.format('%s %s exited with code %d', rule.name, task, exit_code),
+                    vim.log.levels.WARN
+                )
+            end
+        end,
+    })
+
+    if job <= 0 then
+        vim.api.nvim_buf_delete(buffer, { force = true })
+        project_task_terminal.buffer = nil
+        project_task_terminal.job = nil
+        vim.notify('Project task: failed to start ' .. table.concat(command, ' '), vim.log.levels.ERROR)
+        return
+    end
+
+    project_task_terminal.job = job
+    vim.cmd.startinsert()
+end
+
+vim.api.nvim_create_user_command('Build', function(opts)
+    run_project_task('build', opts.fargs)
+end, {
+    desc = 'Build the project in a reusable terminal',
+    nargs = '*',
+})
+
+vim.api.nvim_create_user_command('Run', function(opts)
+    run_project_task('run', opts.fargs)
+end, {
+    desc = 'Run the project in a reusable terminal',
+    nargs = '*',
+})
+
 -- Basic key bindings --
 
 -- Free keys: <C-a> <C-x> <C-t> <C-n> (<C-N> - on chromebook this one opens a new window, not recommended)

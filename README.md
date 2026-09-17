@@ -187,3 +187,7 @@ Open a `.http` file to load [`kulala.nvim`](https://github.com/mistweaverco/kula
 |-----|--------|
 | `:FixLineEndings`         | Converts line endings to `unix` style in buffer |
 | `:FixLineEndingsRepo`     | Converts line endings to `unix` for all tracked git repository files |
+| `:Build [args...]`        | Builds the current project in a reusable bottom terminal (Rust: `cargo build`) |
+| `:Run [args...]`          | Runs the current project in a reusable bottom terminal (Rust: `cargo run`) |
+
+Project commands detect the nearest supported project manifest from the current file and run from that directory. Arguments are passed through to the underlying command; for example, use `:Build --release` or `:Run --release -- first-argument` in a Rust project.
