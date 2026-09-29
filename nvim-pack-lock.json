@@ -13,6 +13,10 @@
       "rev": "2e7a50f659711854b9a7fdc76d943b59b30d7852",
       "src": "https://github.com/pteroctopus/faster.nvim"
     },
+    "git-conflict.nvim": {
+      "rev": "a1badcd070d176172940eb55d9d59029dad1c5a6",
+      "src": "https://github.com/akinsho/git-conflict.nvim"
+    },
     "harpoon": {
       "rev": "1bc17e3e42ea3c46b33c0bbad6a880792692a1b3",
       "src": "https://github.com/theprimeagen/harpoon"

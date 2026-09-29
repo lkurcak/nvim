@@ -342,6 +342,7 @@ vim.pack.add({
 
     -- Git integration
     gh('tpope/vim-fugitive'),
+    gh('akinsho/git-conflict.nvim'),
 
     -- Shared dependencies
     gh('nvim-lua/plenary.nvim'),
@@ -444,6 +445,9 @@ require('trouble').setup({
 })
 
 require('crates').setup()
+
+-- Git conflict: co/ct/cb/c0 choose ours/theirs/both/none, ]x/[x jump between conflicts
+require('git-conflict').setup()
 
 vim.pack.add({
     { src = gh('mistweaverco/kulala.nvim'), name = 'kulala' },
