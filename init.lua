@@ -877,3 +877,11 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.keymap.del("x", "s", { buffer = true })
     end,
 })
+
+-- Create parent folders and save file
+vim.api.nvim_create_user_command("MkdirWrite", function()
+  local dir = vim.fn.expand("%:p:h")
+  vim.fn.mkdir(dir, "p")
+  vim.cmd("write")
+end, {})
+
