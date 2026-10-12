@@ -299,8 +299,8 @@ vim.keymap.set('n', '<C-S>', '<Cmd>wa<CR>', { noremap = true, silent = true })  
 vim.keymap.set('i', '<C-S>', '<Esc><Cmd>wa<CR>', { noremap = true, silent = true }) -- Save all
 vim.keymap.set('n', '<C-a>', '', { noremap = true, silent = true })                 -- Noop
 vim.keymap.set('n', '<C-x>', '', { noremap = true, silent = true })                 -- Noop
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end)
+vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end)
 vim.keymap.set('n', '<C-z>', '<Cmd>u<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-y>', '<Cmd>redo<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', 'u', '<Nop>', { noremap = true, silent = true })
