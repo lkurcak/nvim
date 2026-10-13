@@ -385,6 +385,8 @@ vim.pack.add({
     -- Faster (disables stuff for big files)
     gh('pteroctopus/faster.nvim'),
 
+    -- t-lang (the besT-lang)
+    gh('lkurcak/t-lang.nvim'),
 }, {
     confirm = false,
     load = true,

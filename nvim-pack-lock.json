@@ -61,6 +61,10 @@
       "rev": "889b9a7515db477f4cb6808bef1769e53493c578",
       "src": "https://github.com/rust-lang/rust.vim"
     },
+    "t-lang.nvim": {
+      "rev": "31f98c8c40eeac6d1066099b67a603127c3189d1",
+      "src": "https://github.com/lkurcak/t-lang.nvim"
+    },
     "telescope.nvim": {
       "rev": "cfb85dcf7f822b79224e9e6aef9e8c794211b20b",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
