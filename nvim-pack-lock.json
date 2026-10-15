@@ -1,7 +1,7 @@
 {
   "plugins": {
     "catppuccin": {
-      "rev": "a7788416689dbefea659d9e9415c87926b0ba5d8",
+      "rev": "edefef779ab08ce1a4a404713e3012b0d202bd35",
       "src": "https://github.com/catppuccin/nvim"
     },
     "crates.nvim": {
@@ -10,7 +10,7 @@
       "version": "'v0.4.0'"
     },
     "faster.nvim": {
-      "rev": "2e7a50f659711854b9a7fdc76d943b59b30d7852",
+      "rev": "6b7cb8b1a9628d4b87009c4849d510d1a3a14319",
       "src": "https://github.com/pteroctopus/faster.nvim"
     },
     "git-conflict.nvim": {
@@ -22,15 +22,15 @@
       "src": "https://github.com/theprimeagen/harpoon"
     },
     "kulala": {
-      "rev": "6656c9d332735ca6a27725e0fb45a1715c4372d9",
+      "rev": "eebe4464c8937ad7313008a8b690e63d140d6638",
       "src": "https://github.com/mistweaverco/kulala.nvim"
     },
     "leap.nvim": {
-      "rev": "e20f33507bd2d6c671b7273f797f2d3cf521ac61",
+      "rev": "277e04fad21e3af05a55cc414757b09a704f2a92",
       "src": "https://codeberg.org/andyg/leap.nvim"
     },
     "mini.icons": {
-      "rev": "5b9076dae1bfbe47ba4a14bc8b967cde0ab5d77e",
+      "rev": "f916635dc5ae2f479fbb9ab8184bb9444b62e86c",
       "src": "https://github.com/echasnovski/mini.icons"
     },
     "nvim-bufdel": {
@@ -38,23 +38,23 @@
       "src": "https://github.com/ojroques/nvim-bufdel"
     },
     "nvim-lspconfig": {
-      "rev": "16812abf0e8d8175155f26143a8504e8253e92b0",
+      "rev": "ac062d0d01c019c0dbdb798968f3e5d8b35c3853",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
-      "rev": "7caec274fd19c12b55902a5b795100d21531391f",
+      "rev": "ca581c3436fc2b236847f5b739ebc263739e5ca6",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-web-devicons": {
-      "rev": "d7462543c9e366c0d196c7f67a945eaaf5d99414",
+      "rev": "ec309a0eaff6ea967e58c275996155ab5c16938d",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "oil.nvim": {
-      "rev": "0fcc83805ad11cf714a949c98c605ed717e0b83e",
+      "rev": "d3733d933833a0e59b813ecec99341527adf0c28",
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "plenary.nvim": {
-      "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
+      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "rust.vim": {
@@ -62,11 +62,11 @@
       "src": "https://github.com/rust-lang/rust.vim"
     },
     "t-lang.nvim": {
-      "rev": "31f98c8c40eeac6d1066099b67a603127c3189d1",
+      "rev": "df0c7e0c3afcaca7f1cd2635584c666666373a40",
       "src": "https://github.com/lkurcak/t-lang.nvim"
     },
     "telescope.nvim": {
-      "rev": "cfb85dcf7f822b79224e9e6aef9e8c794211b20b",
+      "rev": "40aedd8a68c78a656a10a8d62d80c54af59420fb",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "trouble.nvim": {
